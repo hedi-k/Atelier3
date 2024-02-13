@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Drawing;
 using System.IO;
+using MediaTekDocuments.view;
 
 namespace MediaTekDocuments.view
 
@@ -1239,5 +1240,36 @@ namespace MediaTekDocuments.view
             }
         }
         #endregion
+
+
+        //Lance la forme Ajout
+        // le boolean est pour l'affichage des txtBox genre public rayon
+        private void btnAjout_Click(object sender, EventArgs e)
+        {
+            FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, false, lesLivres);
+            frmAjout.Show();
+            this.Hide();
+        }
+        //Action du btn supprimer
+        private void btnSupprimer_Click(object sender, EventArgs e)
+        {
+            if (dgvLivresListe.CurrentCell != null)     //vérification selection
+            {
+                try
+                {
+                    Livre livre = (Livre)bdgLivresListe.List[bdgLivresListe.Position];
+                    controller.SupprimerLivre(livre);
+                }
+                catch
+                {
+                    
+                }
+            }
+            else
+            {
+                MessageBox.Show("selectionner un livre !");
+            }
+
+        }
     }
 }

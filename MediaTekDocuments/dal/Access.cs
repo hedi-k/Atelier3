@@ -34,6 +34,11 @@ namespace MediaTekDocuments.dal
         /// méthode HTTP pour insert
         /// </summary>
         private const string POST = "POST";
+
+        /// <summary>
+        /// méthode HTTP pour delete
+        /// </summary>
+        private const string DELETE = "DELETE";
         /// <summary>
         /// méthode HTTP pour update
 
@@ -162,6 +167,48 @@ namespace MediaTekDocuments.dal
             return false; 
         }
 
+        //Envois un Livre à l'api pour la BDD
+        public bool EnvoiLivre(Livre unLivre)
+        {
+            //Console.WriteLine("Envoi livre arrivé dans access"); ********************test à effacer
+            String jsonCreerLivre = JsonConvert.SerializeObject(unLivre);
+            Console.WriteLine("Le contenu du jsonCreerLivre est =>  " + jsonCreerLivre);
+            try
+            {
+                // récupération soit d'une liste vide (requête ok) soit de null (erreur)
+                List<Object> liste = TraitementRecup<Object>(POST, "livre/" + jsonCreerLivre);
+                return (liste != null);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+
+        }
+
+        //Supprime le Livre envoyé en paramètre
+        public bool SupprimerLivre(Livre unLivre) {
+            //Console.WriteLine("supprimer livre arrivé dans access");********************test à effacer
+           // String jsonSupprimerLivre = JsonConvert.SerializeObject(unLivre.Id);
+            String jsonSupprimerLivre = JsonConvert.SerializeObject(unLivre);
+            //Console.WriteLine("Le contenu du jsonSupprimerLivre est =>  " + jsonSupprimerLivre);********************test à effacer
+            try
+            {
+                // récupération soit d'une liste vide (requête ok) soit de null (erreur)
+                //List<Object> liste = TraitementRecup<Object>(DELETE, "livre/{\"Id\":" +jsonSupprimerLivre+"}");
+                List<Object> liste = TraitementRecup<Object>(DELETE, "livre/" + jsonSupprimerLivre);
+                return (liste != null);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
         /// <summary>
         /// Traitement de la récupération du retour de l'api, avec conversion du json en liste pour les select (GET)
         /// </summary>
@@ -171,6 +218,7 @@ namespace MediaTekDocuments.dal
         /// <returns>liste d'objets récupérés (ou liste vide)</returns>
         private List<T> TraitementRecup<T> (String methode, String message)
         {
+            Console.WriteLine("METHODE = " + methode + " MESSAGE = " + message);// affiche le traitement (pour postMAN)********************test à effacer
             List<T> liste = new List<T>();
             try
             {
