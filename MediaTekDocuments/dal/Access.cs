@@ -67,7 +67,7 @@ namespace MediaTekDocuments.dal
         /// <returns>instance unique de la classe</returns>
         public static Access GetInstance()
         {
-            if(instance == null)
+            if (instance == null)
             {
                 instance = new Access();
             }
@@ -155,7 +155,8 @@ namespace MediaTekDocuments.dal
         public bool CreerExemplaire(Exemplaire exemplaire)
         {
             String jsonExemplaire = JsonConvert.SerializeObject(exemplaire, new CustomDateTimeConverter());
-            try {
+            try
+            {
                 // récupération soit d'une liste vide (requête ok) soit de null (erreur)
                 List<Exemplaire> liste = TraitementRecup<Exemplaire>(POST, "exemplaire/" + jsonExemplaire);
                 return (liste != null);
@@ -164,9 +165,10 @@ namespace MediaTekDocuments.dal
             {
                 Console.WriteLine(ex.Message);
             }
-            return false; 
+            return false;
         }
 
+        //****************************  GESTION LIVRES  *********************************************************
         //Envois un Livre à l'api pour la BDD
         public bool EnvoiLivre(Livre unLivre)
         {
@@ -178,7 +180,6 @@ namespace MediaTekDocuments.dal
                 // récupération soit d'une liste vide (requête ok) soit de null (erreur)
                 List<Object> liste = TraitementRecup<Object>(POST, "livre/" + jsonCreerLivre);
                 return (liste != null);
-
             }
             catch (Exception ex)
             {
@@ -189,18 +190,16 @@ namespace MediaTekDocuments.dal
         }
 
         //Supprime le Livre envoyé en paramètre
-        public bool SupprimerLivre(Livre unLivre) {
-            //Console.WriteLine("supprimer livre arrivé dans access");********************test à effacer
-           // String jsonSupprimerLivre = JsonConvert.SerializeObject(unLivre.Id);
-            String jsonSupprimerLivre = JsonConvert.SerializeObject(unLivre);
-            //Console.WriteLine("Le contenu du jsonSupprimerLivre est =>  " + jsonSupprimerLivre);********************test à effacer
+        public bool SupprimerLivre(Livre unLivre)
+        {
+             String jsonSupprimerLivre = JsonConvert.SerializeObject(unLivre.Id);
+            //String jsonSupprimerLivre = JsonConvert.SerializeObject(unLivre);
             try
             {
                 // récupération soit d'une liste vide (requête ok) soit de null (erreur)
-                //List<Object> liste = TraitementRecup<Object>(DELETE, "livre/{\"Id\":" +jsonSupprimerLivre+"}");
-                List<Object> liste = TraitementRecup<Object>(DELETE, "livre/" + jsonSupprimerLivre);
+                List<Object> liste = TraitementRecup<Object>(DELETE, "livre/{\"Id\":" + jsonSupprimerLivre + "}");
+                //List<Object> liste = TraitementRecup<Object>(DELETE, "livre/" + jsonSupprimerLivre);********************test à effacer
                 return (liste != null);
-
             }
             catch (Exception ex)
             {
@@ -216,9 +215,9 @@ namespace MediaTekDocuments.dal
         /// <param name="methode">verbe HTTP (GET, POST, PUT, DELETE)</param>
         /// <param name="message">information envoyée</param>
         /// <returns>liste d'objets récupérés (ou liste vide)</returns>
-        private List<T> TraitementRecup<T> (String methode, String message)
+        private List<T> TraitementRecup<T>(String methode, String message)
         {
-            Console.WriteLine("METHODE = " + methode + " MESSAGE = " + message);// affiche le traitement (pour postMAN)********************test à effacer
+            Console.WriteLine("METHODE = " + methode + " MESSAGE = " + message);// affiche le traitement (pour postMAN)******************** test à effacer
             List<T> liste = new List<T>();
             try
             {
@@ -239,9 +238,10 @@ namespace MediaTekDocuments.dal
                 {
                     Console.WriteLine("code erreur = " + code + " message = " + (String)retour["message"]);
                 }
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
-                Console.WriteLine("Erreur lors de l'accès à l'API : "+e.Message);
+                Console.WriteLine("Erreur lors de l'accès à l'API : " + e.Message);
                 Environment.Exit(0);
             }
             return liste;

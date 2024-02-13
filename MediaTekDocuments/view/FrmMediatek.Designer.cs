@@ -246,7 +246,7 @@ namespace MediaTekDocuments.view
             // 
             // btnAjout
             // 
-            this.btnAjout.Location = new System.Drawing.Point(362, 633);
+            this.btnAjout.Location = new System.Drawing.Point(126, 633);
             this.btnAjout.Name = "btnAjout";
             this.btnAjout.Size = new System.Drawing.Size(96, 22);
             this.btnAjout.TabIndex = 21;
@@ -256,7 +256,7 @@ namespace MediaTekDocuments.view
             // 
             // btnSupprimer
             // 
-            this.btnSupprimer.Location = new System.Drawing.Point(126, 633);
+            this.btnSupprimer.Location = new System.Drawing.Point(368, 633);
             this.btnSupprimer.Name = "btnSupprimer";
             this.btnSupprimer.Size = new System.Drawing.Size(96, 22);
             this.btnSupprimer.TabIndex = 20;

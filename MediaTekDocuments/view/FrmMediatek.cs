@@ -1255,14 +1255,12 @@ namespace MediaTekDocuments.view
         {
             if (dgvLivresListe.CurrentCell != null)     //vérification selection
             {
-                try
+                // J'ai supprimé le try catch à essayer sans
+                if (MessageBox.Show("Supprimer ?", "Confirmer", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     Livre livre = (Livre)bdgLivresListe.List[bdgLivresListe.Position];
                     controller.SupprimerLivre(livre);
-                }
-                catch
-                {
-                    
+                    TabLivres_Enter(null, null);
                 }
             }
             else
