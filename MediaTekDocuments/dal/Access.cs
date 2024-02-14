@@ -187,11 +187,10 @@ namespace MediaTekDocuments.dal
             return false;
 
         }
-
         //Supprime le livre envoyé en paramètre
         public bool SupprimerLivre(Livre unLivre)
         {
-             String jsonSupprimerLivre = JsonConvert.SerializeObject(unLivre.Id);
+            String jsonSupprimerLivre = JsonConvert.SerializeObject(unLivre.Id);
             //String jsonSupprimerLivre = JsonConvert.SerializeObject(unLivre);
             try
             {
@@ -204,14 +203,13 @@ namespace MediaTekDocuments.dal
             }
             return false;
         }
-
         //Modifie le livre envoyé en paramètre
-        public bool ModifiLivre(Livre unLivre) 
+        public bool ModifiLivre(Livre unLivre)
         {
             String jsonModifiLivre = JsonConvert.SerializeObject(unLivre);
             try
             {
-                List<Object> liste = TraitementRecup<Object>(PUT, "livre/" + unLivre.Id+"/" +jsonModifiLivre);
+                List<Object> liste = TraitementRecup<Object>(PUT, "livre/" + unLivre.Id + "/" + jsonModifiLivre);
                 return (liste != null);
             }
             catch (Exception ex)
@@ -219,6 +217,23 @@ namespace MediaTekDocuments.dal
                 Console.WriteLine(ex.Message);
             }
             return false;
+        }
+        //****************************  GESTION DVDs  **************************************************************************************
+        //Envois un dvd à l'api pour la BDD
+        public bool EnvoiDvd(Dvd unDvd)
+        {
+            String jsonCreerDvd = JsonConvert.SerializeObject(unDvd);
+            try
+            {
+                List<Object> liste = TraitementRecup<Object>(POST, "dvd/" + jsonCreerDvd);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+
         }
 
         /// <summary>

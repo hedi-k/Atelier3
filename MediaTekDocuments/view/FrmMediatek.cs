@@ -1242,11 +1242,15 @@ namespace MediaTekDocuments.view
         #endregion
 
 
-        //Action du btn ajoutLance la forme Ajout
+             
+        //Action du btn ajoutLivre lance la forme Ajout pour un livre
         //le boolean est pour l'affichage des txtBox genre public rayon et btn modifier
         private void btnAjout_Click(object sender, EventArgs e)
         {
-            FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, false, lesLivres);
+            string ongletLivre = "livre";
+            List<Object> listeObjLivre = lesLivres.ConvertAll(Livre => (Object)Livre); //Converti la liste de livre en objet
+
+            FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, false, ongletLivre, listeObjLivre);
             frmAjout.Show();
             this.Hide();
         }
@@ -1270,14 +1274,16 @@ namespace MediaTekDocuments.view
 
         }
 
-        //action du btn modifier Lance la forme Ajout
+        //action du btn modifier Lance la forme Ajout pour un livre
         //le boolean est pour l'affichage des txtBox genre public rayon et btn modifier
         private void btnModifier_Click(object sender, EventArgs e)
         {
             if (dgvLivresListe.CurrentCell != null)
             {
+                string ongletLivre = "livre";
+                List<Object> listeObjLivre = lesLivres.ConvertAll(Livre => (Object)Livre); //Converti la liste de livre en objet
                 Livre livreModif = (Livre)bdgLivresListe.List[bdgLivresListe.Position];
-                FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, true, lesLivres, livreModif);
+                FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, true,ongletLivre, listeObjLivre, livreModif);
                 frmAjout.Show();
                 this.Hide();
             }
@@ -1285,6 +1291,18 @@ namespace MediaTekDocuments.view
             {
                 MessageBox.Show("selectionner un livre !");
             }
+
+        }
+
+        //Action du btn AjoutDvd lance la forme Ajout pour un dvd
+        private void btnAjoutDvd_Click(object sender, EventArgs e)
+        {
+            string ongletDvd = "dvd";
+            List<Object> listeObjDvd = lesDvd.ConvertAll(Dvd => (Object)Dvd); //Converti la liste de Dvd en objet
+
+            FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, false, ongletDvd, listeObjDvd);
+            frmAjout.Show();
+            this.Hide();
 
         }
     }

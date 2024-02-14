@@ -101,16 +101,19 @@ namespace MediaTekDocuments.controller
         public bool EnvoiLivre(Livre unLivre) {
             return access.EnvoiLivre(unLivre);
         }
-
         //Méthode qui supprime un livre
         public bool SupprimerLivre(Livre unLivre) {
             return access.SupprimerLivre(unLivre);
         }
-
         //Méthode qui modifie un livre
         public bool ModifLivre(Livre unLivre) 
         {
             return access.ModifiLivre(unLivre);
+        }
+        //Méthode qui envoi un dvd
+        public bool EnvoiDvd(Dvd unDvd) 
+        {
+            return access.EnvoiDvd(unDvd);
         }
     }
 }
