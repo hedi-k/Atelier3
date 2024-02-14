@@ -34,14 +34,13 @@ namespace MediaTekDocuments.dal
         /// méthode HTTP pour insert
         /// </summary>
         private const string POST = "POST";
-
         /// <summary>
         /// méthode HTTP pour delete
         /// </summary>
         private const string DELETE = "DELETE";
         /// <summary>
         /// méthode HTTP pour update
-
+        private const string PUT = "PUT";
         /// <summary>
         /// Méthode privée pour créer un singleton
         /// initialise l'accès à l'API
@@ -168,13 +167,13 @@ namespace MediaTekDocuments.dal
             return false;
         }
 
-        //****************************  GESTION LIVRES  *********************************************************
-        //Envois un Livre à l'api pour la BDD
+        //****************************  GESTION LIVRES  **************************************************************************************
+        //Envois un livre à l'api pour la BDD
         public bool EnvoiLivre(Livre unLivre)
         {
             //Console.WriteLine("Envoi livre arrivé dans access"); ********************test à effacer
             String jsonCreerLivre = JsonConvert.SerializeObject(unLivre);
-            Console.WriteLine("Le contenu du jsonCreerLivre est =>  " + jsonCreerLivre);
+            //Console.WriteLine("Le contenu du jsonCreerLivre est =>  " + jsonCreerLivre);********************test à effacer
             try
             {
                 // récupération soit d'une liste vide (requête ok) soit de null (erreur)
@@ -189,16 +188,30 @@ namespace MediaTekDocuments.dal
 
         }
 
-        //Supprime le Livre envoyé en paramètre
+        //Supprime le livre envoyé en paramètre
         public bool SupprimerLivre(Livre unLivre)
         {
              String jsonSupprimerLivre = JsonConvert.SerializeObject(unLivre.Id);
             //String jsonSupprimerLivre = JsonConvert.SerializeObject(unLivre);
             try
             {
-                // récupération soit d'une liste vide (requête ok) soit de null (erreur)
                 List<Object> liste = TraitementRecup<Object>(DELETE, "livre/{\"Id\":" + jsonSupprimerLivre + "}");
-                //List<Object> liste = TraitementRecup<Object>(DELETE, "livre/" + jsonSupprimerLivre);********************test à effacer
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+        //Modifie le livre envoyé en paramètre
+        public bool ModifiLivre(Livre unLivre) 
+        {
+            String jsonModifiLivre = JsonConvert.SerializeObject(unLivre);
+            try
+            {
+                List<Object> liste = TraitementRecup<Object>(PUT, "livre/" + unLivre.Id+"/" +jsonModifiLivre);
                 return (liste != null);
             }
             catch (Exception ex)

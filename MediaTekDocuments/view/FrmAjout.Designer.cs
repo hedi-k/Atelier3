@@ -56,6 +56,7 @@ namespace MediaTekDocuments.view
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.btnModifier = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txbLivresIsbn
@@ -291,11 +292,22 @@ namespace MediaTekDocuments.view
             this.label4.TabIndex = 58;
             this.label4.Text = "* Champs obligatoire pour ajouter un livre";
             // 
+            // btnModifier
+            // 
+            this.btnModifier.Location = new System.Drawing.Point(609, 145);
+            this.btnModifier.Name = "btnModifier";
+            this.btnModifier.Size = new System.Drawing.Size(75, 23);
+            this.btnModifier.TabIndex = 59;
+            this.btnModifier.Text = "Modifier";
+            this.btnModifier.UseVisualStyleBackColor = true;
+            this.btnModifier.Click += new System.EventHandler(this.btnModifier_Click);
+            // 
             // FrmAjout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(716, 314);
+            this.Controls.Add(this.btnModifier);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -360,5 +372,6 @@ namespace MediaTekDocuments.view
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnModifier;
     }
 }

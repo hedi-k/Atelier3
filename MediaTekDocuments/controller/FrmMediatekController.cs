@@ -97,14 +97,6 @@ namespace MediaTekDocuments.controller
             return access.CreerExemplaire(exemplaire);
         }
 
-
-        //methode envoi document pas utilie ? (12/02)
-        /*
-        public void EnvoiDocument(Document unDocument) {
-            
-            access.EnvoiDocument(unDocument);
-                }
-        */
         //Méthode qui envoi un livre //***********************RETOUR à traiter !!!!!!!!!!!!!!!
         public bool EnvoiLivre(Livre unLivre) {
             return access.EnvoiLivre(unLivre);
@@ -113,6 +105,12 @@ namespace MediaTekDocuments.controller
         //Méthode qui supprime un livre
         public bool SupprimerLivre(Livre unLivre) {
             return access.SupprimerLivre(unLivre);
+        }
+
+        //Méthode qui modifie un livre
+        public bool ModifLivre(Livre unLivre) 
+        {
+            return access.ModifiLivre(unLivre);
         }
     }
 }

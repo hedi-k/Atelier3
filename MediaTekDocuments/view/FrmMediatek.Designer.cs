@@ -31,7 +31,7 @@ namespace MediaTekDocuments.view
         {
             this.tabOngletsApplication = new System.Windows.Forms.TabControl();
             this.tabLivres = new System.Windows.Forms.TabPage();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnModifier = new System.Windows.Forms.Button();
             this.btnAjout = new System.Windows.Forms.Button();
             this.btnSupprimer = new System.Windows.Forms.Button();
             this.grpLivresInfos = new System.Windows.Forms.GroupBox();
@@ -222,7 +222,7 @@ namespace MediaTekDocuments.view
             // 
             // tabLivres
             // 
-            this.tabLivres.Controls.Add(this.button3);
+            this.tabLivres.Controls.Add(this.btnModifier);
             this.tabLivres.Controls.Add(this.btnAjout);
             this.tabLivres.Controls.Add(this.btnSupprimer);
             this.tabLivres.Controls.Add(this.grpLivresInfos);
@@ -235,14 +235,15 @@ namespace MediaTekDocuments.view
             this.tabLivres.UseVisualStyleBackColor = true;
             this.tabLivres.Enter += new System.EventHandler(this.TabLivres_Enter);
             // 
-            // button3
+            // btnModifier
             // 
-            this.button3.Location = new System.Drawing.Point(598, 633);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(96, 22);
-            this.button3.TabIndex = 22;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnModifier.Location = new System.Drawing.Point(598, 633);
+            this.btnModifier.Name = "btnModifier";
+            this.btnModifier.Size = new System.Drawing.Size(96, 22);
+            this.btnModifier.TabIndex = 22;
+            this.btnModifier.Text = "Modifier";
+            this.btnModifier.UseVisualStyleBackColor = true;
+            this.btnModifier.Click += new System.EventHandler(this.btnModifier_Click);
             // 
             // btnAjout
             // 
@@ -2005,7 +2006,7 @@ namespace MediaTekDocuments.view
         private System.Windows.Forms.Label label57;
         private System.Windows.Forms.Label label58;
         private System.Windows.Forms.Label label59;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnModifier;
         private System.Windows.Forms.Button btnAjout;
         private System.Windows.Forms.Button btnSupprimer;
     }

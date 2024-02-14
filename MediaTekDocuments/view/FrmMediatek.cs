@@ -1242,8 +1242,8 @@ namespace MediaTekDocuments.view
         #endregion
 
 
-        //Lance la forme Ajout
-        // le boolean est pour l'affichage des txtBox genre public rayon
+        //Action du btn ajoutLance la forme Ajout
+        //le boolean est pour l'affichage des txtBox genre public rayon et btn modifier
         private void btnAjout_Click(object sender, EventArgs e)
         {
             FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, false, lesLivres);
@@ -1262,6 +1262,24 @@ namespace MediaTekDocuments.view
                     controller.SupprimerLivre(livre);
                     TabLivres_Enter(null, null);
                 }
+            }
+            else
+            {
+                MessageBox.Show("selectionner un livre !");
+            }
+
+        }
+
+        //action du btn modifier Lance la forme Ajout
+        //le boolean est pour l'affichage des txtBox genre public rayon et btn modifier
+        private void btnModifier_Click(object sender, EventArgs e)
+        {
+            if (dgvLivresListe.CurrentCell != null)
+            {
+                Livre livreModif = (Livre)bdgLivresListe.List[bdgLivresListe.Position];
+                FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, true, lesLivres, livreModif);
+                frmAjout.Show();
+                this.Hide();
             }
             else
             {
