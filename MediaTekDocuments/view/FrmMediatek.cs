@@ -1242,7 +1242,7 @@ namespace MediaTekDocuments.view
         #endregion
 
 
-             
+
         //Action du btn ajoutLivre lance la forme Ajout pour un livre
         //le boolean est pour l'affichage des txtBox genre public rayon et btn modifier
         private void btnAjout_Click(object sender, EventArgs e)
@@ -1254,7 +1254,7 @@ namespace MediaTekDocuments.view
             frmAjout.Show();
             this.Hide();
         }
-        //Action du btn supprimer
+        //Action du btn supprimer (livre)
         private void btnSupprimer_Click(object sender, EventArgs e)
         {
             if (dgvLivresListe.CurrentCell != null)     //vérification selection
@@ -1273,7 +1273,6 @@ namespace MediaTekDocuments.view
             }
 
         }
-
         //action du btn modifier Lance la forme Ajout pour un livre
         //le boolean est pour l'affichage des txtBox genre public rayon et btn modifier
         private void btnModifier_Click(object sender, EventArgs e)
@@ -1283,7 +1282,7 @@ namespace MediaTekDocuments.view
                 string ongletLivre = "livre";
                 List<Object> listeObjLivre = lesLivres.ConvertAll(Livre => (Object)Livre); //Converti la liste de livre en objet
                 Livre livreModif = (Livre)bdgLivresListe.List[bdgLivresListe.Position];
-                FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, true,ongletLivre, listeObjLivre, livreModif);
+                FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, true, ongletLivre, listeObjLivre, livreModif);
                 frmAjout.Show();
                 this.Hide();
             }
@@ -1293,7 +1292,6 @@ namespace MediaTekDocuments.view
             }
 
         }
-
         //Action du btn AjoutDvd lance la forme Ajout pour un dvd
         private void btnAjoutDvd_Click(object sender, EventArgs e)
         {
@@ -1304,6 +1302,24 @@ namespace MediaTekDocuments.view
             frmAjout.Show();
             this.Hide();
 
+        }
+        //Action du btn supprimer (DVD)
+        private void btnSupprimerDvd_Click(object sender, EventArgs e)
+        {
+            if (dgvDvdListe.CurrentCell != null)    //vérification de la selection
+            {
+                if (MessageBox.Show("Supprimer ?", "Confirmer", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    Dvd dvd = (Dvd)bdgDvdListe.List[bdgDvdListe.Position];
+                    controller.SupprimerDvd(dvd);
+                    tabDvd_Enter(null, null);
+
+                }
+            }
+            else 
+            {
+                MessageBox.Show("selectionner un DVD !");
+            }
         }
     }
 }

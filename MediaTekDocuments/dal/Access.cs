@@ -187,7 +187,7 @@ namespace MediaTekDocuments.dal
             return false;
 
         }
-        //Supprime le livre envoyé en paramètre
+        //Supprime le livre en paramètre
         public bool SupprimerLivre(Livre unLivre)
         {
             String jsonSupprimerLivre = JsonConvert.SerializeObject(unLivre.Id);
@@ -203,7 +203,7 @@ namespace MediaTekDocuments.dal
             }
             return false;
         }
-        //Modifie le livre envoyé en paramètre
+        //Modifie le livre en paramètre
         public bool ModifiLivre(Livre unLivre)
         {
             String jsonModifiLivre = JsonConvert.SerializeObject(unLivre);
@@ -234,6 +234,21 @@ namespace MediaTekDocuments.dal
             }
             return false;
 
+        }
+        //Supprime le dvd en paramètre
+        public bool SupprimerDvd(Dvd unDvd)
+        {
+            String jsonSupprimerDvd = JsonConvert.SerializeObject(unDvd.Id);
+            try
+            {
+                List<Object> liste = TraitementRecup<Object>(DELETE, "dvd/{\"Id\":" + jsonSupprimerDvd + "}");
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
         }
 
         /// <summary>
