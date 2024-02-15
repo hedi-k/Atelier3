@@ -137,5 +137,10 @@ namespace MediaTekDocuments.controller
         {
             return access.SupprimerRevue(uneRevue);
         }
+        //Méthode qui modifie une revue
+        public bool ModifierRevue(Revue uneRevue)
+        {
+            return access.ModifierRevue(uneRevue);
+        }
     }
 }

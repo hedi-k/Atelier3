@@ -21,7 +21,8 @@ namespace MediaTekDocuments.view
         private Livre livreModif = null;        //besoin pour la modification d'un livre
         private List<Dvd> listeDvd = null;      //besoin pour le test des id d'un dvd
         private Dvd dvdModif = null;            //besoin pour la modification d'un dvd
-        private List<Revue> listeRevue = null;
+        private List<Revue> listeRevue = null;  //besoin pour le test des id d'une revue
+        private Revue revueModif = null;        //besoin pour la modification d'une revue
 
 
 
@@ -83,21 +84,18 @@ namespace MediaTekDocuments.view
             switch (onglet)
             {
                 case "livre":
-                    FrmAjout.ActiveForm.Text = "Gestion de Livres";
                     lblAuteurRealisateurPer.Text = "Auteur * :";
                     lblCollectionSynopsisDel.Text = "Collection * :";
                     lblIsbnDuree.Text = "ISBN * :";
                     txbIsbnDuree.Enabled = true;
                     break;
                 case "dvd":
-                    FrmAjout.ActiveForm.Text = "Gestion de DVDs";
                     lblAuteurRealisateurPer.Text = "Realisateur * :";
                     lblCollectionSynopsisDel.Text = "Synopsi * :";
                     lblIsbnDuree.Text = "Durée * :";
                     txbIsbnDuree.Enabled = true;
                     break;
                 case "revue":
-                    FrmAjout.ActiveForm.Text = "Gestion de Revues";
                     lblAuteurRealisateurPer.Text = "Périodicité * :";
                     lblCollectionSynopsisDel.Text = "Délai mise à dispo * :";
                     lblIsbnDuree.Text = "";
@@ -138,6 +136,21 @@ namespace MediaTekDocuments.view
                         txbGenre.Text = dvdModif.Genre;
                         txbPublic.Text = dvdModif.Public;
                         txbRayon.Text = dvdModif.Rayon;
+                    }
+                    break;
+                case "revue":
+                    revueModif = (Revue)aModifier;
+                    if (aModifier != null) 
+                    {
+                        txbNumero.Text = revueModif.Id;
+                        txbTitre.Text = revueModif.Titre;
+                        txbImage.Text = revueModif.Image;
+                        txbAuteurRealisateurPer.Text = revueModif.Periodicite;
+                        txbCollectionSynopsisDel.Text = revueModif.DelaiMiseADispo.ToString();
+                        txbGenre.Text = revueModif.Genre;
+                        txbPublic.Text = revueModif.Public;
+                        txbRayon.Text = revueModif.Rayon;
+
                     }
                     break;
             }
@@ -237,6 +250,11 @@ namespace MediaTekDocuments.view
                     case "dvd":
                         Dvd dvd = ValoriseDvd();
                         controller.ModifierDvd(dvd);
+                        btnAnnuler_Click(null, null);
+                        break;
+                    case "revue":
+                        Revue revue = ValoriseRevue();
+                        controller.ModifierRevue(revue);
                         btnAnnuler_Click(null, null);
                         break;
                 }
@@ -393,6 +411,24 @@ namespace MediaTekDocuments.view
                 string lePublic = txbPublic.Text;
                 string idRayon = GetIdRayon(cbxRayons.Text);
                 string rayon = txbRayon.Text;
+                if (revueModif != null)
+                {
+                    //si le Genre n'est pas modifier
+                    if (idGenre == null)
+                    {
+                        idGenre = GetIdGenre(txbGenre.Text);
+                    }
+                    //si le public n'est pas modifier
+                    if (idPublic == null)
+                    {
+                        idPublic = GetIdPublic(txbPublic.Text);
+                    }
+                    //si le rayon n'est pas modifier
+                    if (idRayon == null)
+                    {
+                        idRayon = GetIdRayon(txbRayon.Text);
+                    }
+                }
                 Revue revueValorise = new Revue(id, titre, image, idGenre, genre = null, idPublic, lePublic = null, idRayon, rayon = null, periodicite, delaiMiseADispo);
                 return revueValorise;
             }

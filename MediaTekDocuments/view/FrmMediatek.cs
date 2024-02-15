@@ -1283,7 +1283,7 @@ namespace MediaTekDocuments.view
                 List<Object> listeObjLivre = lesLivres.ConvertAll(Livre => (Object)Livre); //Convertit la liste de livre en objet
                 Object aModifier = (Object)bdgLivresListe.List[bdgLivresListe.Position];   //convertit le livre sélectionné en objet
                 FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, true, ongletLivre, listeObjLivre, aModifier);
-                frmAjout.Text = "Modifification d'un LIVRE"
+                frmAjout.Text = "Modifification d'un LIVRE";
                 frmAjout.Show();
                 this.Hide();
             }
@@ -1365,6 +1365,20 @@ namespace MediaTekDocuments.view
             else
             {
                 MessageBox.Show("selectionner une Revue !");
+            }
+        }
+        //Action du btn modifier (Revue)
+        private void btnModifierRevue_Click(object sender, EventArgs e)
+        {
+            if (dgvRevuesListe.CurrentCell != null) 
+            {
+                string ongletRevue = "revue";
+                List<Object> listeObjRevue = lesRevues.ConvertAll(Revue => (Object)Revue); //Convertit la liste des revues en objet
+                Object aModifier = (Object)bdgRevuesListe.List[bdgRevuesListe.Position];//convertit la revue  selectionné en objet
+                FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, true, ongletRevue, listeObjRevue, aModifier);
+                frmAjout.Text = "Modification d'une REVUE";
+                frmAjout.Show();
+                this.Hide();
             }
         }
     }

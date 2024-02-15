@@ -1115,6 +1115,7 @@ namespace MediaTekDocuments.view
             this.btnModifierRevue.TabIndex = 23;
             this.btnModifierRevue.Text = "Modifier";
             this.btnModifierRevue.UseVisualStyleBackColor = true;
+            this.btnModifierRevue.Click += new System.EventHandler(this.btnModifierRevue_Click);
             // 
             // btnSupprimerRevue
             // 

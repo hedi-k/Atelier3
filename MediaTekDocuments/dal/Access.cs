@@ -270,7 +270,6 @@ namespace MediaTekDocuments.dal
             String jsonCreerRevue = JsonConvert.SerializeObject(uneRevue);
             try
             {
-                // récupération soit d'une liste vide (requête ok) soit de null (erreur)
                 List<Object> liste = TraitementRecup<Object>(POST, "revue/" + jsonCreerRevue);
                 return (liste != null);
             }
@@ -287,6 +286,21 @@ namespace MediaTekDocuments.dal
             try
             {
                 List<Object> liste = TraitementRecup<Object>(DELETE, "revue/{\"Id\":" + jsonSupprimerRevue + "}");
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+        //Modifie la revue en paramètre
+        public bool ModifierRevue(Revue uneRevue) 
+        {
+            String jsonModifiRevue = JsonConvert.SerializeObject(uneRevue);
+            try
+            {
+                List<Object> liste = TraitementRecup<Object>(PUT, "revue/" + uneRevue.Id + "/" + jsonModifiRevue);
                 return (liste != null);
             }
             catch (Exception ex)
