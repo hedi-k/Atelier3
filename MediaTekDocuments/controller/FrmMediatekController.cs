@@ -124,5 +124,10 @@ namespace MediaTekDocuments.controller
         {
             return access.ModifiDvd(unDvd);
         }
+        //Méthode qui envoi une revue
+        public bool EnvoiRevue(Revue uneRevue)
+        {
+            return access.EnvoiRevue(uneRevue);
+        }
     }
 }

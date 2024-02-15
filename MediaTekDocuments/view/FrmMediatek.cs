@@ -1249,7 +1249,6 @@ namespace MediaTekDocuments.view
         {
             string ongletLivre = "livre";
             List<Object> listeObjLivre = lesLivres.ConvertAll(Livre => (Object)Livre); //Converti la liste de livre en objet
-
             FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, false, ongletLivre, listeObjLivre);
             frmAjout.Show();
             this.Hide();
@@ -1315,7 +1314,7 @@ namespace MediaTekDocuments.view
 
                 }
             }
-            else 
+            else
             {
                 MessageBox.Show("selectionner un DVD !");
             }
@@ -1323,19 +1322,28 @@ namespace MediaTekDocuments.view
         //Action du btn modifier (DVD)
         private void btnModifDvd_Click(object sender, EventArgs e)
         {
-            if (dgvDvdListe.CurrentCell != null) 
+            if (dgvDvdListe.CurrentCell != null)
             {
                 string ongletDvd = "dvd";
                 List<Object> listeObjDvd = lesDvd.ConvertAll(Dvd => (Object)Dvd); //Convertit la liste de Dvd en objet
                 Object aModifier = (Object)bdgDvdListe.List[bdgDvdListe.Position];//convertit le dvd  selectionné en objet
-                FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, true, ongletDvd, listeObjDvd, aModifier );
+                FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, true, ongletDvd, listeObjDvd, aModifier);
                 frmAjout.Show();
                 this.Hide();
-            } 
-            else 
+            }
+            else
             {
                 MessageBox.Show("Selectionnez un Dvd !");
             }
+        }
+        //Actop, di btn Ajouter (Revue)
+        private void btnAjoutRevue_Click(object sender, EventArgs e) // List<Revue> lesRevues
+        {
+            string ongletRevue = "revue";
+            List<Object> listeObjRevue = lesRevues.ConvertAll(Revue => (Object)Revue);
+            FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, false, ongletRevue, listeObjRevue);
+            frmAjout.Show();
+            this.Hide();
         }
     }
 }

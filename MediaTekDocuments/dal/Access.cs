@@ -171,9 +171,7 @@ namespace MediaTekDocuments.dal
         //Envois un livre à l'api pour la BDD
         public bool EnvoiLivre(Livre unLivre)
         {
-            //Console.WriteLine("Envoi livre arrivé dans access"); ********************test à effacer
             String jsonCreerLivre = JsonConvert.SerializeObject(unLivre);
-            //Console.WriteLine("Le contenu du jsonCreerLivre est =>  " + jsonCreerLivre);********************test à effacer
             try
             {
                 // récupération soit d'une liste vide (requête ok) soit de null (erreur)
@@ -219,7 +217,7 @@ namespace MediaTekDocuments.dal
             return false;
         }
         //****************************  GESTION DVDs  **************************************************************************************
-        //Envois un dvd à l'api pour la BDD
+        //Envoi le dvd en paramètre
         public bool EnvoiDvd(Dvd unDvd)
         {
             String jsonCreerDvd = JsonConvert.SerializeObject(unDvd);
@@ -250,12 +248,30 @@ namespace MediaTekDocuments.dal
             }
             return false;
         }
+        //Modifie le dvd en paramètre
         public bool ModifiDvd(Dvd unDvd)
         {
             String jsonModifiDvd = JsonConvert.SerializeObject(unDvd);
             try
             {
                 List<Object> liste = TraitementRecup<Object>(PUT, "dvd/" + unDvd.Id + "/" + jsonModifiDvd);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+        //****************************  GESTION Revues  *************************************************************************************
+        //Envoi la revue en paramètre
+        public bool EnvoiRevue(Revue uneRevue)
+        {
+            String jsonCreerRevue = JsonConvert.SerializeObject(uneRevue);
+            try
+            {
+                // récupération soit d'une liste vide (requête ok) soit de null (erreur)
+                List<Object> liste = TraitementRecup<Object>(POST, "revue/" + jsonCreerRevue);
                 return (liste != null);
             }
             catch (Exception ex)
