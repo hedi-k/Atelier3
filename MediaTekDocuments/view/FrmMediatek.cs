@@ -1280,15 +1280,15 @@ namespace MediaTekDocuments.view
             if (dgvLivresListe.CurrentCell != null)
             {
                 string ongletLivre = "livre";
-                List<Object> listeObjLivre = lesLivres.ConvertAll(Livre => (Object)Livre); //Converti la liste de livre en objet
-                Livre livreModif = (Livre)bdgLivresListe.List[bdgLivresListe.Position];
-                FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, true, ongletLivre, listeObjLivre, livreModif);
+                List<Object> listeObjLivre = lesLivres.ConvertAll(Livre => (Object)Livre); //Convertit la liste de livre en objet
+                Object aModifier = (Object)bdgLivresListe.List[bdgLivresListe.Position];   //convertit le livre sélectionné en objet
+                FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, true, ongletLivre, listeObjLivre, aModifier);
                 frmAjout.Show();
                 this.Hide();
             }
             else
             {
-                MessageBox.Show("selectionner un livre !");
+                MessageBox.Show("selectionnez un livre !");
             }
 
         }
@@ -1296,8 +1296,7 @@ namespace MediaTekDocuments.view
         private void btnAjoutDvd_Click(object sender, EventArgs e)
         {
             string ongletDvd = "dvd";
-            List<Object> listeObjDvd = lesDvd.ConvertAll(Dvd => (Object)Dvd); //Converti la liste de Dvd en objet
-
+            List<Object> listeObjDvd = lesDvd.ConvertAll(Dvd => (Object)Dvd); //Convertit la liste de Dvd en objet
             FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, false, ongletDvd, listeObjDvd);
             frmAjout.Show();
             this.Hide();
@@ -1319,6 +1318,23 @@ namespace MediaTekDocuments.view
             else 
             {
                 MessageBox.Show("selectionner un DVD !");
+            }
+        }
+        //Action du btn modifier (DVD)
+        private void btnModifDvd_Click(object sender, EventArgs e)
+        {
+            if (dgvDvdListe.CurrentCell != null) 
+            {
+                string ongletDvd = "dvd";
+                List<Object> listeObjDvd = lesDvd.ConvertAll(Dvd => (Object)Dvd); //Convertit la liste de Dvd en objet
+                Object aModifier = (Object)bdgDvdListe.List[bdgDvdListe.Position];//convertit le dvd  selectionné en objet
+                FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, true, ongletDvd, listeObjDvd, aModifier );
+                frmAjout.Show();
+                this.Hide();
+            } 
+            else 
+            {
+                MessageBox.Show("Selectionnez un Dvd !");
             }
         }
     }

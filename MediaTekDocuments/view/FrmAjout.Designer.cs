@@ -30,13 +30,13 @@ namespace MediaTekDocuments.view
         private void InitializeComponent()
         {
             this.txbIsbnDuree = new System.Windows.Forms.TextBox();
-            this.txbLivresImage = new System.Windows.Forms.TextBox();
-            this.txbLivresRayon = new System.Windows.Forms.TextBox();
-            this.txbLivresPublic = new System.Windows.Forms.TextBox();
-            this.txbLivresGenre = new System.Windows.Forms.TextBox();
+            this.txbImage = new System.Windows.Forms.TextBox();
+            this.txbRayon = new System.Windows.Forms.TextBox();
+            this.txbPublic = new System.Windows.Forms.TextBox();
+            this.txbGenre = new System.Windows.Forms.TextBox();
             this.txbCollectionSynopsisDel = new System.Windows.Forms.TextBox();
             this.txbAuteurRealisateurPer = new System.Windows.Forms.TextBox();
-            this.txbLivresTitre = new System.Windows.Forms.TextBox();
+            this.txbTitre = new System.Windows.Forms.TextBox();
             this.txbNumero = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
@@ -66,33 +66,33 @@ namespace MediaTekDocuments.view
             this.txbIsbnDuree.Size = new System.Drawing.Size(100, 20);
             this.txbIsbnDuree.TabIndex = 5;
             // 
-            // txbLivresImage
+            // txbImage
             // 
-            this.txbLivresImage.Location = new System.Drawing.Point(156, 247);
-            this.txbLivresImage.Name = "txbLivresImage";
-            this.txbLivresImage.Size = new System.Drawing.Size(391, 20);
-            this.txbLivresImage.TabIndex = 9;
+            this.txbImage.Location = new System.Drawing.Point(156, 247);
+            this.txbImage.Name = "txbImage";
+            this.txbImage.Size = new System.Drawing.Size(391, 20);
+            this.txbImage.TabIndex = 9;
             // 
-            // txbLivresRayon
+            // txbRayon
             // 
-            this.txbLivresRayon.Location = new System.Drawing.Point(156, 222);
-            this.txbLivresRayon.Name = "txbLivresRayon";
-            this.txbLivresRayon.Size = new System.Drawing.Size(207, 20);
-            this.txbLivresRayon.TabIndex = 48;
+            this.txbRayon.Location = new System.Drawing.Point(156, 222);
+            this.txbRayon.Name = "txbRayon";
+            this.txbRayon.Size = new System.Drawing.Size(207, 20);
+            this.txbRayon.TabIndex = 48;
             // 
-            // txbLivresPublic
+            // txbPublic
             // 
-            this.txbLivresPublic.Location = new System.Drawing.Point(156, 197);
-            this.txbLivresPublic.Name = "txbLivresPublic";
-            this.txbLivresPublic.Size = new System.Drawing.Size(207, 20);
-            this.txbLivresPublic.TabIndex = 47;
+            this.txbPublic.Location = new System.Drawing.Point(156, 197);
+            this.txbPublic.Name = "txbPublic";
+            this.txbPublic.Size = new System.Drawing.Size(207, 20);
+            this.txbPublic.TabIndex = 47;
             // 
-            // txbLivresGenre
+            // txbGenre
             // 
-            this.txbLivresGenre.Location = new System.Drawing.Point(156, 172);
-            this.txbLivresGenre.Name = "txbLivresGenre";
-            this.txbLivresGenre.Size = new System.Drawing.Size(207, 20);
-            this.txbLivresGenre.TabIndex = 46;
+            this.txbGenre.Location = new System.Drawing.Point(156, 172);
+            this.txbGenre.Name = "txbGenre";
+            this.txbGenre.Size = new System.Drawing.Size(207, 20);
+            this.txbGenre.TabIndex = 46;
             // 
             // txbCollectionSynopsisDel
             // 
@@ -108,12 +108,12 @@ namespace MediaTekDocuments.view
             this.txbAuteurRealisateurPer.Size = new System.Drawing.Size(207, 20);
             this.txbAuteurRealisateurPer.TabIndex = 7;
             // 
-            // txbLivresTitre
+            // txbTitre
             // 
-            this.txbLivresTitre.Location = new System.Drawing.Point(156, 97);
-            this.txbLivresTitre.Name = "txbLivresTitre";
-            this.txbLivresTitre.Size = new System.Drawing.Size(391, 20);
-            this.txbLivresTitre.TabIndex = 6;
+            this.txbTitre.Location = new System.Drawing.Point(156, 97);
+            this.txbTitre.Name = "txbTitre";
+            this.txbTitre.Size = new System.Drawing.Size(391, 20);
+            this.txbTitre.TabIndex = 6;
             // 
             // txbNumero
             // 
@@ -315,13 +315,13 @@ namespace MediaTekDocuments.view
             this.Controls.Add(this.cbxPublics);
             this.Controls.Add(this.cbxGenres);
             this.Controls.Add(this.txbIsbnDuree);
-            this.Controls.Add(this.txbLivresImage);
-            this.Controls.Add(this.txbLivresRayon);
-            this.Controls.Add(this.txbLivresPublic);
-            this.Controls.Add(this.txbLivresGenre);
+            this.Controls.Add(this.txbImage);
+            this.Controls.Add(this.txbRayon);
+            this.Controls.Add(this.txbPublic);
+            this.Controls.Add(this.txbGenre);
             this.Controls.Add(this.txbCollectionSynopsisDel);
             this.Controls.Add(this.txbAuteurRealisateurPer);
-            this.Controls.Add(this.txbLivresTitre);
+            this.Controls.Add(this.txbTitre);
             this.Controls.Add(this.txbNumero);
             this.Controls.Add(this.label22);
             this.Controls.Add(this.label19);
@@ -343,13 +343,13 @@ namespace MediaTekDocuments.view
         #endregion
 
         private System.Windows.Forms.TextBox txbIsbnDuree;
-        private System.Windows.Forms.TextBox txbLivresImage;
-        private System.Windows.Forms.TextBox txbLivresRayon;
-        private System.Windows.Forms.TextBox txbLivresPublic;
-        private System.Windows.Forms.TextBox txbLivresGenre;
+        private System.Windows.Forms.TextBox txbImage;
+        private System.Windows.Forms.TextBox txbRayon;
+        private System.Windows.Forms.TextBox txbPublic;
+        private System.Windows.Forms.TextBox txbGenre;
         private System.Windows.Forms.TextBox txbCollectionSynopsisDel;
         private System.Windows.Forms.TextBox txbAuteurRealisateurPer;
-        private System.Windows.Forms.TextBox txbLivresTitre;
+        private System.Windows.Forms.TextBox txbTitre;
         private System.Windows.Forms.TextBox txbNumero;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label19;

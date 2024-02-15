@@ -250,6 +250,20 @@ namespace MediaTekDocuments.dal
             }
             return false;
         }
+        public bool ModifiDvd(Dvd unDvd)
+        {
+            String jsonModifiDvd = JsonConvert.SerializeObject(unDvd);
+            try
+            {
+                List<Object> liste = TraitementRecup<Object>(PUT, "dvd/" + unDvd.Id + "/" + jsonModifiDvd);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
 
         /// <summary>
         /// Traitement de la récupération du retour de l'api, avec conversion du json en liste pour les select (GET)

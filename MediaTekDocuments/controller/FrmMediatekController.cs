@@ -119,5 +119,10 @@ namespace MediaTekDocuments.controller
         public bool SupprimerDvd(Dvd unDvd) {
             return access.SupprimerDvd(unDvd);
         }
+        //Méthode qui modifie un dvd
+        public bool ModifierDvd(Dvd unDvd) 
+        {
+            return access.ModifiDvd(unDvd);
+        }
     }
 }

@@ -677,6 +677,7 @@ namespace MediaTekDocuments.view
             this.btnModifDvd.TabIndex = 24;
             this.btnModifDvd.Text = "Modifier";
             this.btnModifDvd.UseVisualStyleBackColor = true;
+            this.btnModifDvd.Click += new System.EventHandler(this.btnModifDvd_Click);
             // 
             // btnSupprimerDvd
             // 
