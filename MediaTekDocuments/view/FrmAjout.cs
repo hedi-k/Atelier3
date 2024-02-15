@@ -79,22 +79,25 @@ namespace MediaTekDocuments.view
             txbRayon.Enabled = false;
 
 
+
             switch (onglet)
             {
                 case "livre":
+                    FrmAjout.ActiveForm.Text = "Gestion de Livres";
                     lblAuteurRealisateurPer.Text = "Auteur * :";
                     lblCollectionSynopsisDel.Text = "Collection * :";
                     lblIsbnDuree.Text = "ISBN * :";
                     txbIsbnDuree.Enabled = true;
                     break;
                 case "dvd":
-                    ;
+                    FrmAjout.ActiveForm.Text = "Gestion de DVDs";
                     lblAuteurRealisateurPer.Text = "Realisateur * :";
                     lblCollectionSynopsisDel.Text = "Synopsi * :";
                     lblIsbnDuree.Text = "Durée * :";
                     txbIsbnDuree.Enabled = true;
                     break;
                 case "revue":
+                    FrmAjout.ActiveForm.Text = "Gestion de Revues";
                     lblAuteurRealisateurPer.Text = "Périodicité * :";
                     lblCollectionSynopsisDel.Text = "Délai mise à dispo * :";
                     lblIsbnDuree.Text = "";

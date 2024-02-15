@@ -1250,6 +1250,7 @@ namespace MediaTekDocuments.view
             string ongletLivre = "livre";
             List<Object> listeObjLivre = lesLivres.ConvertAll(Livre => (Object)Livre); //Converti la liste de livre en objet
             FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, false, ongletLivre, listeObjLivre);
+            frmAjout.Text = "Ajout d'un LIVRE ";
             frmAjout.Show();
             this.Hide();
         }
@@ -1282,6 +1283,7 @@ namespace MediaTekDocuments.view
                 List<Object> listeObjLivre = lesLivres.ConvertAll(Livre => (Object)Livre); //Convertit la liste de livre en objet
                 Object aModifier = (Object)bdgLivresListe.List[bdgLivresListe.Position];   //convertit le livre sélectionné en objet
                 FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, true, ongletLivre, listeObjLivre, aModifier);
+                frmAjout.Text = "Modifification d'un LIVRE"
                 frmAjout.Show();
                 this.Hide();
             }
@@ -1297,6 +1299,7 @@ namespace MediaTekDocuments.view
             string ongletDvd = "dvd";
             List<Object> listeObjDvd = lesDvd.ConvertAll(Dvd => (Object)Dvd); //Convertit la liste de Dvd en objet
             FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, false, ongletDvd, listeObjDvd);
+            frmAjout.Text = "Ajout d'un DVD";
             frmAjout.Show();
             this.Hide();
 
@@ -1328,6 +1331,7 @@ namespace MediaTekDocuments.view
                 List<Object> listeObjDvd = lesDvd.ConvertAll(Dvd => (Object)Dvd); //Convertit la liste de Dvd en objet
                 Object aModifier = (Object)bdgDvdListe.List[bdgDvdListe.Position];//convertit le dvd  selectionné en objet
                 FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, true, ongletDvd, listeObjDvd, aModifier);
+                frmAjout.Text = "Modification d'un DVD";
                 frmAjout.Show();
                 this.Hide();
             }
@@ -1336,14 +1340,32 @@ namespace MediaTekDocuments.view
                 MessageBox.Show("Selectionnez un Dvd !");
             }
         }
-        //Actop, di btn Ajouter (Revue)
+        //Actop, du btn Ajouter (Revue)
         private void btnAjoutRevue_Click(object sender, EventArgs e) // List<Revue> lesRevues
         {
             string ongletRevue = "revue";
             List<Object> listeObjRevue = lesRevues.ConvertAll(Revue => (Object)Revue);
             FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, false, ongletRevue, listeObjRevue);
+            frmAjout.Text = "Ajout d'une REVUE";
             frmAjout.Show();
             this.Hide();
+        }
+        //Action du btn supprimer (Revue)
+        private void btnSupprimerRevue_Click(object sender, EventArgs e)
+        {
+            if (dgvRevuesListe.CurrentCell != null)    //vérification de la selection
+            {
+                if (MessageBox.Show("Supprimer ?", "Confirmer", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    Revue revue = (Revue)bdgRevuesListe.List[bdgRevuesListe.Position];
+                    controller.SupprimerRevue(revue);
+                    tabRevues_Enter(null, null);
+                }
+            }
+            else
+            {
+                MessageBox.Show("selectionner une Revue !");
+            }
         }
     }
 }

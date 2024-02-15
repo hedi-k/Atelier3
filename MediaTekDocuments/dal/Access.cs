@@ -280,7 +280,21 @@ namespace MediaTekDocuments.dal
             }
             return false;
         }
-
+        //Supprime la revue en paramètre
+        public bool SupprimerRevue(Revue uneRevue)
+        {
+            String jsonSupprimerRevue = JsonConvert.SerializeObject(uneRevue.Id);
+            try
+            {
+                List<Object> liste = TraitementRecup<Object>(DELETE, "revue/{\"Id\":" + jsonSupprimerRevue + "}");
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
         /// <summary>
         /// Traitement de la récupération du retour de l'api, avec conversion du json en liste pour les select (GET)
         /// </summary>

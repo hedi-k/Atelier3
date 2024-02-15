@@ -98,29 +98,32 @@ namespace MediaTekDocuments.controller
         }
 
         //Méthode qui envoi un livre //***********************RETOUR à traiter !!!!!!!!!!!!!!!
-        public bool EnvoiLivre(Livre unLivre) {
+        public bool EnvoiLivre(Livre unLivre)
+        {
             return access.EnvoiLivre(unLivre);
         }
         //Méthode qui supprime un livre
-        public bool SupprimerLivre(Livre unLivre) {
+        public bool SupprimerLivre(Livre unLivre)
+        {
             return access.SupprimerLivre(unLivre);
         }
         //Méthode qui modifie un livre
-        public bool ModifLivre(Livre unLivre) 
+        public bool ModifLivre(Livre unLivre)
         {
             return access.ModifiLivre(unLivre);
         }
         //Méthode qui envoi un dvd
-        public bool EnvoiDvd(Dvd unDvd) 
+        public bool EnvoiDvd(Dvd unDvd)
         {
             return access.EnvoiDvd(unDvd);
         }
         //Méthode qui supprimer un dvd
-        public bool SupprimerDvd(Dvd unDvd) {
+        public bool SupprimerDvd(Dvd unDvd)
+        {
             return access.SupprimerDvd(unDvd);
         }
         //Méthode qui modifie un dvd
-        public bool ModifierDvd(Dvd unDvd) 
+        public bool ModifierDvd(Dvd unDvd)
         {
             return access.ModifiDvd(unDvd);
         }
@@ -128,6 +131,11 @@ namespace MediaTekDocuments.controller
         public bool EnvoiRevue(Revue uneRevue)
         {
             return access.EnvoiRevue(uneRevue);
+        }
+        //Méthode qui supprime une revue
+        public bool SupprimerRevue(Revue uneRevue)
+        {
+            return access.SupprimerRevue(uneRevue);
         }
     }
 }
