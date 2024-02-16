@@ -62,6 +62,7 @@ namespace MediaTekDocuments.view
             // txbIsbnDuree
             // 
             this.txbIsbnDuree.Location = new System.Drawing.Point(447, 72);
+            this.txbIsbnDuree.MaxLength = 13;
             this.txbIsbnDuree.Name = "txbIsbnDuree";
             this.txbIsbnDuree.Size = new System.Drawing.Size(100, 20);
             this.txbIsbnDuree.TabIndex = 5;
@@ -118,6 +119,7 @@ namespace MediaTekDocuments.view
             // txbNumero
             // 
             this.txbNumero.Location = new System.Drawing.Point(156, 72);
+            this.txbNumero.MaxLength = 5;
             this.txbNumero.Name = "txbNumero";
             this.txbNumero.Size = new System.Drawing.Size(100, 20);
             this.txbNumero.TabIndex = 4;

@@ -17,9 +17,9 @@ namespace MediaTekDocuments.view
     {
         private FrmMediatekController controller;
         private string quelEnvoi;
-        private List<Livre> listeLivre = null;  //besoin pour le test des id d'un livre
+        private List<Livre> listeLivre;  //besoin pour le test des id d'un livre
         private Livre livreModif = null;        //besoin pour la modification d'un livre
-        private List<Dvd> listeDvd = null;      //besoin pour le test des id d'un dvd
+        private List<Dvd> listeDvd;      //besoin pour le test des id d'un dvd
         private Dvd dvdModif = null;            //besoin pour la modification d'un dvd
         private List<Revue> listeRevue = null;  //besoin pour le test des id d'une revue
         private Revue revueModif = null;        //besoin pour la modification d'une revue
@@ -33,7 +33,7 @@ namespace MediaTekDocuments.view
             RemplirCbx(bdgGenres2, cbxGenres);
             RemplirCbx(bdgPublics, cbxPublics);
             RemplirCbx(bdgRayons, cbxRayons);
-            Affichage(affichage, onglet);
+            Affichage(onglet, affichage);
             ChargeListe(onglet, lesListes);
             ChargeObjet(onglet, aModifier);
             quelEnvoi = onglet;
@@ -70,7 +70,7 @@ namespace MediaTekDocuments.view
             }
         }
         //Gestion de l'affichage des txtBox et labelles
-        private void Affichage(bool affichage, string onglet)
+        private void Affichage(string onglet, bool affichage)
         {
             btnAjouter.Enabled = !affichage;
             txbNumero.Enabled = !affichage;
@@ -78,8 +78,6 @@ namespace MediaTekDocuments.view
             txbGenre.Enabled = false;
             txbPublic.Enabled = false;
             txbRayon.Enabled = false;
-
-
 
             switch (onglet)
             {
@@ -99,7 +97,7 @@ namespace MediaTekDocuments.view
                     lblAuteurRealisateurPer.Text = "Périodicité * :";
                     lblCollectionSynopsisDel.Text = "Délai mise à dispo * :";
                     lblIsbnDuree.Text = "";
-                    txbIsbnDuree.Enabled = false; // pas de duréer pour les revues
+                    txbIsbnDuree.Enabled = false; // ne pas afficher pour les revues
                     break;
             }
         }
@@ -140,7 +138,7 @@ namespace MediaTekDocuments.view
                     break;
                 case "revue":
                     revueModif = (Revue)aModifier;
-                    if (aModifier != null) 
+                    if (aModifier != null)
                     {
                         txbNumero.Text = revueModif.Id;
                         txbTitre.Text = revueModif.Titre;
@@ -210,6 +208,12 @@ namespace MediaTekDocuments.view
             }
             return null;
         }
+        //retourne l'id au format 5 digits 1 =>00001
+        private string FormaterId(string id)
+        {
+            int idFormate = int.Parse(id);
+            return idFormate.ToString("D5");
+        }
         //action du bouton annuler.
         //ferme la fenêtre et retour à la précédente
         private void btnAnnuler_Click(object sender, EventArgs e)
@@ -218,22 +222,48 @@ namespace MediaTekDocuments.view
             frmMediatek.Show();
             this.Hide();
         }
-        //action du btn Ajouter
-        //ajout d'un livre ou dvd dans la bdd
+        //action du btn Ajouter, envoi un livre, un dvd ou une revue dans la bdd
         private void btnAjouter_Click(object sender, EventArgs e)
         {
             switch (quelEnvoi)
             {
                 case "livre":
-                    SuperLivre();
+                    Livre livre = SuperLivre();
+                    if (livre != null)
+                    {
+                        if (controller.EnvoiLivre(livre)) // l'api return true si l'ajout a fonctionné
+                        {
+                            MessageBox.Show("Livre ajouté");
+                            Vide();
+                        }
+                    }
                     break;
+
                 case "dvd":
-                    SuperDvd();
+                    Dvd dvd = SuperDvd();
+                    if (dvd != null)
+                    {
+                        if (controller.EnvoiDvd(dvd))// l'api return true si l'ajout a fonctionné
+                        {
+                            MessageBox.Show("DVD ajouté");
+                            Vide();
+                        }
+                    }
                     break;
+
                 case "revue":
-                    SuperRevue();
+                    Revue revue = SuperRevue();
+                    if (revue != null)
+                    {
+                        if (controller.EnvoiRevue(revue))// l'api return true si l'ajout a fonctionné
+                        {
+                            MessageBox.Show("Revue ajouté");
+                            Vide();
+                        }
+                    }
                     break;
             }
+
         }
         //Action du btn modifier 
         private void btnModifier_Click(object sender, EventArgs e)
@@ -243,19 +273,34 @@ namespace MediaTekDocuments.view
                 switch (quelEnvoi)
                 {
                     case "livre":
-                        Livre livre = ValoriseLivre();
-                        controller.ModifLivre(livre);
-                        btnAnnuler_Click(null, null);
+                        Livre livre = SuperLivre();
+                        if (livre != null)
+                        {
+                            if (controller.ModifLivre(livre))// l'api return true si l'ajout a fonctionné
+                            {
+                                MessageBox.Show("Livre modifié");
+                            }
+                        }
                         break;
                     case "dvd":
-                        Dvd dvd = ValoriseDvd();
-                        controller.ModifierDvd(dvd);
-                        btnAnnuler_Click(null, null);
+                        Dvd dvd = SuperDvd();
+                        if (dvd != null)
+                        {
+                            if (controller.ModifierDvd(dvd))
+                            {
+                                MessageBox.Show("DVD modifié");
+                            }
+                        }
                         break;
                     case "revue":
-                        Revue revue = ValoriseRevue();
-                        controller.ModifierRevue(revue);
-                        btnAnnuler_Click(null, null);
+                        Revue revue = SuperRevue();
+                        if (revue != null)
+                        {
+                            if (controller.ModifierRevue(revue))
+                            {
+                                MessageBox.Show("Revue modifié");
+                            }
+                        }
                         break;
                 }
             }
@@ -263,67 +308,81 @@ namespace MediaTekDocuments.view
         //Methode pour la création/modification d'un livre
         private Livre ValoriseLivre()
         {
-            //valorise tout les paramètres
-            string id = txbNumero.Text;
-            string titre = txbTitre.Text;
-            string image = txbImage.Text;
-            string isbn = txbIsbnDuree.Text;
-            string auteur = txbAuteurRealisateurPer.Text;
-            string collection = txbCollectionSynopsisDel.Text;
-            string idGenre = GetIdGenre(cbxGenres.Text);
-            string genre = txbGenre.Text;
-            string idPublic = GetIdPublic(cbxPublics.Text);
-            string Public = txbPublic.Text;
-            string idRayon = GetIdRayon(cbxRayons.Text);
-            string rayon = txbRayon.Text;
-            //cas d'une modification de livre
-            // les id pas valorisés ne sont pas des chaines vides mais null (rappel)
-            if (livreModif != null)
+            try
             {
-                //si le Genre n'est pas modifier
-                if (idGenre == null)
+                //valorise tout les paramètres
+                string id = FormaterId(txbNumero.Text);
+                string titre = txbTitre.Text;
+                string image = txbImage.Text;
+                string isbn = txbIsbnDuree.Text;
+                string auteur = txbAuteurRealisateurPer.Text;
+                string collection = txbCollectionSynopsisDel.Text;
+                string idGenre = GetIdGenre(cbxGenres.Text);
+                string genre = txbGenre.Text;
+                string idPublic = GetIdPublic(cbxPublics.Text);
+                string Public = txbPublic.Text;
+                string idRayon = GetIdRayon(cbxRayons.Text);
+                string rayon = txbRayon.Text;
+                //cas d'une modification de livre
+                // les id pas valorisés ne sont pas des chaines vides mais null (rappel)
+                if (livreModif != null)
                 {
-                    idGenre = GetIdGenre(txbGenre.Text);
+                    //si le Genre n'est pas modifier
+                    if (idGenre == null)
+                    {
+                        idGenre = GetIdGenre(txbGenre.Text);
+                    }
+                    //si le public n'est pas modifier
+                    if (idPublic == null)
+                    {
+                        idPublic = GetIdPublic(txbPublic.Text);
+                    }
+                    //si le rayon n'est pas modifier
+                    if (idRayon == null)
+                    {
+                        idRayon = GetIdRayon(txbRayon.Text);
+                    }
                 }
-                //si le public n'est pas modifier
-                if (idPublic == null)
-                {
-                    idPublic = GetIdPublic(txbPublic.Text);
-                }
-                //si le rayon n'est pas modifier
-                if (idRayon == null)
-                {
-                    idRayon = GetIdRayon(txbRayon.Text);
-                }
+                Livre livreValorise = new Livre(id, titre, image, isbn, auteur, collection, idGenre, genre = null, idPublic, Public = null, idRayon, rayon = null);
+                return livreValorise;
             }
-            Livre livreValorise = new Livre(id, titre, image, isbn, auteur, collection, idGenre, genre = null, idPublic, Public = null, idRayon, rayon = null);
-            return livreValorise;
+            catch (Exception ex) { return null; }
         }
-        //methode pour l'envoi d'un livre
-        private void SuperLivre()
+        //methode pour l'envoi d'un livre après contrôle des valeurs entrées
+        private Livre SuperLivre()
         {
-            Livre livre = ValoriseLivre();
-            //controle les comboBox avant appel du constructeur
-            if (cbxGenres.Text != "" && cbxPublics.Text != "" && cbxRayons.Text != "")
+            try
             {
-                //controle les txtBox avant appel du constructeur
-                if (txbTitre.Text != "" && txbIsbnDuree.Text != "" && txbAuteurRealisateurPer.Text != "" && txbCollectionSynopsisDel.Text != "" && txbNumero.Text != "")
+                Livre livre = ValoriseLivre();
+                //controle les combox sauf si modification
+                if (cbxGenres.Text != "" && cbxPublics.Text != "" && cbxRayons.Text != "" || livreModif != null)
                 {
-                    //controle que l'id n'est pas déja utilisé avant appel du constructeur
-                    Livre testId = listeLivre.Find(x => x.Id.Equals(txbNumero.Text));
-                    if (testId != null)
+                    //controle les txtBox 
+                    if (txbTitre.Text != "" && txbIsbnDuree.Text != "" && txbAuteurRealisateurPer.Text != "" && txbCollectionSynopsisDel.Text != "" && txbNumero.Text != "")
                     {
-                        MessageBox.Show("Cet id est déja utilisé.");
+                        Livre testId = listeLivre.Find(x => x.Id.Equals(txbNumero.Text));
+                        //controle que l'id soit disponible saufe si modification
+                        if (testId == null || livreModif != null)
+                        {
+                            //controle la valeur de l'ID
+                            if ((int.Parse(txbNumero.Text)) > 0 && (int.Parse(txbNumero.Text)) < 2000)
+                            {
+                                //contrôle le format de l'ISBN 
+                                if (txbIsbnDuree.Text.Length == 13)
+                                {
+                                    return livre;
+                                }
+                                else { MessageBox.Show("ISBN incorrecte. (13 chiffres)"); return null; }
+                            }
+                            else { MessageBox.Show("Id incorrecte. (compris entre 00001 et 19999)"); return null; }
+                        }
+                        else { MessageBox.Show("Cet id est déja utilisé."); return null; }
                     }
-                    else
-                    {
-                        controller.EnvoiLivre(livre);
-                        Vide();
-                    }
+                    else { MessageBox.Show("Entrez un id, un titre, un auteur, un ISBN et une collection."); return null; }
                 }
-                else { MessageBox.Show("Entrez un id, un titre, un auteur, un ISBN et une collection."); }
+                else { MessageBox.Show("Sélectionnez un genre, un public et un rayon."); return null; }
             }
-            else { MessageBox.Show("Sélectionnez un genre, un public et un rayon."); }
+            catch { return null; }
         }
         //Methode pour la création/modification d'un dvd
         private Dvd ValoriseDvd()
@@ -343,8 +402,8 @@ namespace MediaTekDocuments.view
                 string Public = txbPublic.Text;//pas utilise pour créer un livre car selectionné dans la combo
                 string idRayon = GetIdRayon(cbxRayons.Text);
                 string rayon = txbRayon.Text;//pas utilise pour créer un livre car selectionné dans la combo
-                                             //cas d'une modification d'un dvd
-                if (dvdModif != null)
+
+                if (dvdModif != null) //cas d'une modification d'un dvd
                 {
                     //si le Genre n'est pas modifier
                     if (idGenre == null)
@@ -365,34 +424,43 @@ namespace MediaTekDocuments.view
                 Dvd dvdValorise = new Dvd(id, titre, image, duree, realisateur, synopsis, idGenre, genre = null, idPublic, Public = null, idRayon, rayon = null);
                 return dvdValorise;
             }
-            catch { }
-            return null;
+            catch (Exception ex) { return null; }
         }
         //methode pour l'envoi d'un dvd
-        private void SuperDvd()
+        private Dvd SuperDvd()
         {
-            Dvd dvd = ValoriseDvd();
-            //controle les comboBox avant appel du constructeur
-            if (cbxGenres.Text != "" && cbxPublics.Text != "" && cbxRayons.Text != "")
+            try
             {
-                //controle les txtBox avant appel du constructeur
-                if (txbTitre.Text != "" && txbIsbnDuree.Text != "" && txbAuteurRealisateurPer.Text != "" && txbCollectionSynopsisDel.Text != "" && txbNumero.Text != "")
+                Dvd dvd = ValoriseDvd();
+                //controle les comboBox sauf si modification
+                if (cbxGenres.Text != "" && cbxPublics.Text != "" && cbxRayons.Text != "" || dvdModif != null)
                 {
-                    //controle que l'id n'est pas déja utilisé avant appel du constructeur
-                    Dvd testId = listeDvd.Find(x => x.Id.Equals(txbNumero.Text));
-                    if (testId != null)
+                    //controle les txtBox avant appel du constructeur
+                    if (txbTitre.Text != "" && txbIsbnDuree.Text != "" && txbAuteurRealisateurPer.Text != "" && txbCollectionSynopsisDel.Text != "" && txbNumero.Text != "")
                     {
-                        MessageBox.Show("Cet id est déja utilisé.");
+                        //controle la valeur de l'ID
+                        if ((int.Parse(txbNumero.Text)) > 19999 && (int.Parse(txbNumero.Text)) < 30000)
+                        {
+                            Dvd testId = listeDvd.Find(x => x.Id.Equals(txbNumero.Text)); //bug ici a chercher
+                                                                                          //controle que l'id soit disponible sauf si modification
+                            if (testId == null || dvdModif != null)
+                            {
+                                //controle la valeur de Durée
+                                if (int.Parse(txbIsbnDuree.Text) > 1)
+                                {
+                                    return dvd;
+                                }
+                                else { MessageBox.Show("Valeur de durée incorrecte."); return null; }
+                            }
+                            else { MessageBox.Show("Cet Id est déja utilisé."); return null; }
+                        }
+                        else { MessageBox.Show("Id incorrecte. (compris entre 20000 et 30000)"); return null; }
                     }
-                    else
-                    {
-                        controller.EnvoiDvd(dvd);
-                        Vide();
-                    }
+                    else { MessageBox.Show("Entrez un id, un titre, un réalisateur, une duréer et une synopsis."); return null; }
                 }
-                else { MessageBox.Show("Entrez un id, un titre, un réalisateur, une duréer et une synopsis."); }
+                else { MessageBox.Show("Sélectionnez un genre, un public et un rayon."); return null; }
             }
-            else { MessageBox.Show("Sélectionnez un genre, un public et un rayon."); }
+            catch (Exception ex) { return null; }
         }
         //Methode pour la création/modification d'une revue
         private Revue ValoriseRevue()
@@ -430,36 +498,46 @@ namespace MediaTekDocuments.view
                     }
                 }
                 Revue revueValorise = new Revue(id, titre, image, idGenre, genre = null, idPublic, lePublic = null, idRayon, rayon = null, periodicite, delaiMiseADispo);
+
                 return revueValorise;
             }
-            catch { }
+            catch (Exception ex) { }
             return null;
         }
         //Methode pour l'envoi d'une revue
-        private void SuperRevue()
+        private Revue SuperRevue()
         {
-            Revue revue = ValoriseRevue();
-            //controle les comboBox avant appel du constructeur
-            if (cbxGenres.Text != "" && cbxPublics.Text != "" && cbxRayons.Text != "")
+            try
             {
-                //controle les txtBox avant appel du constructeur
-                if (txbTitre.Text != "" && txbAuteurRealisateurPer.Text != "" && txbCollectionSynopsisDel.Text != "" && txbNumero.Text != "")
+                Revue revue = ValoriseRevue();
+                //controle les comboBox sauf si modification
+                if (cbxGenres.Text != "" && cbxPublics.Text != "" && cbxRayons.Text != "" || revueModif != null)
                 {
-                    //controle que l'id n'est pas déja utilisé avant appel du constructeur
-                    Revue testId = listeRevue.Find(x => x.Id.Equals(txbNumero.Text));
-                    if (testId != null)
+                    //controle les txtBox avant appel du constructeur
+                    if (txbTitre.Text != "" && txbAuteurRealisateurPer.Text != "" && txbCollectionSynopsisDel.Text != "" && txbNumero.Text != "")
                     {
-                        MessageBox.Show("Cet id est déja utilisé.");
+                        if ((int.Parse(txbCollectionSynopsisDel.Text) > 1) && (int.Parse(txbCollectionSynopsisDel.Text) < 1000))
+                        {
+                            if ((int.Parse(txbNumero.Text)) > 10000 && (int.Parse(txbNumero.Text)) < 20000)
+                            {
+                                //controle que l'id n'est pas déja utilisé avant appel du constructeur
+                                Revue testId = listeRevue.Find(x => x.Id.Equals(txbNumero.Text));
+                                if (testId == null || revueModif != null)
+                                {
+
+                                    return revue;
+                                }
+                                else { MessageBox.Show("Id déja utilisé"); return null; }
+                            }
+                            else { MessageBox.Show("Id incorrecte (entre 10 000 et 20 000)"); return null; }
+                        }
+                        else { MessageBox.Show("Delais incorrecte"); return null; }
                     }
-                    else
-                    {
-                        controller.EnvoiRevue(revue);
-                        Vide();
-                    }
+                    else { MessageBox.Show("Entrez un id, un titre, une périodicité, un délai de mise à dispo"); return null; }
                 }
-                else { MessageBox.Show("Entrez un id, un titre, une périodicité, un délai de mise à dispo"); }
+                else { MessageBox.Show("Sélectionnez un genre, un public et un rayon."); return null; }
             }
-            else { MessageBox.Show("Sélectionnez un genre, un public et un rayon."); }
+            catch (Exception ex) { return null; }
         }
     }
 }
