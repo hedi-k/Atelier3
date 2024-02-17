@@ -172,6 +172,8 @@ namespace MediaTekDocuments.dal
         public bool EnvoiLivre(Livre unLivre)
         {
             String jsonCreerLivre = JsonConvert.SerializeObject(unLivre);
+            //Pour combler l'absence de prise en charge du charactère espace************************* solution temporaire********************
+            jsonCreerLivre = jsonCreerLivre.Replace(" ", "-"); 
             try
             {
                 // récupération soit d'une liste vide (requête ok) soit de null (erreur)
@@ -207,7 +209,7 @@ namespace MediaTekDocuments.dal
             String jsonModifiLivre = JsonConvert.SerializeObject(unLivre);
             try
             {
-                List<Object> liste = TraitementRecup<Object>(PUT, "livre/" + unLivre.Id + "/" + jsonModifiLivre);
+                List<Object> liste = TraitementRecup<Object>(PUT, "livre/" + unLivre.Id + "/" + jsonModifiLivre.Replace(" ", "-"));
                 return (liste != null);
             }
             catch (Exception ex)
@@ -223,7 +225,7 @@ namespace MediaTekDocuments.dal
             String jsonCreerDvd = JsonConvert.SerializeObject(unDvd);
             try
             {
-                List<Object> liste = TraitementRecup<Object>(POST, "dvd/" + jsonCreerDvd);
+                List<Object> liste = TraitementRecup<Object>(POST, "dvd/" + jsonCreerDvd.Replace(" ", "-"));
                 return (liste != null);
             }
             catch (Exception ex)
@@ -254,7 +256,7 @@ namespace MediaTekDocuments.dal
             String jsonModifiDvd = JsonConvert.SerializeObject(unDvd);
             try
             {
-                List<Object> liste = TraitementRecup<Object>(PUT, "dvd/" + unDvd.Id + "/" + jsonModifiDvd);
+                List<Object> liste = TraitementRecup<Object>(PUT, "dvd/" + unDvd.Id + "/" + jsonModifiDvd.Replace(" ", "-"));
                 return (liste != null);
             }
             catch (Exception ex)
@@ -270,7 +272,7 @@ namespace MediaTekDocuments.dal
             String jsonCreerRevue = JsonConvert.SerializeObject(uneRevue);
             try
             {
-                List<Object> liste = TraitementRecup<Object>(POST, "revue/" + jsonCreerRevue);
+                List<Object> liste = TraitementRecup<Object>(POST, "revue/" + jsonCreerRevue.Replace(" ", "-"));
                 return (liste != null);
             }
             catch (Exception ex)
@@ -300,7 +302,7 @@ namespace MediaTekDocuments.dal
             String jsonModifiRevue = JsonConvert.SerializeObject(uneRevue);
             try
             {
-                List<Object> liste = TraitementRecup<Object>(PUT, "revue/" + uneRevue.Id + "/" + jsonModifiRevue);
+                List<Object> liste = TraitementRecup<Object>(PUT, "revue/" + uneRevue.Id + "/" + jsonModifiRevue.Replace(" ", "-"));
                 return (liste != null);
             }
             catch (Exception ex)
