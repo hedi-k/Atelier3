@@ -97,7 +97,7 @@ namespace MediaTekDocuments.controller
             return access.CreerExemplaire(exemplaire);
         }
 
-        //Méthode qui envoi un livre //***********************RETOUR à traiter !!!!!!!!!!!!!!!
+        //Méthode qui envoi un livre 
         public bool EnvoiLivre(Livre unLivre)
         {
             return access.EnvoiLivre(unLivre);
@@ -142,5 +142,21 @@ namespace MediaTekDocuments.controller
         {
             return access.ModifierRevue(uneRevue);
         }
+        //Charge la liste de suivi
+        public List<Categorie> GetSuivi()
+        {
+            return access.GetSuivi();
+        }
+        //retourne les commandes de livre
+        public List<CommandeDocument> GetAllCommandeLivres()
+        {
+            return access.GetAllCommandeLivre();
+        }
+        //Ajoute une commande de livre
+        public bool EnvoiCmd(CommandeDocument uneCommande)
+        {
+            return access.EnvoiCmd(uneCommande);
+        }
+
     }
 }

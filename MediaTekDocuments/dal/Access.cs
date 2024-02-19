@@ -311,6 +311,34 @@ namespace MediaTekDocuments.dal
             }
             return false;
         }
+        //****************************  GESTION des Commande de livres  *************************************************************************************
+        //retourne les Suivi pour la cbxSuivi
+        public List<Categorie> GetSuivi()
+        {
+            IEnumerable<Suivi> lesSuivi = TraitementRecup<Suivi>(GET, "suivi");
+            return new List<Categorie>(lesSuivi);
+        }
+        //retourne la liste de commande de livre
+        public List<CommandeDocument> GetAllCommandeLivre()
+        {
+            List<CommandeDocument> lesCommandeLivre = TraitementRecup<CommandeDocument>(GET, "lesCommandeLivre");
+            return lesCommandeLivre;
+        }
+        //Envoi une commande de Livre
+        public bool EnvoiCmd(CommandeDocument uneCommande)
+        {
+            String jsonCreerCommandeLivre = JsonConvert.SerializeObject(uneCommande, new CustomDateTimeConverter());
+            try
+            {
+                List<Object> liste = TraitementRecup<Object>(POST, "commandeLivre/" + jsonCreerCommandeLivre);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
         /// <summary>
         /// Traitement de la récupération du retour de l'api, avec conversion du json en liste pour les select (GET)
         /// </summary>

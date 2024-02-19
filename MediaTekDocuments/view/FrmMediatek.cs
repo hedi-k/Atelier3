@@ -21,6 +21,8 @@ namespace MediaTekDocuments.view
         private readonly BindingSource bdgGenres = new BindingSource();
         private readonly BindingSource bdgPublics = new BindingSource();
         private readonly BindingSource bdgRayons = new BindingSource();
+        //BidingSource ajouté pour la gestion des suivis
+        private readonly BindingSource bdgSuivi = new BindingSource();
 
         /// <summary>
         /// Constructeur : création du contrôleur lié à ce formulaire
@@ -1370,7 +1372,7 @@ namespace MediaTekDocuments.view
         //Action du btn modifier (Revue)
         private void btnModifierRevue_Click(object sender, EventArgs e)
         {
-            if (dgvRevuesListe.CurrentCell != null) 
+            if (dgvRevuesListe.CurrentCell != null)
             {
                 string ongletRevue = "revue";
                 List<Object> listeObjRevue = lesRevues.ConvertAll(Revue => (Object)Revue); //Convertit la liste des revues en objet
@@ -1380,6 +1382,165 @@ namespace MediaTekDocuments.view
                 frmAjout.Show();
                 this.Hide();
             }
+        }
+
+        private readonly BindingSource bdgCommandeLivresListe = new BindingSource();
+        private List<CommandeDocument> lesCommandeLivres = new List<CommandeDocument>();
+
+        //Action du l'onglet Commande de livres
+        private void tabOngletCommandeLivre_Enter(object sender, EventArgs e)
+        {
+            lesCommandeLivres = controller.GetAllCommandeLivres();
+            RemplirCommandeLivreListe(lesCommandeLivres);
+            //Charge la cbx suivi
+            RemplirComboCategorie(controller.GetSuivi(), bdgSuivi, cbxSuivi);
+            grbCmdLivre2.Enabled = false;
+            grbCmdLivre2.Enabled = false;
+        }
+        //Action du bouton recherche d'un livre sur un ID
+        private void btnRechCmdLivre_Click(object sender, EventArgs e)
+        {
+            Livre livre = lesLivres.Find(x => x.Id.Equals(txbCmdLivreNum.Text));
+            if (livre != null)
+            {
+                List<Livre> livres = new List<Livre>() { livre };
+                AfficheCommandeLivreInfos(livre);
+            }
+            else
+            {
+                MessageBox.Show("numéro introuvable");
+            }
+        }
+        //Action du btn ajouter une commande de livre
+        private void btnAjouterCmdLivre_Click(object sender, EventArgs e)
+        {
+            //Teste sur le titre, un livre à toujours un titre.
+            if (txbCmdLivreTitre.Text != "")
+            {
+                grbCmdLivre2.Enabled = true;
+                cbxSuivi.SelectedIndex = 0;
+                cbxSuivi.Enabled = false;
+            }
+        }
+        //retourne l'id de suivi selectionné
+        private string GetIdSuivi(string unSuivi)
+        {
+            List<Categorie> uneListe = controller.GetSuivi(); //un doute sur le controller********
+            foreach (Categorie uneCategorie in uneListe)
+            {
+                if (uneCategorie.Libelle == unSuivi)
+                {
+                    return uneCategorie.Id;
+                }
+            }
+            return null;
+        }
+        //retourne l'id au format 4 digits 1 =>0001
+        private string FormaterId(string id)
+        {
+            int idFormate = int.Parse(id);
+            return idFormate.ToString("D4");
+        }
+        //Vide les txb de commande
+        private void VideCmd()
+        {
+            grbCmdLivre2.Enabled = false;
+            txbCmdLivreTitre.Text = "";
+            txbCmdLivreAuteur.Text = "";
+            txbCmdLivreCollection.Text = "";
+            txbCmdLivrePublic.Text = "";
+            txbCmdLivreRayon.Text = "";
+            txbCmdLivreISBN.Text = "";
+            txbCmdLivreId.Text = "";
+            txbCmdLivreNumCmd.Text = "";
+            txbCmdLivreMontantCmd.Text = "";
+            txbCmdLivrenbExCmd.Text = "";
+            cbxSuivi.SelectedIndex = -1;
+            dtpCmdLivreDateCmd.Value = DateTime.Today;
+        }
+        //Affiche les informations du livre dans commande livre.
+        private void AfficheCommandeLivreInfos(Livre livre)
+        {
+            txbCmdLivreTitre.Text = livre.Titre;
+            txbCmdLivreAuteur.Text = livre.Auteur;
+            txbCmdLivreCollection.Text = livre.Collection;
+            txbCmdLivreGenre.Text = livre.Genre;
+            txbCmdLivrePublic.Text = livre.Public;
+            txbCmdLivreRayon.Text = livre.Rayon;
+            txbCmdLivreISBN.Text = livre.Isbn;
+            txbCmdLivreId.Text = livre.Id;
+        }
+        //Action du btn valider, il envoi la cmd de livre à la bdd
+        private void btnCmdLivreValider_Click(object sender, EventArgs e)
+        {
+            CommandeDocument cmdLivre = SuperCmdLivre();
+            if ( cmdLivre != null)
+            {
+                if (controller.EnvoiCmd(cmdLivre))
+                {
+                    MessageBox.Show("Commande de livre ok");
+                    VideCmd();
+                }
+
+            }
+            
+        }
+        //Valorise une commande
+        private CommandeDocument ValoriseCommandeLivre()
+        {
+            try
+            {
+                string id = FormaterId(txbCmdLivreNumCmd.Text);
+                DateTime dateCommande = dtpCmdLivreDateCmd.Value;// Value pour convertir
+                double montant = double.Parse(txbCmdLivreMontantCmd.Text);//a convertir
+                int nbExemplaire = int.Parse(txbCmdLivrenbExCmd.Text); // a convertir
+                string idSuivi = GetIdSuivi(cbxSuivi.Text);
+                string suivi = null;
+                String idLivreDvd = txbCmdLivreId.Text;
+
+                // string idGenre = GetIdGenre(cbxGenres.Text);
+                CommandeDocument commandeValorise = new CommandeDocument(id, dateCommande, montant, nbExemplaire, idSuivi, suivi, idLivreDvd);
+                return commandeValorise;
+            }
+            catch (Exception ex) { return null; }
+        }
+        //Methode pour l'envoi d'une commande de livre
+        private CommandeDocument SuperCmdLivre()
+        {
+            try
+            {
+                CommandeDocument cmdValorise = ValoriseCommandeLivre();
+                if (int.Parse(txbCmdLivreNumCmd.Text) > 0 && int.Parse(txbCmdLivreNumCmd.Text) < 1000)
+                {
+                    if (double.Parse(txbCmdLivreMontantCmd.Text) > 0)
+                    {
+                        if (int.Parse(txbCmdLivrenbExCmd.Text) > 0)
+                        {
+                            if (cmdValorise.IdSuivi != null)
+                            {
+                                return cmdValorise;
+                            }
+                            else { MessageBox.Show("Selectionnez un suivi"); return null; }
+                        }
+                        else { MessageBox.Show("Entrez un nombre d'exemplaire valide"); return null; }
+                    }
+                    else { MessageBox.Show("Entrez un montant valide"); return null; }
+                }
+                else { MessageBox.Show("Entrez un numéro de commande compris entre 1 et 1000"); return null; }
+            }
+            catch (Exception ex) { return null; }
+        }
+        //MEthode pour remplir la liste des commandes de livre
+        private void RemplirCommandeLivreListe(List<CommandeDocument> cmdLivre)
+        {
+            bdgCommandeLivresListe.DataSource = cmdLivre;
+            dtgCmdLivre.DataSource = bdgCommandeLivresListe;
+            dtgCmdLivre.Columns["IdSuivi"].Visible = false;
+            dtgCmdLivre.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dtgCmdLivre.Columns["DateCommande"].DisplayIndex = 0;
+            dtgCmdLivre.Columns[0].HeaderText = "Date de commande";
+            dtgCmdLivre.Columns[2].HeaderText = "n° de document";
+            dtgCmdLivre.Columns[3].HeaderText = "n° de commande";
         }
     }
 }
