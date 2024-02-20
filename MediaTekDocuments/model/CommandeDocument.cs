@@ -8,7 +8,7 @@ namespace MediaTekDocuments.model
 {
     public class CommandeDocument : Commande 
     {
-        public int NbExemplaire;
+        public int NbExemplaire { get; }
         public string IdSuivi { get; }
         public string Suivi { get; }
         public string IdLivreDvd { get; }

@@ -17,12 +17,12 @@ namespace MediaTekDocuments.view
     {
         private FrmMediatekController controller;
         private string quelEnvoi;
-        private List<Livre> listeLivre;  //besoin pour le test des id d'un livre
-        private Livre livreModif = null;        //besoin pour la modification d'un livre
-        private List<Dvd> listeDvd;      //besoin pour le test des id d'un dvd
-        private Dvd dvdModif = null;            //besoin pour la modification d'un dvd
-        private List<Revue> listeRevue = null;  //besoin pour le test des id d'une revue
-        private Revue revueModif = null;        //besoin pour la modification d'une revue
+        private List<Livre> listeLivre;         //besoin pour le test des id d'un livre.
+        private Livre livreModif = null;        //besoin pour la modification d'un livre.
+        private List<Dvd> listeDvd;             //besoin pour le test des id d'un dvd.
+        private Dvd dvdModif = null;            //besoin pour la modification d'un dvd.
+        private List<Revue> listeRevue = null;  //besoin pour le test des id d'une revue.
+        private Revue revueModif = null;        //besoin pour la modification d'une revue.
 
 
 
@@ -44,7 +44,7 @@ namespace MediaTekDocuments.view
             controller = new FrmMediatekController(); //Le controleur ne fonctionne pas sans!!
         }
 
-        //Converti la liste d'objet reçut en list de livre ou dvd ou revue
+        //Convertit la liste d'objets reçue en liste de livres, de DVD ou de revues.
         private void ChargeListe(string onglet, List<Object> uneListe)
         {
             switch (onglet)
@@ -60,7 +60,7 @@ namespace MediaTekDocuments.view
                     break;
             }
         }
-        //remplit la comboBox reçut en paramètre en fonction de la bdg reçut en paramètre
+        //Remplit la comboBox reçue en paramètre en fonction de la bdg reçue en paramètre
         private void RemplirCbx(BindingSource bdg, ComboBox cbx)
         {
             cbx.DataSource = bdg;
@@ -69,7 +69,7 @@ namespace MediaTekDocuments.view
                 cbx.SelectedIndex = -1;
             }
         }
-        //Gestion de l'affichage des txtBox et labelles
+        //Gestion des affichages des TextBox et labelles
         private void Affichage(string onglet, bool affichage)
         {
             btnAjouter.Enabled = !affichage;
@@ -101,7 +101,7 @@ namespace MediaTekDocuments.view
                     break;
             }
         }
-        //methode pour la modification d'un livre ou un dvd
+        //Méthode pour la modification d'un livre ou un dvd
         private void ChargeObjet(string onglet, Object aModifier)
         {
             switch (onglet)
@@ -153,7 +153,7 @@ namespace MediaTekDocuments.view
                     break;
             }
         }
-        //Metohde pour vider les txtBox et combo
+        //Metohde pour vider les TextBox et ComboBox
         private void Vide()
         {
             txbNumero.Text = "";
@@ -169,7 +169,7 @@ namespace MediaTekDocuments.view
             cbxRayons.Text = "";
             txbRayon.Text = "";
         }
-        //retourne l'ID du genre selectionné dans la cbxGenre 
+        //Retourne l'ID du genre selectionné dans la cbxGenre 
         private string GetIdGenre(string unGenre)
         {
             List<Categorie> uneListe = controller.GetAllGenres();
@@ -182,7 +182,7 @@ namespace MediaTekDocuments.view
             }
             return null;
         }
-        //retourne l'id du public selectionné dans la cbxPublic
+        //Retourne l'id du public selectionné dans la cbxPublic
         private string GetIdPublic(string unPublic)
         {
             List<Categorie> uneListe = controller.GetAllPublics();
@@ -195,7 +195,7 @@ namespace MediaTekDocuments.view
             }
             return null;
         }
-        //retourne l'id du public selectionné dans la cbxPublic
+        //Retourne l'id du public selectionné dans la cbxPublic
         private string GetIdRayon(string unRayon)
         {
             List<Categorie> uneListe = controller.GetAllRayons();
@@ -208,21 +208,20 @@ namespace MediaTekDocuments.view
             }
             return null;
         }
-        //retourne l'id au format 5 digits 1 =>00001
+        //Retourne l'id au format 5 digits 1 =>00001
         private string FormaterId(string id)
         {
             int idFormate = int.Parse(id);
             return idFormate.ToString("D5");
         }
-        //action du bouton annuler.
-        //ferme la fenêtre et retour à la précédente
+        //Action du bouton Annuler. Ferme la fênêtre.
         private void btnAnnuler_Click(object sender, EventArgs e)
         {
             FrmMediatek frmMediatek = new FrmMediatek();
             frmMediatek.Show();
             this.Hide();
         }
-        //action du btn Ajouter, envoi un livre, un dvd ou une revue dans la bdd
+        //Action du bouton Ajouter. Envoi un livre, un dvd ou une revue dans la bdd
         private void btnAjouter_Click(object sender, EventArgs e)
         {
             switch (quelEnvoi)
@@ -231,7 +230,7 @@ namespace MediaTekDocuments.view
                     Livre livre = SuperLivre();
                     if (livre != null)
                     {
-                        if (controller.EnvoiLivre(livre)) // l'api return true si l'ajout a fonctionné
+                        if (controller.CreerLivre(livre)) // l'api return true si l'ajout a fonctionné
                         {
                             MessageBox.Show("Livre ajouté");
                             Vide();
@@ -243,7 +242,7 @@ namespace MediaTekDocuments.view
                     Dvd dvd = SuperDvd();
                     if (dvd != null)
                     {
-                        if (controller.EnvoiDvd(dvd))// l'api return true si l'ajout a fonctionné
+                        if (controller.CreerDvd(dvd))// l'api return true si l'ajout a fonctionné
                         {
                             MessageBox.Show("DVD ajouté");
                             Vide();
@@ -255,7 +254,7 @@ namespace MediaTekDocuments.view
                     Revue revue = SuperRevue();
                     if (revue != null)
                     {
-                        if (controller.EnvoiRevue(revue))// l'api return true si l'ajout a fonctionné
+                        if (controller.CreerRevue(revue))// l'api return true si l'ajout a fonctionné
                         {
                             MessageBox.Show("Revue ajouté");
                             Vide();
@@ -265,7 +264,7 @@ namespace MediaTekDocuments.view
             }
 
         }
-        //Action du btn modifier 
+        //Action du bouton Modifier 
         private void btnModifier_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Modifier ?", "Confirmer", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -276,7 +275,7 @@ namespace MediaTekDocuments.view
                         Livre livre = SuperLivre();
                         if (livre != null)
                         {
-                            if (controller.ModifLivre(livre))// l'api return true si l'ajout a fonctionné
+                            if (controller.ModifierLivre(livre))// l'api return true si l'ajout a fonctionné
                             {
                                 MessageBox.Show("Livre modifié");
                             }
@@ -348,20 +347,20 @@ namespace MediaTekDocuments.view
             }
             catch (Exception ex) { return null; }
         }
-        //methode pour l'envoi d'un livre après contrôle des valeurs entrées
+        //Contrôle des valeurs entrées
         private Livre SuperLivre()
         {
             try
             {
                 Livre livre = ValoriseLivre();
-                //controle les combox sauf si modification
+                //controle les ComboBox sauf si modification
                 if (cbxGenres.Text != "" && cbxPublics.Text != "" && cbxRayons.Text != "" || livreModif != null)
                 {
-                    //controle les txtBox 
+                    //controle les TextBox 
                     if (txbTitre.Text != "" && txbIsbnDuree.Text != "" && txbAuteurRealisateurPer.Text != "" && txbCollectionSynopsisDel.Text != "" && txbNumero.Text != "")
                     {
                         Livre testId = listeLivre.Find(x => x.Id.Equals(txbNumero.Text));
-                        //controle que l'id soit disponible saufe si modification
+                        //controle que l'id soit disponible sauf si modification
                         if (testId == null || livreModif != null)
                         {
                             //controle la valeur de l'ID
@@ -382,7 +381,7 @@ namespace MediaTekDocuments.view
                 }
                 else { MessageBox.Show("Sélectionnez un genre, un public et un rayon."); return null; }
             }
-            catch { return null; }
+            catch (Exception ex) { return null; }
         }
         //Methode pour la création/modification d'un dvd
         private Dvd ValoriseDvd()
@@ -397,11 +396,11 @@ namespace MediaTekDocuments.view
                 string realisateur = txbAuteurRealisateurPer.Text;
                 string synopsis = txbCollectionSynopsisDel.Text;
                 string idGenre = GetIdGenre(cbxGenres.Text);
-                string genre = txbGenre.Text; //pas utilise pour créer un livre car selectionné dans la combo
+                string genre = txbGenre.Text; //pas utile pour créer un livre car selectionné dans la combo
                 string idPublic = GetIdPublic(cbxPublics.Text);
-                string Public = txbPublic.Text;//pas utilise pour créer un livre car selectionné dans la combo
+                string Public = txbPublic.Text;//pas utile pour créer un livre car selectionné dans la combo
                 string idRayon = GetIdRayon(cbxRayons.Text);
-                string rayon = txbRayon.Text;//pas utilise pour créer un livre car selectionné dans la combo
+                string rayon = txbRayon.Text;//pas utilie pour créer un livre car selectionné dans la combo
 
                 if (dvdModif != null) //cas d'une modification d'un dvd
                 {
@@ -426,23 +425,22 @@ namespace MediaTekDocuments.view
             }
             catch (Exception ex) { return null; }
         }
-        //methode pour l'envoi d'un dvd
+        //Contrôle des valeurs entrées
         private Dvd SuperDvd()
         {
             try
             {
                 Dvd dvd = ValoriseDvd();
-                //controle les comboBox sauf si modification
+                //controle les ComboBox sauf si modification
                 if (cbxGenres.Text != "" && cbxPublics.Text != "" && cbxRayons.Text != "" || dvdModif != null)
                 {
-                    //controle les txtBox avant appel du constructeur
+                    //controle les TextBox avant appel du constructeur
                     if (txbTitre.Text != "" && txbIsbnDuree.Text != "" && txbAuteurRealisateurPer.Text != "" && txbCollectionSynopsisDel.Text != "" && txbNumero.Text != "")
                     {
                         //controle la valeur de l'ID
                         if ((int.Parse(txbNumero.Text)) > 19999 && (int.Parse(txbNumero.Text)) < 30000)
                         {
-                            Dvd testId = listeDvd.Find(x => x.Id.Equals(txbNumero.Text)); //bug ici a chercher
-                                                                                          //controle que l'id soit disponible sauf si modification
+                            Dvd testId = listeDvd.Find(x => x.Id.Equals(txbNumero.Text));     
                             if (testId == null || dvdModif != null)
                             {
                                 //controle la valeur de Durée
@@ -481,17 +479,17 @@ namespace MediaTekDocuments.view
                 string rayon = txbRayon.Text;
                 if (revueModif != null)
                 {
-                    //si le Genre n'est pas modifier
+                    //si le Genre n'est pas modifié
                     if (idGenre == null)
                     {
                         idGenre = GetIdGenre(txbGenre.Text);
                     }
-                    //si le public n'est pas modifier
+                    //si le public n'est pas modifié
                     if (idPublic == null)
                     {
                         idPublic = GetIdPublic(txbPublic.Text);
                     }
-                    //si le rayon n'est pas modifier
+                    //si le rayon n'est pas modifié
                     if (idRayon == null)
                     {
                         idRayon = GetIdRayon(txbRayon.Text);
@@ -504,23 +502,23 @@ namespace MediaTekDocuments.view
             catch (Exception ex) { }
             return null;
         }
-        //Methode pour l'envoi d'une revue
+        //Contrôle des valeurs entrées
         private Revue SuperRevue()
         {
             try
             {
                 Revue revue = ValoriseRevue();
-                //controle les comboBox sauf si modification
+                //Controle les comboBox sauf si modification
                 if (cbxGenres.Text != "" && cbxPublics.Text != "" && cbxRayons.Text != "" || revueModif != null)
                 {
-                    //controle les txtBox avant appel du constructeur
+                    //Controle les txtBox avant appel du constructeur
                     if (txbTitre.Text != "" && txbAuteurRealisateurPer.Text != "" && txbCollectionSynopsisDel.Text != "" && txbNumero.Text != "")
                     {
                         if ((int.Parse(txbCollectionSynopsisDel.Text) > 1) && (int.Parse(txbCollectionSynopsisDel.Text) < 1000))
                         {
                             if ((int.Parse(txbNumero.Text)) > 10000 && (int.Parse(txbNumero.Text)) < 20000)
                             {
-                                //controle que l'id n'est pas déja utilisé avant appel du constructeur
+                                //Controle que l'id n'est pas déja utilisé avant appel du constructeur
                                 Revue testId = listeRevue.Find(x => x.Id.Equals(txbNumero.Text));
                                 if (testId == null || revueModif != null)
                                 {

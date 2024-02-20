@@ -98,9 +98,9 @@ namespace MediaTekDocuments.controller
         }
 
         //Méthode qui envoi un livre 
-        public bool EnvoiLivre(Livre unLivre)
+        public bool CreerLivre(Livre unLivre)
         {
-            return access.EnvoiLivre(unLivre);
+            return access.CreerLivre(unLivre);
         }
         //Méthode qui supprime un livre
         public bool SupprimerLivre(Livre unLivre)
@@ -108,14 +108,14 @@ namespace MediaTekDocuments.controller
             return access.SupprimerLivre(unLivre);
         }
         //Méthode qui modifie un livre
-        public bool ModifLivre(Livre unLivre)
+        public bool ModifierLivre(Livre unLivre)
         {
-            return access.ModifiLivre(unLivre);
+            return access.ModifierLivre(unLivre);
         }
         //Méthode qui envoi un dvd
-        public bool EnvoiDvd(Dvd unDvd)
+        public bool CreerDvd(Dvd unDvd)
         {
-            return access.EnvoiDvd(unDvd);
+            return access.CreerDvd(unDvd);
         }
         //Méthode qui supprimer un dvd
         public bool SupprimerDvd(Dvd unDvd)
@@ -125,12 +125,12 @@ namespace MediaTekDocuments.controller
         //Méthode qui modifie un dvd
         public bool ModifierDvd(Dvd unDvd)
         {
-            return access.ModifiDvd(unDvd);
+            return access.ModifierDvd(unDvd);
         }
         //Méthode qui envoi une revue
-        public bool EnvoiRevue(Revue uneRevue)
+        public bool CreerRevue(Revue uneRevue)
         {
-            return access.EnvoiRevue(uneRevue);
+            return access.CreerRevue(uneRevue);
         }
         //Méthode qui supprime une revue
         public bool SupprimerRevue(Revue uneRevue)
@@ -156,6 +156,16 @@ namespace MediaTekDocuments.controller
         public bool EnvoiCmd(CommandeDocument uneCommande)
         {
             return access.EnvoiCmd(uneCommande);
+        }
+        //Suppression d'une commande de livre
+        public bool SupprimerCmdLivre(CommandeDocument uneCommande)
+        {
+            return access.SupprimerCmdLivre(uneCommande);
+        }
+        //Modifie une commande de livre
+        public bool ModifCmdLivre(CommandeDocument uneCommande)
+        {
+            return access.ModifCmdLivre(uneCommande);
         }
 
     }

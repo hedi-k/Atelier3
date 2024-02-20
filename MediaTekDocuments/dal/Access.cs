@@ -167,12 +167,12 @@ namespace MediaTekDocuments.dal
             return false;
         }
 
-        //****************************  GESTION LIVRES  **************************************************************************************
-        //Envois un livre à l'api pour la BDD
-        public bool EnvoiLivre(Livre unLivre)
+        //**********************************************  GESTION DES LIVRES  **********************************************
+        //Envoi l'objet livre à l'api pour la BDD.
+        public bool CreerLivre(Livre unLivre)
         {
             String jsonCreerLivre = JsonConvert.SerializeObject(unLivre);
-            //Pour combler l'absence de prise en charge du charactère espace************************* solution temporaire********************
+            //Les espaces ne sont pas pris en charge.
             jsonCreerLivre = jsonCreerLivre.Replace(" ", "-"); 
             try
             {
@@ -187,11 +187,10 @@ namespace MediaTekDocuments.dal
             return false;
 
         }
-        //Supprime le livre en paramètre
+        //Supprime le livre dont l'id est envoyé à l'api.
         public bool SupprimerLivre(Livre unLivre)
         {
             String jsonSupprimerLivre = JsonConvert.SerializeObject(unLivre.Id);
-            //String jsonSupprimerLivre = JsonConvert.SerializeObject(unLivre);
             try
             {
                 List<Object> liste = TraitementRecup<Object>(DELETE, "livre/{\"Id\":" + jsonSupprimerLivre + "}");
@@ -203,13 +202,13 @@ namespace MediaTekDocuments.dal
             }
             return false;
         }
-        //Modifie le livre en paramètre
-        public bool ModifiLivre(Livre unLivre)
+        //Modifie le livre
+        public bool ModifierLivre(Livre unLivre)
         {
-            String jsonModifiLivre = JsonConvert.SerializeObject(unLivre);
+            String jsonModifierLivre = JsonConvert.SerializeObject(unLivre);
             try
             {
-                List<Object> liste = TraitementRecup<Object>(PUT, "livre/" + unLivre.Id + "/" + jsonModifiLivre.Replace(" ", "-"));
+                List<Object> liste = TraitementRecup<Object>(PUT, "livre/" + unLivre.Id + "/" + jsonModifierLivre.Replace(" ", "-"));
                 return (liste != null);
             }
             catch (Exception ex)
@@ -218,9 +217,9 @@ namespace MediaTekDocuments.dal
             }
             return false;
         }
-        //****************************  GESTION DVDs  **************************************************************************************
-        //Envoi le dvd en paramètre
-        public bool EnvoiDvd(Dvd unDvd)
+        //**********************************************  GESTION DES DVDs  **********************************************
+        //Envoi l'objet DVD à l'api pour la BDD.
+        public bool CreerDvd(Dvd unDvd)
         {
             String jsonCreerDvd = JsonConvert.SerializeObject(unDvd);
             try
@@ -235,7 +234,7 @@ namespace MediaTekDocuments.dal
             return false;
 
         }
-        //Supprime le dvd en paramètre
+        //Supprime le dvd dont l'id est envoyé à l'api.
         public bool SupprimerDvd(Dvd unDvd)
         {
             String jsonSupprimerDvd = JsonConvert.SerializeObject(unDvd.Id);
@@ -250,13 +249,13 @@ namespace MediaTekDocuments.dal
             }
             return false;
         }
-        //Modifie le dvd en paramètre
-        public bool ModifiDvd(Dvd unDvd)
+        //Modifie le dvd 
+        public bool ModifierDvd(Dvd unDvd)
         {
-            String jsonModifiDvd = JsonConvert.SerializeObject(unDvd);
+            String jsonModifierDvd = JsonConvert.SerializeObject(unDvd);
             try
             {
-                List<Object> liste = TraitementRecup<Object>(PUT, "dvd/" + unDvd.Id + "/" + jsonModifiDvd.Replace(" ", "-"));
+                List<Object> liste = TraitementRecup<Object>(PUT, "dvd/" + unDvd.Id + "/" + jsonModifierDvd.Replace(" ", "-"));
                 return (liste != null);
             }
             catch (Exception ex)
@@ -265,9 +264,9 @@ namespace MediaTekDocuments.dal
             }
             return false;
         }
-        //****************************  GESTION Revues  *************************************************************************************
-        //Envoi la revue en paramètre
-        public bool EnvoiRevue(Revue uneRevue)
+        //**********************************************  GESTION DES REVUES  **********************************************
+        //Envoi l'objet Revue à l'api pour la BDD.
+        public bool CreerRevue(Revue uneRevue)
         {
             String jsonCreerRevue = JsonConvert.SerializeObject(uneRevue);
             try
@@ -281,7 +280,7 @@ namespace MediaTekDocuments.dal
             }
             return false;
         }
-        //Supprime la revue en paramètre
+        //Supprime la revue dont l'id est envoyé à l'api.
         public bool SupprimerRevue(Revue uneRevue)
         {
             String jsonSupprimerRevue = JsonConvert.SerializeObject(uneRevue.Id);
@@ -296,7 +295,7 @@ namespace MediaTekDocuments.dal
             }
             return false;
         }
-        //Modifie la revue en paramètre
+        //Modifie la revue.
         public bool ModifierRevue(Revue uneRevue) 
         {
             String jsonModifiRevue = JsonConvert.SerializeObject(uneRevue);
@@ -311,7 +310,7 @@ namespace MediaTekDocuments.dal
             }
             return false;
         }
-        //****************************  GESTION des Commande de livres  *************************************************************************************
+        //**********************************************  GESTION DES COMMANDES DE LIVRES  **********************************************
         //retourne les Suivi pour la cbxSuivi
         public List<Categorie> GetSuivi()
         {
@@ -331,6 +330,36 @@ namespace MediaTekDocuments.dal
             try
             {
                 List<Object> liste = TraitementRecup<Object>(POST, "commandeLivre/" + jsonCreerCommandeLivre);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+        //Supprime une commande de Livre
+        public bool SupprimerCmdLivre(CommandeDocument uneCommande)
+        {
+            String jsonSupprimerCmdLivre = JsonConvert.SerializeObject(uneCommande.Id);
+            try
+            {
+                List<Object> liste = TraitementRecup<Object>(DELETE, "commandedocument/{\"Id\":" + jsonSupprimerCmdLivre + "}");
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+        //Modifie une commande de livre
+        public bool ModifCmdLivre(CommandeDocument uneCommande)
+        {
+            String jsonModificmdLivre = JsonConvert.SerializeObject(uneCommande);
+            try
+            {
+                List<Object> liste = TraitementRecup<Object>(PUT, "commandeLivre/" + uneCommande.Id + "/" + jsonModificmdLivre.Replace(" ", "-"));
                 return (liste != null);
             }
             catch (Exception ex)
