@@ -203,7 +203,7 @@ namespace MediaTekDocuments.view
             this.label73 = new System.Windows.Forms.Label();
             this.label72 = new System.Windows.Forms.Label();
             this.label71 = new System.Windows.Forms.Label();
-            this.dtgCmdLivre = new System.Windows.Forms.DataGridView();
+            this.dgvCmdLivre = new System.Windows.Forms.DataGridView();
             this.grbInfoCmdLivre = new System.Windows.Forms.GroupBox();
             this.label61 = new System.Windows.Forms.Label();
             this.txbCmdLivreISBN = new System.Windows.Forms.TextBox();
@@ -251,7 +251,7 @@ namespace MediaTekDocuments.view
             ((System.ComponentModel.ISupportInitialize)(this.pcbReceptionRevueImage)).BeginInit();
             this.tabOngletCommandeLivre.SuspendLayout();
             this.grbCmdLivre2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgCmdLivre)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCmdLivre)).BeginInit();
             this.grbInfoCmdLivre.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbCmdLivreImage)).BeginInit();
             this.SuspendLayout();
@@ -1935,7 +1935,7 @@ namespace MediaTekDocuments.view
             this.tabOngletCommandeLivre.Controls.Add(this.btnSupprimer);
             this.tabOngletCommandeLivre.Controls.Add(this.btnAjouterCmdLivre);
             this.tabOngletCommandeLivre.Controls.Add(this.grbCmdLivre2);
-            this.tabOngletCommandeLivre.Controls.Add(this.dtgCmdLivre);
+            this.tabOngletCommandeLivre.Controls.Add(this.dgvCmdLivre);
             this.tabOngletCommandeLivre.Controls.Add(this.grbInfoCmdLivre);
             this.tabOngletCommandeLivre.Controls.Add(this.btnRechCmdLivre);
             this.tabOngletCommandeLivre.Controls.Add(this.label60);
@@ -2092,19 +2092,19 @@ namespace MediaTekDocuments.view
             // 
             // dtgCmdLivre
             // 
-            this.dtgCmdLivre.AllowUserToAddRows = false;
-            this.dtgCmdLivre.AllowUserToDeleteRows = false;
-            this.dtgCmdLivre.AllowUserToResizeColumns = false;
-            this.dtgCmdLivre.AllowUserToResizeRows = false;
-            this.dtgCmdLivre.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgCmdLivre.Location = new System.Drawing.Point(3, 293);
-            this.dtgCmdLivre.MultiSelect = false;
-            this.dtgCmdLivre.Name = "dtgCmdLivre";
-            this.dtgCmdLivre.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgCmdLivre.Size = new System.Drawing.Size(557, 355);
-            this.dtgCmdLivre.TabIndex = 21;
-            this.dtgCmdLivre.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dtgCmdLivre_ColumnHeaderMouseClick);
-            this.dtgCmdLivre.SelectionChanged += new System.EventHandler(this.dtgCmdLivre_SelectionChanged);
+            this.dgvCmdLivre.AllowUserToAddRows = false;
+            this.dgvCmdLivre.AllowUserToDeleteRows = false;
+            this.dgvCmdLivre.AllowUserToResizeColumns = false;
+            this.dgvCmdLivre.AllowUserToResizeRows = false;
+            this.dgvCmdLivre.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCmdLivre.Location = new System.Drawing.Point(3, 293);
+            this.dgvCmdLivre.MultiSelect = false;
+            this.dgvCmdLivre.Name = "dtgCmdLivre";
+            this.dgvCmdLivre.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvCmdLivre.Size = new System.Drawing.Size(557, 355);
+            this.dgvCmdLivre.TabIndex = 21;
+            this.dgvCmdLivre.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dtgCmdLivre_ColumnHeaderMouseClick);
+            this.dgvCmdLivre.SelectionChanged += new System.EventHandler(this.dtgCmdLivre_SelectionChanged);
             // 
             // grbInfoCmdLivre
             // 
@@ -2369,7 +2369,7 @@ namespace MediaTekDocuments.view
             this.tabOngletCommandeLivre.PerformLayout();
             this.grbCmdLivre2.ResumeLayout(false);
             this.grbCmdLivre2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgCmdLivre)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCmdLivre)).EndInit();
             this.grbInfoCmdLivre.ResumeLayout(false);
             this.grbInfoCmdLivre.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbCmdLivreImage)).EndInit();
@@ -2547,7 +2547,7 @@ namespace MediaTekDocuments.view
         private System.Windows.Forms.Label label73;
         private System.Windows.Forms.Label label72;
         private System.Windows.Forms.Label label71;
-        private System.Windows.Forms.DataGridView dtgCmdLivre;
+        private System.Windows.Forms.DataGridView dgvCmdLivre;
         private System.Windows.Forms.GroupBox grbInfoCmdLivre;
         private System.Windows.Forms.Label label61;
         private System.Windows.Forms.TextBox txbCmdLivreISBN;
