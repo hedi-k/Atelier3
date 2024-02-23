@@ -152,21 +152,25 @@ namespace MediaTekDocuments.controller
         {
             return access.GetAllCommandeLivre();
         }
-        //Ajoute une commande de livre
+        //Ajoute une commande de livre ou dvd
         public bool EnvoiCmd(CommandeDocument uneCommande)
         {
-            return access.EnvoiCmd(uneCommande);
+            return access.CreerCmd(uneCommande);
         }
         //Suppression d'une commande de livre
-        public bool SupprimerCmdLivre(CommandeDocument uneCommande)
+        public bool SupprimerCmd(CommandeDocument uneCommande)
         {
-            return access.SupprimerCmdLivre(uneCommande);
+            return access.SupprimerCmd(uneCommande);
         }
-        //Modifie une commande de livre
-        public bool ModifCmdLivre(CommandeDocument uneCommande)
+        //Modifie une commande de livre ou Dvd
+        public bool ModifierCmd(CommandeDocument uneCommande)
         {
-            return access.ModifCmdLivre(uneCommande);
+            return access.ModifierCmd(uneCommande);
         }
-
+        //Retourne les commandes de dvd
+        public List<CommandeDocument> GetAllCommandeDvds()
+        {
+            return access.GetAllCommandeDvds();
+        }
     }
 }

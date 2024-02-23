@@ -323,13 +323,13 @@ namespace MediaTekDocuments.dal
             List<CommandeDocument> lesCommandeLivre = TraitementRecup<CommandeDocument>(GET, "lesCommandeLivre");
             return lesCommandeLivre;
         }
-        //Envoi une commande de Livre
-        public bool EnvoiCmd(CommandeDocument uneCommande)
+        //Envoi une commande de Livre ou dvd
+        public bool CreerCmd(CommandeDocument uneCommande)
         {
-            String jsonCreerCommandeLivre = JsonConvert.SerializeObject(uneCommande, new CustomDateTimeConverter());
+            String jsonCreerCommande = JsonConvert.SerializeObject(uneCommande, new CustomDateTimeConverter());
             try
             {
-                List<Object> liste = TraitementRecup<Object>(POST, "commandeLivre/" + jsonCreerCommandeLivre);
+                List<Object> liste = TraitementRecup<Object>(POST, "commandeLivreOuDvd/" + jsonCreerCommande.Replace(" ", "-"));
                 return (liste != null);
             }
             catch (Exception ex)
@@ -338,8 +338,8 @@ namespace MediaTekDocuments.dal
             }
             return false;
         }
-        //Supprime une commande de Livre
-        public bool SupprimerCmdLivre(CommandeDocument uneCommande)
+        //Supprime une commande de Livre ou de DVD
+        public bool SupprimerCmd(CommandeDocument uneCommande)
         {
             String jsonSupprimerCmdLivre = JsonConvert.SerializeObject(uneCommande.Id);
             try
@@ -353,13 +353,13 @@ namespace MediaTekDocuments.dal
             }
             return false;
         }
-        //Modifie une commande de livre
-        public bool ModifCmdLivre(CommandeDocument uneCommande)
+        //Modifie une commande de livre ou dvd
+        public bool ModifierCmd(CommandeDocument uneCommande)
         {
-            String jsonModificmdLivre = JsonConvert.SerializeObject(uneCommande);
+            String jsonModifiercmd = JsonConvert.SerializeObject(uneCommande);
             try
             {
-                List<Object> liste = TraitementRecup<Object>(PUT, "commandeLivre/" + uneCommande.Id + "/" + jsonModificmdLivre.Replace(" ", "-"));
+                List<Object> liste = TraitementRecup<Object>(PUT, "commandeLivreOuDvd/" + uneCommande.Id + "/" + jsonModifiercmd.Replace(" ", "-"));
                 return (liste != null);
             }
             catch (Exception ex)
@@ -368,6 +368,17 @@ namespace MediaTekDocuments.dal
             }
             return false;
         }
+        //**********************************************  GESTION DES COMMANDES DE DVDs  **********************************************
+        //retourne la liste de commande de livre
+        public List<CommandeDocument> GetAllCommandeDvds()
+        {
+            List<CommandeDocument> lesCommandeDvds = TraitementRecup<CommandeDocument>(GET, "lesCommandeDvds");
+            return lesCommandeDvds;
+        }
+
+
+
+
         /// <summary>
         /// Traitement de la récupération du retour de l'api, avec conversion du json en liste pour les select (GET)
         /// </summary>
