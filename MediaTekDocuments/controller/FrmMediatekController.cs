@@ -153,7 +153,7 @@ namespace MediaTekDocuments.controller
             return access.GetAllCommandeLivre();
         }
         //Ajoute une commande de livre ou dvd
-        public bool EnvoiCmd(CommandeDocument uneCommande)
+        public bool CreerCmd(CommandeDocument uneCommande)
         {
             return access.CreerCmd(uneCommande);
         }
@@ -171,6 +171,21 @@ namespace MediaTekDocuments.controller
         public List<CommandeDocument> GetAllCommandeDvds()
         {
             return access.GetAllCommandeDvds();
+        }
+        //Retourne les commandes de revues
+        public List<Abonnement> GetAllCommandeRevues()
+        {
+            return access.GetAllCommandeRevues();
+        }
+        //Ajoute une commande de revue
+        public bool CreerCmdRevue(Abonnement unAbonnement)
+        {
+            return access.CreerCmdRevue(unAbonnement);
+        }
+        //Supprime une commande de revue
+        public bool SupprimerCmdRevue(Abonnement unAbonnement)
+        {
+            return access.SupprimerCmdRevue(unAbonnement);
         }
     }
 }

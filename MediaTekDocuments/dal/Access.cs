@@ -375,9 +375,43 @@ namespace MediaTekDocuments.dal
             List<CommandeDocument> lesCommandeDvds = TraitementRecup<CommandeDocument>(GET, "lesCommandeDvds");
             return lesCommandeDvds;
         }
-
-
-
+        //**********************************************  GESTION DES COMMANDES DE Revues  **********************************************
+        //retourne la liste de commande de Revue
+       public List<Abonnement> GetAllCommandeRevues()
+        {
+            List<Abonnement> lesCommandesRevues = TraitementRecup<Abonnement>(GET, "lesCommandeRevues");
+            return lesCommandesRevues;
+        }
+        //Commande une revue
+        public bool CreerCmdRevue(Abonnement unAbonnement)
+        {
+            String jsonCreerCommandeRevue = JsonConvert.SerializeObject(unAbonnement, new CustomDateTimeConverter());
+            try
+            {
+                List<Object> liste = TraitementRecup<Object>(POST, "commandeAbonnementRevue/" + jsonCreerCommandeRevue.Replace(" ", "-"));
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+        //Supprime une  cmd de re vue
+        public bool SupprimerCmdRevue(Abonnement unAbonnement)
+        {
+            String jsonSupprimerCmdRevue = JsonConvert.SerializeObject(unAbonnement.Id);
+            try
+            {
+                List<Object> liste = TraitementRecup<Object>(DELETE, "Abonnement/{\"Id\":" + jsonSupprimerCmdRevue + "}");
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
 
         /// <summary>
         /// Traitement de la récupération du retour de l'api, avec conversion du json en liste pour les select (GET)
