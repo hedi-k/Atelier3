@@ -187,5 +187,18 @@ namespace MediaTekDocuments.controller
         {
             return access.SupprimerCmdRevue(unAbonnement);
         }
+        //GetAllEtat
+        public List<Etat> GetAllEtats()
+        {
+            return access.GetAllEtats();
+        }
+        public bool ModifierExemplaire(Exemplaire unExemplaire)
+        {
+            return access.ModifierExemplaire(unExemplaire);
+        }
+        public bool SupprimerExemplaire(Exemplaire unExemplaire)
+        {
+            return access.SupprimerExemplaire(unExemplaire);
+        }
     }
 }

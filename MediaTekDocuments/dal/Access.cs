@@ -412,6 +412,44 @@ namespace MediaTekDocuments.dal
             }
             return false;
         }
+        //Recupère les états
+        public List<Etat> GetAllEtats()
+        {
+            List<Etat> lesEtats = TraitementRecup<Etat>(GET, "etat");
+            return lesEtats;
+        }
+        //ModifierExemplaire
+        public bool ModifierExemplaire(Exemplaire unExemplaire)
+        {
+            String jsonModifierExemlaire = JsonConvert.SerializeObject(unExemplaire);
+            try
+            {
+                List<Object> liste = TraitementRecup<Object>(PUT, "exemplaire/" + unExemplaire.Numero + "/" + jsonModifierExemlaire.Replace(" ", "-"));
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+        //Supprimer un Exemplaire
+        public bool SupprimerExemplaire(Exemplaire unExemplaire)
+        {
+            String jsonSupprimerunExemplaire = JsonConvert.SerializeObject(unExemplaire.Numero); 
+            Console.WriteLine("Le numéro envoyé est :" + unExemplaire.Numero);
+            try
+            {
+                List<Object> liste = TraitementRecup<Object>(DELETE, "exemplaire/{\"Numero\":" + jsonSupprimerunExemplaire + "}");
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
 
         /// <summary>
         /// Traitement de la récupération du retour de l'api, avec conversion du json en liste pour les select (GET)
