@@ -97,50 +97,26 @@ namespace MediaTekDocuments.controller
             return access.CreerExemplaire(exemplaire);
         }
 
-        //Méthode qui envoi un livre 
-        public bool CreerLivre(Livre unLivre)
+        //Cette méthode envoi à l acces livre, dvd et Revue.
+        //En C#, T est un paramètre de type générique.
+        //Ce qui implique quelle va traiter indiférement un objet Livre/Dvd/revue
+        public bool EnvoiDocuments<T>(T unDocument)
         {
-            return access.CreerLivre(unLivre);
+            return access.CreerDocument(unDocument);
         }
-        //Méthode qui supprime un livre
-        public bool SupprimerLivre(Livre unLivre)
+        //Modifie un livre, un dvd ou une revue
+        //En C#, T est un paramètre de type générique.
+        //Ce qui implique quelle va traiter indiférement un objet Livre/Dvd/revue
+        public bool ModifierDocuments<T>(T unDocument)
         {
-            return access.SupprimerLivre(unLivre);
+            return access.ModifierDocument(unDocument);
         }
-        //Méthode qui modifie un livre
-        public bool ModifierLivre(Livre unLivre)
+        //Supprime un livre, dvd ou revue
+        //En C#, T est un paramètre de type générique.
+        //Ce qui implique quelle va traiter indiférement un objet Livre/Dvd/revue
+        public bool SupprimerDocument<T>(T unDocument)
         {
-            return access.ModifierLivre(unLivre);
-        }
-        //Méthode qui envoi un dvd
-        public bool CreerDvd(Dvd unDvd)
-        {
-            return access.CreerDvd(unDvd);
-        }
-        //Méthode qui supprimer un dvd
-        public bool SupprimerDvd(Dvd unDvd)
-        {
-            return access.SupprimerDvd(unDvd);
-        }
-        //Méthode qui modifie un dvd
-        public bool ModifierDvd(Dvd unDvd)
-        {
-            return access.ModifierDvd(unDvd);
-        }
-        //Méthode qui envoi une revue
-        public bool CreerRevue(Revue uneRevue)
-        {
-            return access.CreerRevue(uneRevue);
-        }
-        //Méthode qui supprime une revue
-        public bool SupprimerRevue(Revue uneRevue)
-        {
-            return access.SupprimerRevue(uneRevue);
-        }
-        //Méthode qui modifie une revue
-        public bool ModifierRevue(Revue uneRevue)
-        {
-            return access.ModifierRevue(uneRevue);
+            return access.SupprimerDocument(unDocument);
         }
         //Charge la liste de suivi
         public List<Categorie> GetSuivi()
@@ -152,21 +128,6 @@ namespace MediaTekDocuments.controller
         {
             return access.GetAllCommandeLivre();
         }
-        //Ajoute une commande de livre ou dvd
-        public bool CreerCmd(CommandeDocument uneCommande)
-        {
-            return access.CreerCmd(uneCommande);
-        }
-        //Suppression d'une commande de livre
-        public bool SupprimerCmd(CommandeDocument uneCommande)
-        {
-            return access.SupprimerCmd(uneCommande);
-        }
-        //Modifie une commande de livre ou Dvd
-        public bool ModifierCmd(CommandeDocument uneCommande)
-        {
-            return access.ModifierCmd(uneCommande);
-        }
         //Retourne les commandes de dvd
         public List<CommandeDocument> GetAllCommandeDvds()
         {
@@ -177,28 +138,13 @@ namespace MediaTekDocuments.controller
         {
             return access.GetAllCommandeRevues();
         }
-        //Ajoute une commande de revue
-        public bool CreerCmdRevue(Abonnement unAbonnement)
-        {
-            return access.CreerCmdRevue(unAbonnement);
-        }
-        //Supprime une commande de revue
-        public bool SupprimerCmdRevue(Abonnement unAbonnement)
-        {
-            return access.SupprimerCmdRevue(unAbonnement);
-        }
-        //GetAllEtat
+        //Retourne les états
         public List<Etat> GetAllEtats()
         {
             return access.GetAllEtats();
         }
-        public bool ModifierExemplaire(Exemplaire unExemplaire)
-        {
-            return access.ModifierExemplaire(unExemplaire);
-        }
-        public bool SupprimerExemplaire(Exemplaire unExemplaire)
-        {
-            return access.SupprimerExemplaire(unExemplaire);
-        }
+ 
+
+        
     }
 }

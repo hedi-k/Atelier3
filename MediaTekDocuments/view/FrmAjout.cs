@@ -30,12 +30,17 @@ namespace MediaTekDocuments.view
             List<Object> lesListes = null, Object aModifier = null)
         {
             InitializeComponent();
+            //Remplit les ComboBox qui contiennent les Genres, Publics et Rayons.
             RemplirCbx(bdgGenres2, cbxGenres);
             RemplirCbx(bdgPublics, cbxPublics);
             RemplirCbx(bdgRayons, cbxRayons);
+            //Gestion des affichages des TextBox et label
             Affichage(onglet, affichage);
+            //Convertit la liste d'objets reçue en liste de livres, de DVDs ou de revues.
             ChargeListe(onglet, lesListes);
+            //Méthode pour la modification d'un livre ou un dvd
             ChargeObjet(onglet, aModifier);
+            //Affecte le comportement pour l'appel du contrôleur
             quelEnvoi = onglet;
         }
 
@@ -50,6 +55,7 @@ namespace MediaTekDocuments.view
             switch (onglet)
             {
                 case "livre":
+                    //Convertit la liste d'objets en livres
                     listeLivre = uneListe.ConvertAll(Object => (Livre)Object);
                     break;
                 case "dvd":
@@ -69,16 +75,17 @@ namespace MediaTekDocuments.view
                 cbx.SelectedIndex = -1;
             }
         }
-        //Gestion des affichages des TextBox et labelles
+        //Gestion des affichages des TextBox et label
         private void Affichage(string onglet, bool affichage)
         {
+            //Adapte le comportement des boutons
             btnAjouter.Enabled = !affichage;
             txbNumero.Enabled = !affichage;
             btnModifier.Enabled = affichage;
             txbGenre.Enabled = false;
             txbPublic.Enabled = false;
             txbRayon.Enabled = false;
-
+            //Adapte les label
             switch (onglet)
             {
                 case "livre":
@@ -227,10 +234,10 @@ namespace MediaTekDocuments.view
             switch (quelEnvoi)
             {
                 case "livre":
-                    Livre livre = SuperLivre();
+                    Livre livre = SuperLivre(); 
                     if (livre != null)
                     {
-                        if (controller.CreerLivre(livre)) // l'api return true si l'ajout a fonctionné
+                        if (controller.EnvoiDocuments(livre)) // l'api return true si l'ajout a fonctionné
                         {
                             MessageBox.Show("Livre ajouté");
                             Vide();
@@ -242,7 +249,7 @@ namespace MediaTekDocuments.view
                     Dvd dvd = SuperDvd();
                     if (dvd != null)
                     {
-                        if (controller.CreerDvd(dvd))// l'api return true si l'ajout a fonctionné
+                        if (controller.EnvoiDocuments(dvd))
                         {
                             MessageBox.Show("DVD ajouté");
                             Vide();
@@ -254,7 +261,7 @@ namespace MediaTekDocuments.view
                     Revue revue = SuperRevue();
                     if (revue != null)
                     {
-                        if (controller.CreerRevue(revue))// l'api return true si l'ajout a fonctionné
+                        if (controller.EnvoiDocuments(revue))
                         {
                             MessageBox.Show("Revue ajouté");
                             Vide();
@@ -262,7 +269,6 @@ namespace MediaTekDocuments.view
                     }
                     break;
             }
-
         }
         //Action du bouton Modifier 
         private void btnModifier_Click(object sender, EventArgs e)
@@ -275,7 +281,7 @@ namespace MediaTekDocuments.view
                         Livre livre = SuperLivre();
                         if (livre != null)
                         {
-                            if (controller.ModifierLivre(livre))// l'api return true si l'ajout a fonctionné
+                            if (controller.ModifierDocuments(livre))
                             {
                                 MessageBox.Show("Livre modifié");
                             }
@@ -285,7 +291,7 @@ namespace MediaTekDocuments.view
                         Dvd dvd = SuperDvd();
                         if (dvd != null)
                         {
-                            if (controller.ModifierDvd(dvd))
+                            if (controller.ModifierDocuments(dvd))
                             {
                                 MessageBox.Show("DVD modifié");
                             }
@@ -295,7 +301,7 @@ namespace MediaTekDocuments.view
                         Revue revue = SuperRevue();
                         if (revue != null)
                         {
-                            if (controller.ModifierRevue(revue))
+                            if (controller.ModifierDocuments(revue))
                             {
                                 MessageBox.Show("Revue modifié");
                             }
@@ -396,11 +402,11 @@ namespace MediaTekDocuments.view
                 string realisateur = txbAuteurRealisateurPer.Text;
                 string synopsis = txbCollectionSynopsisDel.Text;
                 string idGenre = GetIdGenre(cbxGenres.Text);
-                string genre = txbGenre.Text; //pas utile pour créer un livre car selectionné dans la combo
+                string genre = txbGenre.Text;
                 string idPublic = GetIdPublic(cbxPublics.Text);
-                string Public = txbPublic.Text;//pas utile pour créer un livre car selectionné dans la combo
+                string Public = txbPublic.Text;
                 string idRayon = GetIdRayon(cbxRayons.Text);
-                string rayon = txbRayon.Text;//pas utilie pour créer un livre car selectionné dans la combo
+                string rayon = txbRayon.Text;
 
                 if (dvdModif != null) //cas d'une modification d'un dvd
                 {
