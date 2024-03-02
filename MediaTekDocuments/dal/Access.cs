@@ -296,6 +296,26 @@ namespace MediaTekDocuments.dal
             return lesEtats;
         }
 
+        //Méthode pour l'authentification
+        public Utilisateur Authentification (Utilisateur utilisateur)
+        {
+            String jsonAuthentification = JsonConvert.SerializeObject(utilisateur);
+            try
+            {
+                List<Utilisateur> liste = TraitementRecup<Utilisateur>(GET,"authentification/"+ jsonAuthentification);
+                if (liste != null)
+                {
+                    //Il y a qu'un utilisateur qui peut être retourné donc indice 0
+                    return liste[0];
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
         /// <summary>
         /// Traitement de la récupération du retour de l'api, avec conversion du json en liste pour les select (GET)
         /// </summary>

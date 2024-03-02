@@ -111,8 +111,12 @@ namespace MediaTekDocuments.view
             this.txbCmdLivreNum = new System.Windows.Forms.TextBox();
             this.tabReceptionRevue = new System.Windows.Forms.TabPage();
             this.grpReceptionExemplaire = new System.Windows.Forms.GroupBox();
+            this.btnRevueExemplaireSupprimer = new System.Windows.Forms.Button();
             this.label55 = new System.Windows.Forms.Label();
+            this.btnRevueExemplaireModifier = new System.Windows.Forms.Button();
             this.btnReceptionExemplaireImage = new System.Windows.Forms.Button();
+            this.label105 = new System.Windows.Forms.Label();
+            this.cbxRevuEtat = new System.Windows.Forms.ComboBox();
             this.pcbReceptionExemplaireImage = new System.Windows.Forms.PictureBox();
             this.btnReceptionExemplaireValider = new System.Windows.Forms.Button();
             this.txbReceptionExemplaireImage = new System.Windows.Forms.TextBox();
@@ -314,10 +318,6 @@ namespace MediaTekDocuments.view
             this.btnRechCmdRevue = new System.Windows.Forms.Button();
             this.label104 = new System.Windows.Forms.Label();
             this.txbCmdRevueNum = new System.Windows.Forms.TextBox();
-            this.btnRevueExemplaireSupprimer = new System.Windows.Forms.Button();
-            this.btnRevueExemplaireModifier = new System.Windows.Forms.Button();
-            this.label105 = new System.Windows.Forms.Label();
-            this.cbxRevuEtat = new System.Windows.Forms.ComboBox();
             this.tabOngletCommandeDvd.SuspendLayout();
             this.grbCmdDvd.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbCmdDvdImage)).BeginInit();
@@ -1215,6 +1215,16 @@ namespace MediaTekDocuments.view
             this.grpReceptionExemplaire.TabStop = false;
             this.grpReceptionExemplaire.Text = "Nouvelle parution réceptionnée pour cette revue";
             // 
+            // btnRevueExemplaireSupprimer
+            // 
+            this.btnRevueExemplaireSupprimer.Location = new System.Drawing.Point(274, 181);
+            this.btnRevueExemplaireSupprimer.Name = "btnRevueExemplaireSupprimer";
+            this.btnRevueExemplaireSupprimer.Size = new System.Drawing.Size(96, 22);
+            this.btnRevueExemplaireSupprimer.TabIndex = 60;
+            this.btnRevueExemplaireSupprimer.Text = "Supprimer";
+            this.btnRevueExemplaireSupprimer.UseVisualStyleBackColor = true;
+            this.btnRevueExemplaireSupprimer.Click += new System.EventHandler(this.btnRevueExemplaireSupprimer_Click);
+            // 
             // label55
             // 
             this.label55.AutoSize = true;
@@ -1224,6 +1234,16 @@ namespace MediaTekDocuments.view
             this.label55.Size = new System.Drawing.Size(113, 13);
             this.label55.TabIndex = 57;
             this.label55.Text = "Image exemplaire :";
+            // 
+            // btnRevueExemplaireModifier
+            // 
+            this.btnRevueExemplaireModifier.Location = new System.Drawing.Point(274, 135);
+            this.btnRevueExemplaireModifier.Name = "btnRevueExemplaireModifier";
+            this.btnRevueExemplaireModifier.Size = new System.Drawing.Size(96, 22);
+            this.btnRevueExemplaireModifier.TabIndex = 58;
+            this.btnRevueExemplaireModifier.Text = "Modifier";
+            this.btnRevueExemplaireModifier.UseVisualStyleBackColor = true;
+            this.btnRevueExemplaireModifier.Click += new System.EventHandler(this.btnRevueExemplaireModifier_Click);
             // 
             // btnReceptionExemplaireImage
             // 
@@ -1235,6 +1255,23 @@ namespace MediaTekDocuments.view
             this.btnReceptionExemplaireImage.Text = "Rechercher";
             this.btnReceptionExemplaireImage.UseVisualStyleBackColor = true;
             this.btnReceptionExemplaireImage.Click += new System.EventHandler(this.btnReceptionExemplaireImage_Click);
+            // 
+            // label105
+            // 
+            this.label105.AutoSize = true;
+            this.label105.Location = new System.Drawing.Point(15, 135);
+            this.label105.Name = "label105";
+            this.label105.Size = new System.Drawing.Size(101, 13);
+            this.label105.TabIndex = 59;
+            this.label105.Text = "Etat de l\'exemplaire:";
+            // 
+            // cbxRevuEtat
+            // 
+            this.cbxRevuEtat.FormattingEnabled = true;
+            this.cbxRevuEtat.Location = new System.Drawing.Point(122, 135);
+            this.cbxRevuEtat.Name = "cbxRevuEtat";
+            this.cbxRevuEtat.Size = new System.Drawing.Size(121, 21);
+            this.cbxRevuEtat.TabIndex = 57;
             // 
             // pcbReceptionExemplaireImage
             // 
@@ -3351,43 +3388,6 @@ namespace MediaTekDocuments.view
             this.txbCmdRevueNum.Name = "txbCmdRevueNum";
             this.txbCmdRevueNum.Size = new System.Drawing.Size(67, 20);
             this.txbCmdRevueNum.TabIndex = 15;
-            // 
-            // btnRevueExemplaireSupprimer
-            // 
-            this.btnRevueExemplaireSupprimer.Location = new System.Drawing.Point(274, 181);
-            this.btnRevueExemplaireSupprimer.Name = "btnRevueExemplaireSupprimer";
-            this.btnRevueExemplaireSupprimer.Size = new System.Drawing.Size(96, 22);
-            this.btnRevueExemplaireSupprimer.TabIndex = 60;
-            this.btnRevueExemplaireSupprimer.Text = "Supprimer";
-            this.btnRevueExemplaireSupprimer.UseVisualStyleBackColor = true;
-            this.btnRevueExemplaireSupprimer.Click += new System.EventHandler(this.btnRevueExemplaireSupprimer_Click);
-            // 
-            // btnRevueExemplaireModifier
-            // 
-            this.btnRevueExemplaireModifier.Location = new System.Drawing.Point(274, 135);
-            this.btnRevueExemplaireModifier.Name = "btnRevueExemplaireModifier";
-            this.btnRevueExemplaireModifier.Size = new System.Drawing.Size(96, 22);
-            this.btnRevueExemplaireModifier.TabIndex = 58;
-            this.btnRevueExemplaireModifier.Text = "Modifier";
-            this.btnRevueExemplaireModifier.UseVisualStyleBackColor = true;
-            this.btnRevueExemplaireModifier.Click += new System.EventHandler(this.btnRevueExemplaireModifier_Click);
-            // 
-            // label105
-            // 
-            this.label105.AutoSize = true;
-            this.label105.Location = new System.Drawing.Point(15, 135);
-            this.label105.Name = "label105";
-            this.label105.Size = new System.Drawing.Size(101, 13);
-            this.label105.TabIndex = 59;
-            this.label105.Text = "Etat de l\'exemplaire:";
-            // 
-            // cbxRevuEtat
-            // 
-            this.cbxRevuEtat.FormattingEnabled = true;
-            this.cbxRevuEtat.Location = new System.Drawing.Point(122, 135);
-            this.cbxRevuEtat.Name = "cbxRevuEtat";
-            this.cbxRevuEtat.Size = new System.Drawing.Size(121, 21);
-            this.cbxRevuEtat.TabIndex = 57;
             // 
             // FrmMediatek
             // 

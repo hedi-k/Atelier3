@@ -27,6 +27,14 @@ namespace MediaTekDocuments.view
         private readonly BindingSource bdgEtats = new BindingSource();
         private List<Etat> lesEtats = new List<Etat>();
 
+        //Remplace FrmMediatek mais necessaire pour récupérer l'utilisateur
+        public FrmMediatek(Utilisateur utilisateur)
+        {
+            InitializeComponent();
+            this.controller = new FrmMediatekController();
+            Permission(utilisateur);
+
+        }
         /// <summary>
         /// Constructeur : création du contrôleur lié à ce formulaire
         /// </summary>
@@ -34,7 +42,7 @@ namespace MediaTekDocuments.view
         {
             InitializeComponent();
             this.controller = new FrmMediatekController();
-           // AbonnementsSurLaFIn(); ////////////////////////////////////// Ne pas oublier de décommenter pour la version final !!!!
+            
         }
 
         /// <summary>
@@ -1572,7 +1580,7 @@ namespace MediaTekDocuments.view
                 }
                 else { MessageBox.Show("Les livres qui possèdent un exemplaire ne peuvent pas être supprimer !"); }
             }
-            else { MessageBox.Show("selectionner un livre !");}
+            else { MessageBox.Show("selectionner un livre !"); }
 
         }
         //Action du bouton modifier (livre)
@@ -1592,7 +1600,7 @@ namespace MediaTekDocuments.view
                 frmAjout.Show();
                 this.Hide();
             }
-            else{ MessageBox.Show("selectionnez un livre !");}
+            else { MessageBox.Show("selectionnez un livre !"); }
         }
         #endregion
 
@@ -1604,7 +1612,7 @@ namespace MediaTekDocuments.view
             //Chaîne de carctère qui va influencer les structures conditionnelles de FrmAjout
             string ongletDvd = "dvd";
             //Converti la liste de livres en liste d'objets
-            List<Object> listeObjDvd = lesDvd.ConvertAll(Dvd => (Object)Dvd); 
+            List<Object> listeObjDvd = lesDvd.ConvertAll(Dvd => (Object)Dvd);
             //Lance frmAjout avec les paramètres nécessaires à l'ajout d'un livre
             FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, false, ongletDvd, listeObjDvd);
             frmAjout.Text = "Ajout d'un DVD";
@@ -1618,7 +1626,7 @@ namespace MediaTekDocuments.view
             if (dgvDvdListe.CurrentCell != null)
             {
                 //contrôle un exemplaire
-                if (dgvDvdExemplaire.CurrentCell == null)   
+                if (dgvDvdExemplaire.CurrentCell == null)
                 {
                     Dvd dvd = (Dvd)bdgDvdListe.List[bdgDvdListe.Position];
                     CommandeDocument cmdDvd = listCmdDvds.Find(x => x.IdLivreDvd.Equals(dvd.Id));
@@ -1633,7 +1641,7 @@ namespace MediaTekDocuments.view
                     }
                     else { MessageBox.Show("Une commande est en cours sur ce DVD, il ne peut pas être effacé !"); }
                 }
-                else {MessageBox.Show("Les DVD qui possèdent un exemplaire ne peuvent pas être supprimer !!");}
+                else { MessageBox.Show("Les DVD qui possèdent un exemplaire ne peuvent pas être supprimer !!"); }
             }
             else { MessageBox.Show("selectionner un DVD !"); }
         }
@@ -1643,14 +1651,14 @@ namespace MediaTekDocuments.view
             if (dgvDvdListe.CurrentCell != null)
             {
                 string ongletDvd = "dvd";
-                List<Object> listeObjDvd = lesDvd.ConvertAll(Dvd => (Object)Dvd); 
+                List<Object> listeObjDvd = lesDvd.ConvertAll(Dvd => (Object)Dvd);
                 Object aModifier = (Object)bdgDvdListe.List[bdgDvdListe.Position];
                 FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, true, ongletDvd, listeObjDvd, aModifier);
                 frmAjout.Text = "Modification d'un DVD";
                 frmAjout.Show();
                 this.Hide();
             }
-            else{ MessageBox.Show("Selectionnez un Dvd !");}
+            else { MessageBox.Show("Selectionnez un Dvd !"); }
         }
         #endregion
 
@@ -1673,11 +1681,11 @@ namespace MediaTekDocuments.view
         private void btnSupprimerRevue_Click(object sender, EventArgs e)
         {
             //vérification de la selection
-            if (dgvRevuesListe.CurrentCell != null)   
+            if (dgvRevuesListe.CurrentCell != null)
             {
                 //controle si un abonnement (donc une commande) est en cours
                 Revue revue = (Revue)bdgRevuesListe.List[bdgRevuesListe.Position];
-                Abonnement testId =  listCmdRevues.Find(x => x.IdRevue.Equals(revue.Id));
+                Abonnement testId = listCmdRevues.Find(x => x.IdRevue.Equals(revue.Id));
                 if (testId == null)
                 {
                     //controle si des exmplaires sont rattaché à la revue.
@@ -1695,7 +1703,7 @@ namespace MediaTekDocuments.view
                 }
                 else { MessageBox.Show("Impossible de supprimer une revue avec un abonnement en cours !"); }
             }
-            else{MessageBox.Show("selectionner une Revue !");}
+            else { MessageBox.Show("selectionner une Revue !"); }
         }
         //Action du bouton modifier (Revue)
         private void btnModifierRevue_Click(object sender, EventArgs e)
@@ -1706,7 +1714,7 @@ namespace MediaTekDocuments.view
                 //Chaîne de carctère qui va influencer FrmAjout
                 string ongletRevue = "revue";
                 //Converti la liste de revues en liste d'objets
-                List<Object> listeObjRevue = lesRevues.ConvertAll(Revue => (Object)Revue); 
+                List<Object> listeObjRevue = lesRevues.ConvertAll(Revue => (Object)Revue);
                 //Lance frmAjout avec les paramètres nécessaires à l'ajout d'une revue
                 Object aModifier = (Object)bdgRevuesListe.List[bdgRevuesListe.Position];
                 FrmAjout frmAjout = new FrmAjout(bdgGenres, bdgPublics, bdgRayons, true, ongletRevue, listeObjRevue, aModifier);
@@ -1865,11 +1873,11 @@ namespace MediaTekDocuments.view
                 string id = FormaterId(txbCmdLivreNumCmd.Text);
                 DateTime dateCommande = dtpCmdLivreDateCmd.Value;
                 double montant = double.Parse(txbCmdLivreMontantCmd.Text);
-                int nbExemplaire = int.Parse(txbCmdLivrenbExCmd.Text); 
+                int nbExemplaire = int.Parse(txbCmdLivrenbExCmd.Text);
                 string idSuivi = GetIdSuivi(cbxSuivi.Text);
                 string suivi = null;
                 String idLivreDvd = txbCmdLivreId.Text;
-;
+                ;
                 CommandeDocument commandeValorise = new CommandeDocument(id, dateCommande, montant, nbExemplaire, idSuivi, suivi, idLivreDvd);
                 return commandeValorise;
             }
@@ -1930,7 +1938,7 @@ namespace MediaTekDocuments.view
         private void btnSupprimer_Click_1(object sender, EventArgs e)
         {
             //vérification selection
-            if (dgvCmdLivre.CurrentCell != null)     
+            if (dgvCmdLivre.CurrentCell != null)
             {
                 if (MessageBox.Show("Supprimer ?", "Confirmer", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
@@ -1944,10 +1952,10 @@ namespace MediaTekDocuments.view
                             tabOngletCommandeLivre_Enter(null, null);
                         }
                     }
-                    else{ MessageBox.Show("Impossible de supprimer une commande déja livrée !"); }
+                    else { MessageBox.Show("Impossible de supprimer une commande déja livrée !"); }
                 }
             }
-            else {MessageBox.Show("selectionner une Commande !");}
+            else { MessageBox.Show("selectionner une Commande !"); }
         }
         //Action du btn modifier dans commande de livre
         private void btnModiferCmdLivre_Click(object sender, EventArgs e)
@@ -2084,7 +2092,7 @@ namespace MediaTekDocuments.view
             {
                 AfficheCommandeDvdInfos(dvd);
             }
-            else{ MessageBox.Show("numéro introuvable");}
+            else { MessageBox.Show("numéro introuvable"); }
         }
         //Affiche les informations du dvd dans commande dvd
         private void AfficheCommandeDvdInfos(Dvd dvd)
@@ -2199,7 +2207,7 @@ namespace MediaTekDocuments.view
                 string id = FormaterId(txbCmdDvdNumCmd.Text);
                 DateTime dateCommande = dtpCmdDvdDateCmd.Value;
                 double montant = double.Parse(txbCmdDvdMontantCmd.Text);
-                int nbExemplaire = int.Parse(txbCmdDvdnbExCmd.Text); 
+                int nbExemplaire = int.Parse(txbCmdDvdnbExCmd.Text);
                 string idSuivi = GetIdSuivi(cbxSuiviDvd.Text);
                 string suivi = null;
                 String idLivreDvd = txbCmdDvdId.Text;
@@ -2332,7 +2340,7 @@ namespace MediaTekDocuments.view
             {
                 AfficheCommandeRevueInfos(revue);
             }
-            else{ MessageBox.Show("numéro introuvable"); }
+            else { MessageBox.Show("numéro introuvable"); }
         }
         //Affiche les informations de la revue dans commande reuve
         private void AfficheCommandeRevueInfos(Revue revue)
@@ -2407,11 +2415,11 @@ namespace MediaTekDocuments.view
                         {
                             return cmdValorise;
                         }
-                        else{ MessageBox.Show("Numéro de commande déja utilisé."); return null; }
+                        else { MessageBox.Show("Numéro de commande déja utilisé."); return null; }
                     }
-                    else{ MessageBox.Show("Entrez un montant valide"); return null; }
+                    else { MessageBox.Show("Entrez un montant valide"); return null; }
                 }
-                else{ MessageBox.Show("Entrez un numéro de commande compris entre 2000 et 3000"); return null; }
+                else { MessageBox.Show("Entrez un numéro de commande compris entre 2000 et 3000"); return null; }
             }
             catch (Exception ex) { return null; }
         }
@@ -2481,10 +2489,10 @@ namespace MediaTekDocuments.view
                         MessageBox.Show("Commande supprimé.");
                         tabOngletCommandeRevue_Enter(null, null);
                     }
-                    else{ MessageBox.Show("Une parution est en cours.");}
+                    else { MessageBox.Show("Une parution est en cours."); }
                 }
             }
-            else{ MessageBox.Show("selectionner une Commande !");}
+            else { MessageBox.Show("selectionner une Commande !"); }
         }
         //Récupère la liste des exemplaire pour un id donné. Si trouve l exemplaire parcour la liste.
         private bool ParcourExemplaire(DateTime dateCmd, DateTime dateFInAbo, string idDocument)
@@ -2541,7 +2549,48 @@ namespace MediaTekDocuments.view
 
         #endregion
 
+        //Contrôle les accès des utilisateur
+        private void Permission(Utilisateur utilisateur)
+        {
+            int service = int.Parse(utilisateur.IdService);
+            switch (service)
+            {
+                case 4: //service culture
+                    MessageBox.Show(" les droits ne sont pas suffisants pour accéder à cette application");
+                    Application.Exit();
+                    break;
+                case 3://service prêt
+                    tabOngletCommandeLivre.Enabled = false;
+                    tabOngletCommandeDvd.Enabled = false;
+                    tabOngletCommandeRevue.Enabled = false;
+                    
+                    btnAjoutLivre.Enabled = false;
+                    btnAjoutDvd.Enabled = false;
+                    btnAjoutRevue.Enabled = false;
+                    btnSupprimerLivre.Enabled = false;
+                    btnSupprimerDvd.Enabled = false;
+                    btnSupprimerRevue.Enabled = false;
+                    btnModifier.Enabled = false;
+                    btnModifDvd.Enabled = false;
+                    btnModifierRevue.Enabled = false;
 
-   
+                    groupBox1.Enabled = false;
+                    groupBox2.Enabled = false;
+                    grpReceptionExemplaire.Enabled = false;
+
+                    dgvCmdLivre.Visible = false;
+                    dgvCmdDvd.Visible = false;
+                    dgvCmdRevue.Visible = false;
+                    break;
+                case 2://service administratif
+                    AbonnementsSurLaFIn();
+                    break;
+                case 1://ADMIN
+                    
+                    break;
+            }
+
+
+        }
     }
 }
