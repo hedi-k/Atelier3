@@ -7,6 +7,7 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System.Configuration;
 
+
 namespace MediaTekDocuments.dal
 {
     /// <summary>
@@ -41,6 +42,11 @@ namespace MediaTekDocuments.dal
         /// <summary>
         /// méthode HTTP pour update
         private const string PUT = "PUT";
+
+        //ajout
+        private static readonly string connectionName = "MediaTekDocuments.Properties.Settings.mediatek86ConnectionString";
+
+
         /// <summary>
         /// Méthode privée pour créer un singleton
         /// initialise l'accès à l'API
@@ -50,7 +56,7 @@ namespace MediaTekDocuments.dal
             String authenticationString;
             try
             {
-                authenticationString = "admin:adminpwd";
+                authenticationString = GetConnectionStringByName(connectionName);
                 api = ApiRest.GetInstance(uriApi, authenticationString);
             }
             catch (Exception e)
@@ -72,6 +78,17 @@ namespace MediaTekDocuments.dal
             }
             return instance;
         }
+
+        //Ajout
+        static string GetConnectionStringByName(string name)
+        {
+            string returnValue = null;
+            ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[name];
+            if (settings != null)
+                returnValue = settings.ConnectionString;
+            return returnValue;
+        }
+
 
         /// <summary>
         /// Retourne tous les genres à partir de la BDD
