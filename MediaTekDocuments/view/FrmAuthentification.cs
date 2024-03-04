@@ -14,12 +14,7 @@ namespace MediaTekDocuments.view
 {
     public partial class FrmAuthentification : Form
     {
-        //Essai modification 
-
-
-
-
-        //Essai modification
+        //Jenkins ok
         private FrmAuthentificationController controller;
         public FrmAuthentification()
         {
