@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SonarProjectConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonarsource.com/msbuild/analyzer/2021/1">
+  <AnalysisConfigPath>C:\Users\GT630M\Desktop\A3\MediaTekDocuments\.sonarqube\conf\SonarQubeAnalysisConfig.xml</AnalysisConfigPath>
+  <ProjectPath>C:\Users\GT630M\Desktop\A3\MediaTekDocuments\TestMediaTekDocuments\TestMediaTekDocuments.csproj</ProjectPath>
+  <FilesToAnalyzePath>C:\Users\GT630M\Desktop\A3\MediaTekDocuments\.sonarqube\conf\1\FilesToAnalyze.txt</FilesToAnalyzePath>
+  <OutPath>C:\Users\GT630M\Desktop\A3\MediaTekDocuments\.sonarqube\out\1</OutPath>
+  <ProjectType>Test</ProjectType>
+  <TargetFramework>netcoreapp1.1</TargetFramework>
+</SonarProjectConfig>

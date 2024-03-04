@@ -83,6 +83,7 @@ namespace MediaTekDocuments.dal
         static string GetConnectionStringByName(string name)
         {
             string returnValue = null;
+            //Récupération des paramètres de la chaîne de connexion à partir de la configuration de l'application
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[name];
             if (settings != null)
                 returnValue = settings.ConnectionString;

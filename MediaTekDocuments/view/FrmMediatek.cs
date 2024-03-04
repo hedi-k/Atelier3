@@ -492,7 +492,7 @@ namespace MediaTekDocuments.view
                     DataGridViewRow row = dgvLivreExemplaire.SelectedRows[0];
                     //DataBoundItem permet l'accès aux données de l'objet
                     Exemplaire exemplaire = row.DataBoundItem as Exemplaire;
-                    if (exemplaire.Numero != null)
+                    if (exemplaire.Numero > -1)
                     {
                         if (controller.SupprimerDocument(exemplaire))
                         {
@@ -907,7 +907,7 @@ namespace MediaTekDocuments.view
                 {
                     DataGridViewRow row = dgvDvdExemplaire.SelectedRows[0];
                     Exemplaire exemplaire = row.DataBoundItem as Exemplaire;
-                    if (exemplaire.Numero != null)
+                    if (exemplaire.Numero > -1)
                     {
                         if (controller.SupprimerDocument(exemplaire))
                         {
@@ -1264,7 +1264,7 @@ namespace MediaTekDocuments.view
                 {
                     DataGridViewRow row = dgvReceptionExemplairesListe.SelectedRows[0];
                     Exemplaire exemplaire = row.DataBoundItem as Exemplaire;
-                    if (exemplaire.Numero != null)
+                    if (exemplaire.Numero > -1)
                     {
                         if (controller.SupprimerDocument(exemplaire))
                         {
