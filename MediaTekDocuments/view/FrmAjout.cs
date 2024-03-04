@@ -234,38 +234,29 @@ namespace MediaTekDocuments.view
             switch (quelEnvoi)
             {
                 case "livre":
-                    Livre livre = SuperLivre(); 
-                    if (livre != null)
+                    Livre livre = SuperLivre();
+                    if (livre != null && controller.EnvoiDocuments(livre))
                     {
-                        if (controller.EnvoiDocuments(livre)) // l'api return true si l'ajout a fonctionné
-                        {
-                            MessageBox.Show("Livre ajouté");
-                            Vide();
-                        }
+                        MessageBox.Show("Livre ajouté");
+                        Vide();
                     }
                     break;
 
                 case "dvd":
                     Dvd dvd = SuperDvd();
-                    if (dvd != null)
+                    if (dvd != null && controller.EnvoiDocuments(dvd))
                     {
-                        if (controller.EnvoiDocuments(dvd))
-                        {
-                            MessageBox.Show("DVD ajouté");
-                            Vide();
-                        }
+                        MessageBox.Show("DVD ajouté");
+                        Vide();
                     }
                     break;
 
                 case "revue":
                     Revue revue = SuperRevue();
-                    if (revue != null)
+                    if (revue != null && controller.EnvoiDocuments(revue))
                     {
-                        if (controller.EnvoiDocuments(revue))
-                        {
-                            MessageBox.Show("Revue ajouté");
-                            Vide();
-                        }
+                        MessageBox.Show("Revue ajouté");
+                        Vide();
                     }
                     break;
             }
@@ -279,32 +270,23 @@ namespace MediaTekDocuments.view
                 {
                     case "livre":
                         Livre livre = SuperLivre();
-                        if (livre != null)
+                        if (livre != null && controller.ModifierDocuments(livre))
                         {
-                            if (controller.ModifierDocuments(livre))
-                            {
-                                MessageBox.Show("Livre modifié");
-                            }
+                            MessageBox.Show("Livre modifié");
                         }
                         break;
                     case "dvd":
                         Dvd dvd = SuperDvd();
-                        if (dvd != null)
+                        if (dvd != null && controller.ModifierDocuments(dvd))
                         {
-                            if (controller.ModifierDocuments(dvd))
-                            {
-                                MessageBox.Show("DVD modifié");
-                            }
+                            MessageBox.Show("DVD modifié");
                         }
                         break;
                     case "revue":
                         Revue revue = SuperRevue();
-                        if (revue != null)
+                        if (revue != null && controller.ModifierDocuments(revue))
                         {
-                            if (controller.ModifierDocuments(revue))
-                            {
-                                MessageBox.Show("Revue modifié");
-                            }
+                            MessageBox.Show("Revue modifié");
                         }
                         break;
                 }

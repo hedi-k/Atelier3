@@ -242,8 +242,6 @@ namespace MediaTekDocuments.dal
         //Supprime le document en paramètre
         public bool SupprimerDocument<T>(T unDocument)
         {
-            //Convertit en json l'objet en paramètre
-            String jsonSupprimerDocument = JsonConvert.SerializeObject(unDocument);
             try
             {
                 //L'id est necessaire pour l'API en cas de suppression

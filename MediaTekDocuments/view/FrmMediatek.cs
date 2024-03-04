@@ -461,48 +461,42 @@ namespace MediaTekDocuments.view
         //Action du btn modifier pour l'etat d'un exemplaire
         private void btnLivreExemplaireModifier_Click(object sender, EventArgs e)
         {
-            if (dgvLivreExemplaire.CurrentCell != null)
+            if (dgvLivreExemplaire.CurrentCell != null && MessageBox.Show("Modifier ?", "Confirmer", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (MessageBox.Show("Modifier ?", "Confirmer", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                //Récupère dans la variable les données de l'objet sélectionné dans la dgv
+                DataGridViewRow row = dgvLivreExemplaire.SelectedRows[0];
+                //DataBoundItem permet l'accès aux données de l'objet
+                Exemplaire exemplaire = row.DataBoundItem as Exemplaire;
+                exemplaire.IdEtat = GetIdEtat(cbxLivreEtat.Text);
+                if (exemplaire.IdEtat != null)
                 {
-                    //Récupère dans la variable les données de l'objet sélectionné dans la dgv
-                    DataGridViewRow row = dgvLivreExemplaire.SelectedRows[0];
-                    //DataBoundItem permet l'accès aux données de l'objet
-                    Exemplaire exemplaire = row.DataBoundItem as Exemplaire;
-                    exemplaire.IdEtat = GetIdEtat(cbxLivreEtat.Text);
-                    if (exemplaire.IdEtat != null)
+                    if (controller.ModifierDocuments(exemplaire))
                     {
-                        if (controller.ModifierDocuments(exemplaire))
-                        {
-                            PresChargeDGVExemplaireLivre();
-                        }
+                        PresChargeDGVExemplaireLivre();
                     }
-                    else { MessageBox.Show("Selectionner un Etat pour le modifier."); }
                 }
+                else { MessageBox.Show("Selectionner un Etat pour le modifier."); }
             }
         }
         //Action du btn supprimer pour un exemplaire
         private void btnLivreExemplaireSupprimer_Click(object sender, EventArgs e)
         {
-            if (dgvLivreExemplaire.CurrentCell != null)
+            if (dgvLivreExemplaire.CurrentCell != null && MessageBox.Show("Supprimer ?", "Confirmer", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (MessageBox.Show("Supprimer ?", "Confirmer", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                //Récupère dans la variable les données de l'objet sélectionné dans la dgv
+                DataGridViewRow row = dgvLivreExemplaire.SelectedRows[0];
+                //DataBoundItem permet l'accès aux données de l'objet
+                Exemplaire exemplaire = row.DataBoundItem as Exemplaire;
+                if (exemplaire.Numero > -1)
                 {
-                    //Récupère dans la variable les données de l'objet sélectionné dans la dgv
-                    DataGridViewRow row = dgvLivreExemplaire.SelectedRows[0];
-                    //DataBoundItem permet l'accès aux données de l'objet
-                    Exemplaire exemplaire = row.DataBoundItem as Exemplaire;
-                    if (exemplaire.Numero > -1)
+                    if (controller.SupprimerDocument(exemplaire))
                     {
-                        if (controller.SupprimerDocument(exemplaire))
-                        {
-                            PresChargeDGVExemplaireLivre();
-                        }
+                        PresChargeDGVExemplaireLivre();
                     }
-                    else { MessageBox.Show("Selectionner un Exemplaire pour le supprimer."); }
-
-
                 }
+                else { MessageBox.Show("Selectionner un Exemplaire pour le supprimer."); }
+
+
             }
         }
 
@@ -880,22 +874,19 @@ namespace MediaTekDocuments.view
         //Modifie l état d'un exemplaire
         private void btnDvdExemplaireModifier_Click(object sender, EventArgs e)
         {
-            if (dgvDvdExemplaire.CurrentCell != null)
+            if (dgvDvdExemplaire.CurrentCell != null && MessageBox.Show("Modifier ?", "Confirmer", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (MessageBox.Show("Modifier ?", "Confirmer", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                DataGridViewRow row = dgvDvdExemplaire.SelectedRows[0];
+                Exemplaire exemplaire = row.DataBoundItem as Exemplaire;
+                exemplaire.IdEtat = GetIdEtat(cbxLivreEtat.Text);
+                if (exemplaire.IdEtat != null)
                 {
-                    DataGridViewRow row = dgvDvdExemplaire.SelectedRows[0];
-                    Exemplaire exemplaire = row.DataBoundItem as Exemplaire;
-                    exemplaire.IdEtat = GetIdEtat(cbxLivreEtat.Text);
-                    if (exemplaire.IdEtat != null)
+                    if (controller.ModifierDocuments(exemplaire))
                     {
-                        if (controller.ModifierDocuments(exemplaire))
-                        {
-                            PresChargeDGVExemplaireDvd();
-                        }
+                        PresChargeDGVExemplaireDvd();
                     }
-                    else { MessageBox.Show("Selectionner un Etat pour le modifier."); }
                 }
+                else { MessageBox.Show("Selectionner un Etat pour le modifier."); }
             }
         }
         //Action du btn supprimer pour un exemplaire de dvd
@@ -1237,42 +1228,36 @@ namespace MediaTekDocuments.view
         //Action du bouton modifier un exemplaire pour une revue
         private void btnRevueExemplaireModifier_Click(object sender, EventArgs e)
         {
-            if (dgvReceptionExemplairesListe.CurrentCell != null)
+            if (dgvReceptionExemplairesListe.CurrentCell != null && MessageBox.Show("Modifier ?", "Confirmer", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (MessageBox.Show("Modifier ?", "Confirmer", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                DataGridViewRow row = dgvReceptionExemplairesListe.SelectedRows[0];
+                Exemplaire exemplaire = row.DataBoundItem as Exemplaire;
+                exemplaire.IdEtat = GetIdEtat(cbxRevuEtat.Text);
+                if (exemplaire.IdEtat != null)
                 {
-                    DataGridViewRow row = dgvReceptionExemplairesListe.SelectedRows[0];
-                    Exemplaire exemplaire = row.DataBoundItem as Exemplaire;
-                    exemplaire.IdEtat = GetIdEtat(cbxRevuEtat.Text);
-                    if (exemplaire.IdEtat != null)
+                    if (controller.ModifierDocuments(exemplaire))
                     {
-                        if (controller.ModifierDocuments(exemplaire))
-                        {
-                            AfficheReceptionExemplairesRevue();
-                        }
+                        AfficheReceptionExemplairesRevue();
                     }
-                    else { MessageBox.Show("Selectionner un Etat pour le modifier."); }
                 }
+                else { MessageBox.Show("Selectionner un Etat pour le modifier."); }
             }
         }
         //Action du btn supprimer pour un exemplaire pour une revue
         private void btnRevueExemplaireSupprimer_Click(object sender, EventArgs e)
         {
-            if (dgvReceptionExemplairesListe.CurrentCell != null)
+            if (dgvReceptionExemplairesListe.CurrentCell != null && MessageBox.Show("Supprimer ?", "Confirmer", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (MessageBox.Show("Supprimer ?", "Confirmer", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                DataGridViewRow row = dgvReceptionExemplairesListe.SelectedRows[0];
+                Exemplaire exemplaire = row.DataBoundItem as Exemplaire;
+                if (exemplaire.Numero > -1)
                 {
-                    DataGridViewRow row = dgvReceptionExemplairesListe.SelectedRows[0];
-                    Exemplaire exemplaire = row.DataBoundItem as Exemplaire;
-                    if (exemplaire.Numero > -1)
+                    if (controller.SupprimerDocument(exemplaire))
                     {
-                        if (controller.SupprimerDocument(exemplaire))
-                        {
-                            AfficheReceptionExemplairesRevue();
-                        }
+                        AfficheReceptionExemplairesRevue();
                     }
-                    else { MessageBox.Show("Selectionner un Exemplaire pour le supprimer."); }
                 }
+                else { MessageBox.Show("Selectionner un Exemplaire pour le supprimer."); }
             }
         }
         #endregion
@@ -2374,14 +2359,11 @@ namespace MediaTekDocuments.view
         private void btnCmdRevueValider_Click(object sender, EventArgs e)
         {
             Abonnement cmdRevue = SuperCmdRevue();
-            if (cmdRevue != null)
+            if (cmdRevue != null && controller.EnvoiDocuments(cmdRevue))
             {
-                if (controller.EnvoiDocuments(cmdRevue))
-                {
-                    MessageBox.Show("Abonnement pris");
-                    VideCmdRevue();
-                    tabOngletCommandeRevue_Enter(null, null);
-                }
+                MessageBox.Show("Abonnement pris");
+                VideCmdRevue();
+                tabOngletCommandeRevue_Enter(null, null);
             }
         }
         //Vide les txb de commande revue
@@ -2523,7 +2505,7 @@ namespace MediaTekDocuments.view
         private void AbonnementsSurLaFIn()
         {
             string a = "Les abonnements qui se finissent sous moins de 30 jours sont : \n";
-            lesRevues = controller.GetAllRevues(); ;
+            lesRevues = controller.GetAllRevues(); 
             listCmdRevues = controller.GetAllCommandeRevues();
             foreach (Abonnement aboRevue in listCmdRevues)
             {
@@ -2531,7 +2513,7 @@ namespace MediaTekDocuments.view
                 if (dateMoins30Jours < DateTime.Now)
                 {
                     Revue revue = lesRevues.Find(x => x.Id.Equals(aboRevue.IdRevue));
-                    a = a + "titre : " + revue.Titre + " date de fin : " + aboRevue.DateFinAbonnement.ToString() + "\n";
+                    a = $"{a}titre : {revue.Titre} date de fin : {aboRevue.DateFinAbonnement.ToString()}\n";
                 }
             }
             MessageBox.Show(a);
