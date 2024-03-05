@@ -6,7 +6,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System.Configuration;
-
+using Serilog;
+using Serilog.Formatting.Json;
 
 namespace MediaTekDocuments.dal
 {
@@ -56,12 +57,22 @@ namespace MediaTekDocuments.dal
             String authenticationString;
             try
             {
+                //Objet qui va gérer les logs
+                Log.Logger = new LoggerConfiguration()
+                    //Si aucun "MinimumLevel" n’est fixé, il est par défaut à "Information".
+                    .MinimumLevel.Verbose()
+                    .WriteTo.Console()
+                    .WriteTo.File("logs/log.txt",
+                    rollingInterval: RollingInterval.Day)
+                    .CreateLogger();
+
                 authenticationString = GetConnectionStringByName(connectionName);
                 api = ApiRest.GetInstance(uriApi, authenticationString);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                //On remplace les "simples" console.Write par des logs
+                Log.Fatal("Access.Access catch connectionString={0} erreur={1}", connectionName, e.Message);
                 Environment.Exit(0);
             }
         }
@@ -175,12 +186,12 @@ namespace MediaTekDocuments.dal
             try
             {
                 // récupération soit d'une liste vide (requête ok) soit de null (erreur)
-                List<Exemplaire> liste = TraitementRecup<Exemplaire>(POST, "exemplaire/" + jsonExemplaire);
+                List <Exemplaire> liste = TraitementRecup<Exemplaire>(POST, "exemplaire/" + jsonExemplaire);
                 return (liste != null);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Log.Debug("Access.CreerExemplaire catch String jsonExemplaire={0} erreur={1}", jsonExemplaire, ex.Message);
             }
             return false;
         }
@@ -199,7 +210,7 @@ namespace MediaTekDocuments.dal
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Log.Debug("Access.CreerDocument catch String jsonExemplaire={0} erreur={1}", jsonCreerDocument, ex.Message);
             }
             return false;
         }
@@ -235,7 +246,7 @@ namespace MediaTekDocuments.dal
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Log.Debug("Access.ModifierDocument catch String jsonModifierDocument={0} erreur={1}", jsonModifierDocument, ex.Message);
             }
             return false;
         }
@@ -275,7 +286,7 @@ namespace MediaTekDocuments.dal
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Log.Debug("Access.SupprimerDocument catch String jsonSupprimerDocument={0} erreur={1}", jsonSupprimerDocument, ex.Message);
             }
             return false;
         }
@@ -329,7 +340,7 @@ namespace MediaTekDocuments.dal
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Log.Debug("Access.Authentification catch String jsonAuthentification={0} erreur={1}", jsonAuthentification, ex.Message);
             }
             return null;
         }
@@ -365,9 +376,9 @@ namespace MediaTekDocuments.dal
                     Console.WriteLine("code erreur = " + code + " message = " + (String)retour["message"]);
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine("Erreur lors de l'accès à l'API : " + e.Message);
+                Log.Debug("Access.TraitementRecup catch String methode={0} String message={1} erreur={2}", methode, message, ex.Message);
                 Environment.Exit(0);
             }
             return liste;

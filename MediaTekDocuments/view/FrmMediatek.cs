@@ -16,6 +16,7 @@ namespace MediaTekDocuments.view
     /// </summary>
     public partial class FrmMediatek : Form
     {
+
         #region Commun
         private readonly FrmMediatekController controller;
         private readonly BindingSource bdgGenres = new BindingSource();
