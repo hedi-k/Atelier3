@@ -61,8 +61,11 @@ namespace MediaTekDocuments.dal
                 Log.Logger = new LoggerConfiguration()
                     //Si aucun "MinimumLevel" n’est fixé, il est par défaut à "Information".
                     .MinimumLevel.Verbose()
+                    //Log dans la console
                     .WriteTo.Console()
+                    //Log dans un fichier txt
                     .WriteTo.File("logs/log.txt",
+                    //Interval entre chaque nouveaux fichier de log
                     rollingInterval: RollingInterval.Day)
                     .CreateLogger();
 

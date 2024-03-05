@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MediaTekDocuments.model
 {
-    class Suivi : Categorie
+    public class Suivi : Categorie
     {
         public Suivi(string id, string libelle) : base(id, libelle)
         {
