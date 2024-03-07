@@ -28,13 +28,14 @@ namespace MediaTekDocuments.view
         private readonly BindingSource bdgEtats = new BindingSource();
         private List<Etat> lesEtats = new List<Etat>();
 
+
         //Remplace FrmMediatek mais necessaire pour récupérer l'utilisateur
         public FrmMediatek(Utilisateur utilisateur)
         {
-            InitializeComponent();
-            this.controller = new FrmMediatekController();
-            Permission(utilisateur);
-
+                //Utilisateur userTest = new Utilisateur("01", "a", "a", "01");
+                InitializeComponent();
+                this.controller = new FrmMediatekController();
+                Permission(utilisateur);
         }
         /// <summary>
         /// Constructeur : création du contrôleur lié à ce formulaire
@@ -2507,7 +2508,6 @@ namespace MediaTekDocuments.view
                 }
             }
             return true;
-
         }
         //Compare les dates
         private bool ParutionEntreCmdEtAbonnement(DateTime dateCmd, DateTime dateFinAbo, DateTime dateParu)
@@ -2544,54 +2544,49 @@ namespace MediaTekDocuments.view
 
         }
 
-
-
-
-
         #endregion
 
         //Contrôle les accès des utilisateur
         private void Permission(Utilisateur utilisateur)
         {
-            int service = int.Parse(utilisateur.IdService);
-            switch (service)
-            {
-                case 4: //service culture
-                    MessageBox.Show(" les droits ne sont pas suffisants pour accéder à cette application");
-                    Application.Exit();
-                    break;
-                case 3://service prêt
-                    tabOngletCommandeLivre.Enabled = false;
-                    tabOngletCommandeDvd.Enabled = false;
-                    tabOngletCommandeRevue.Enabled = false;
-                    
-                    btnAjoutLivre.Enabled = false;
-                    btnAjoutDvd.Enabled = false;
-                    btnAjoutRevue.Enabled = false;
-                    btnSupprimerLivre.Enabled = false;
-                    btnSupprimerDvd.Enabled = false;
-                    btnSupprimerRevue.Enabled = false;
-                    btnModifier.Enabled = false;
-                    btnModifDvd.Enabled = false;
-                    btnModifierRevue.Enabled = false;
+                int service = int.Parse(utilisateur.IdService);
+                switch (service)
+                {
+                    case 4: //service culture
+                        MessageBox.Show(" les droits ne sont pas suffisants pour accéder à cette application");
+                        Application.Exit();
+                        break;
+                    case 3://service prêt
+                        tabOngletCommandeLivre.Enabled = false;
+                        tabOngletCommandeDvd.Enabled = false;
+                        tabOngletCommandeRevue.Enabled = false;
 
-                    groupBox1.Enabled = false;
-                    groupBox2.Enabled = false;
-                    grpReceptionExemplaire.Enabled = false;
+                        btnAjoutLivre.Enabled = false;
+                        btnAjoutDvd.Enabled = false;
+                        btnAjoutRevue.Enabled = false;
+                        btnSupprimerLivre.Enabled = false;
+                        btnSupprimerDvd.Enabled = false;
+                        btnSupprimerRevue.Enabled = false;
+                        btnModifier.Enabled = false;
+                        btnModifDvd.Enabled = false;
+                        btnModifierRevue.Enabled = false;
 
-                    dgvCmdLivre.Visible = false;
-                    dgvCmdDvd.Visible = false;
-                    dgvCmdRevue.Visible = false;
-                    break;
-                case 2://service administratif
-                    AbonnementsSurLaFIn();
-                    break;
-                case 1://ADMIN
-                    
-                    break;
-            }
+                        groupBox1.Enabled = false;
+                        groupBox2.Enabled = false;
+                        grpReceptionExemplaire.Enabled = false;
 
+                        dgvCmdLivre.Visible = false;
+                        dgvCmdDvd.Visible = false;
+                        dgvCmdRevue.Visible = false;
+                        break;
+                    case 2://service administratif
+                        AbonnementsSurLaFIn();
+                        break;
+                    case 1://ADMIN
 
+                        break;
+                }
+            
         }
     }
 }

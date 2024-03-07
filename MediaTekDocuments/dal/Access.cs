@@ -68,7 +68,6 @@ namespace MediaTekDocuments.dal
                     //Interval entre chaque nouveaux fichier de log
                     rollingInterval: RollingInterval.Day)
                     .CreateLogger();
-
                 authenticationString = GetConnectionStringByName(connectionName);
                 api = ApiRest.GetInstance(uriApi, authenticationString);
             }
@@ -189,7 +188,7 @@ namespace MediaTekDocuments.dal
             try
             {
                 // récupération soit d'une liste vide (requête ok) soit de null (erreur)
-                List <Exemplaire> liste = TraitementRecup<Exemplaire>(POST, "exemplaire/" + jsonExemplaire);
+                List<Exemplaire> liste = TraitementRecup<Exemplaire>(POST, "exemplaire/" + jsonExemplaire);
                 return (liste != null);
             }
             catch (Exception ex)
@@ -239,11 +238,11 @@ namespace MediaTekDocuments.dal
                         break;
                     case CommandeDocument uneCmd:
                         id = uneCmd.Id;
-                            break;
+                        break;
                     case Exemplaire exemplaire:
                         id = exemplaire.Numero.ToString();// C'est in INT donc faut le convertir en string
                         break;
-                }                                                                                               
+                }
                 List<Object> liste = TraitementRecup<Object>(PUT, typeof(T).Name.ToLower() + "/" + id + "/" + jsonModifierDocument.Replace(" ", "-"));
                 return (liste != null);
             }
@@ -261,7 +260,7 @@ namespace MediaTekDocuments.dal
             try
             {
                 //L'id est necessaire pour l'API en cas de suppression
-                string id = "", Id="Id";
+                string id = "", Id = "Id";
                 switch (unDocument)
                 {
                     case Livre livre:
@@ -283,8 +282,8 @@ namespace MediaTekDocuments.dal
                         id = exemplaire.Numero.ToString();// C'est in INT donc faut le convertir en string
                         Id = "Numero";
                         break;
-                }                                                                               
-                List<Object> liste = TraitementRecup<Object>(DELETE, typeof(T).Name.ToLower() + "/{\""+ Id+"\":\"" + id + "\"}");
+                }
+                List<Object> liste = TraitementRecup<Object>(DELETE, typeof(T).Name.ToLower() + "/{\"" + Id + "\":\"" + id + "\"}");
                 return (liste != null);
             }
             catch (Exception ex)
@@ -329,12 +328,12 @@ namespace MediaTekDocuments.dal
         }
 
         //Méthode pour l'authentification
-        public Utilisateur Authentification (Utilisateur utilisateur)
+        public Utilisateur Authentification(Utilisateur utilisateur)
         {
             String jsonAuthentification = JsonConvert.SerializeObject(utilisateur);
             try
             {
-                List<Utilisateur> liste = TraitementRecup<Utilisateur>(GET,"authentification/"+ jsonAuthentification);
+                List<Utilisateur> liste = TraitementRecup<Utilisateur>(GET, "authentification/" + jsonAuthentification);
                 if (liste != null)
                 {
                     //Il y a qu'un utilisateur qui peut être retourné donc indice 0
