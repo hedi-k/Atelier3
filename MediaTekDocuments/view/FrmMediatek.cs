@@ -18,18 +18,39 @@ namespace MediaTekDocuments.view
     {
 
         #region Commun
+        /// <summary>
+        /// controleur
+        /// </summary>
         private readonly FrmMediatekController controller;
+        /// <summary>
+        /// binding source qui contient les genres
+        /// </summary>
         private readonly BindingSource bdgGenres = new BindingSource();
+        /// <summary>
+        /// binding source qui contient les publics
+        /// </summary>
         private readonly BindingSource bdgPublics = new BindingSource();
+        /// <summary>
+        /// binding source qui contient les les rayons
+        /// </summary>
         private readonly BindingSource bdgRayons = new BindingSource();
-        //BidingSource ajouté pour la gestion des suivis
+        /// <summary>
+        /// binding source qui contient les suivis
+        /// </summary>
         private readonly BindingSource bdgSuivi = new BindingSource();
-        //BidingSource ajouté pour la gestion des états
+        /// <summary>
+        /// binding source qui contient les états
+        /// </summary>
         private readonly BindingSource bdgEtats = new BindingSource();
+        /// <summary>
+        /// Liste d'états
+        /// </summary>
         private List<Etat> lesEtats = new List<Etat>();
 
-
-        //Remplace FrmMediatek mais necessaire pour récupérer l'utilisateur
+        /// <summary>
+        /// //Remplace FrmMediatek mais necessaire pour récupérer l'utilisateur
+        /// </summary>
+        /// <param name="utilisateur"></param>
         public FrmMediatek(Utilisateur utilisateur)
         {
                 //Utilisateur userTest = new Utilisateur("01", "a", "a", "01");
@@ -62,7 +83,12 @@ namespace MediaTekDocuments.view
                 cbx.SelectedIndex = -1;
             }
         }
-        //Commun aux à tout les documents
+        /// <summary>
+        /// Peremt de remplir les comboBox etats 
+        /// </summary>
+        /// <param name="lesEtats"></param>
+        /// <param name="bdg"></param>
+        /// <param name="cbx"></param>
         public void RemplirComboEtat(List<Etat> lesEtats, BindingSource bdg, ComboBox cbx)
         {
             bdg.DataSource = lesEtats;
@@ -73,7 +99,11 @@ namespace MediaTekDocuments.view
                 cbx.SelectedIndex = -1;
             }
         }
-        //Retourne l'ID de l etat selectionné dans les cbxEtat 
+        /// <summary>
+        /// Retourne l'ID de l etat selectionné dans les cbxEtat 
+        /// </summary>
+        /// <param name="unEtat"></param>
+        /// <returns>Retourne objet etat ou null</returns>
         private string GetIdEtat(string unEtat)
         {
             List<Etat> uneListe = controller.GetAllEtats();
@@ -89,7 +119,13 @@ namespace MediaTekDocuments.view
         #endregion
 
         #region Onglet Livres
+        /// <summary>
+        /// Binding source de livres
+        /// </summary>
         private readonly BindingSource bdgLivresListe = new BindingSource();
+        /// <summary>
+        /// Liste de livres
+        /// </summary>
         private List<Livre> lesLivres = new List<Livre>();
 
         /// <summary>
@@ -406,7 +442,10 @@ namespace MediaTekDocuments.view
             }
             RemplirLivresListe(sortedList);
         }
-        //Rempli la combo charge la liste des exmplaire et appel pour la dgv.
+
+        /// <summary>
+        /// Rempli la combo charge la liste des exmplaire et appel pour la dgv.
+        /// </summary>
         private void PresChargeDGVExemplaireLivre()
         {
             if (txbLivresNumero.Text != null)
@@ -417,7 +456,11 @@ namespace MediaTekDocuments.view
             }
         }
 
-        //Rempli la dgv des exemplaire du livre selectionné dans l onglet livre
+        /// <summary>
+        /// Rempli la dgv des exemplaire du livre selectionné dans l onglet livre
+        /// </summary>
+        /// <param name="exemplaires"></param>
+        /// <param name="lesEtats"></param>
         private void ChargeDGVExemplaireLIvre(List<Exemplaire> exemplaires, List<Etat> lesEtats)
         {
             if (exemplaires != null)
@@ -440,7 +483,11 @@ namespace MediaTekDocuments.view
                 dgvLivreExemplaire.Columns[3].HeaderText = "Etat";
             }
         }
-        //trie sur la DGVExemplaire
+        /// <summary>
+        /// Trie sur la DGVExemplaire
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dgvLivreExemplaire_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             List<Exemplaire> sortedList = new List<Exemplaire>();
@@ -460,7 +507,11 @@ namespace MediaTekDocuments.view
             ChargeDGVExemplaireLIvre(sortedList, lesEtats);
         }
 
-        //Action du btn modifier pour l'etat d'un exemplaire
+        /// <summary>
+        /// Action du btn modifier pour l'etat d'un exemplaire
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnLivreExemplaireModifier_Click(object sender, EventArgs e)
         {
             if (dgvLivreExemplaire.CurrentCell != null)
@@ -483,7 +534,11 @@ namespace MediaTekDocuments.view
                 }
             }
         }
-        //Action du btn supprimer pour un exemplaire
+        /// <summary>
+        /// Action du btn supprimer pour un exemplaire
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnLivreExemplaireSupprimer_Click(object sender, EventArgs e)
         {
             if (dgvLivreExemplaire.CurrentCell != null)
@@ -511,7 +566,13 @@ namespace MediaTekDocuments.view
         #endregion
 
         #region Onglet Dvd
+        /// <summary>
+        /// binding source de dvd
+        /// </summary>
         private readonly BindingSource bdgDvdListe = new BindingSource();
+        /// <summary>
+        /// Liste de dvd
+        /// </summary>
         private List<Dvd> lesDvd = new List<Dvd>();
 
         /// <summary>
@@ -837,7 +898,11 @@ namespace MediaTekDocuments.view
             }
         }
 
-        //Rempli la dgv des exemplaire du dvd selectionné dans l onglet dvd
+        /// <summary>
+        /// Rempli la dgv des exemplaire du dvd selectionné dans l onglet dvd
+        /// </summary>
+        /// <param name="exemplaires"></param>
+        /// <param name="lesEtats"></param>
         private void ChargeDGVExemplaireDvd(List<Exemplaire> exemplaires, List<Etat> lesEtats)
         {
             if (exemplaires != null)
@@ -860,7 +925,11 @@ namespace MediaTekDocuments.view
                 dgvDvdExemplaire.Columns[3].HeaderText = "Etat";
             }
         }
-        //trie sur la dgv exemplaire
+        /// <summary>
+        /// Trie sur la dgv exemplaire
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dgvDvdExemplaire_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             List<Exemplaire> sortedList = new List<Exemplaire>();
@@ -879,7 +948,11 @@ namespace MediaTekDocuments.view
             }
             ChargeDGVExemplaireDvd(sortedList, lesEtats);
         }
-        //Modifie l état d'un exemplaire
+        /// <summary>
+        /// Modifie l état d'un exemplaire
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDvdExemplaireModifier_Click(object sender, EventArgs e)
         {
             if (dgvDvdExemplaire.CurrentCell != null)
@@ -900,7 +973,11 @@ namespace MediaTekDocuments.view
                 }
             }
         }
-        //Action du btn supprimer pour un exemplaire de dvd
+        /// <summary>
+        /// Action du btn supprimer pour un exemplaire de dvd
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDvdExemplaireSupprimer_Click(object sender, EventArgs e)
         {
             if (dgvDvdExemplaire.CurrentCell != null)
@@ -1236,7 +1313,11 @@ namespace MediaTekDocuments.view
             RemplirRevuesListe(sortedList);
         }
 
-        //Action du bouton modifier un exemplaire pour une revue
+        /// <summary>
+        /// Action du bouton modifier un exemplaire pour une revue
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnRevueExemplaireModifier_Click(object sender, EventArgs e)
         {
             if (dgvReceptionExemplairesListe.CurrentCell != null)
@@ -1257,7 +1338,11 @@ namespace MediaTekDocuments.view
                 }
             }
         }
-        //Action du btn supprimer pour un exemplaire pour une revue
+        /// <summary>
+        /// Action du btn supprimer pour un exemplaire pour une revue
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnRevueExemplaireSupprimer_Click(object sender, EventArgs e)
         {
             if (dgvReceptionExemplairesListe.CurrentCell != null)
@@ -1547,8 +1632,12 @@ namespace MediaTekDocuments.view
 
 
         #region AJOUT/MODIF/SUPP LIVRE
-        //Action du bouton Ajouter (livre)
-        //Le boolean est pour l'affichage des TextBoxs genre public rayon et Bouton modifier.
+        /// <summary>
+        ///Action du bouton Ajouter (livre)
+        /// Le boolean est pour l'affichage des TextBoxs genre public rayon et Bouton modifier.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAjout_Click(object sender, EventArgs e)
         {
             //Chaîne de carctère qui va influencer les structures conditionnelles de FrmAjout
@@ -1561,7 +1650,11 @@ namespace MediaTekDocuments.view
             frmAjout.Show();
             this.Hide();
         }
-        //Action du bouton supprimer (livre)
+        /// <summary>
+        /// Action du bouton supprimer (livre)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSupprimer_Click(object sender, EventArgs e)
         {
             if (dgvLivresListe.CurrentCell != null)     //vérification de selection d'un livre
@@ -1585,8 +1678,12 @@ namespace MediaTekDocuments.view
             else { MessageBox.Show("selectionner un livre !"); }
 
         }
-        //Action du bouton modifier (livre)
-        //Le boolean est pour l'affichage des TextBoxs genre public rayon et Bouton modifier.
+        /// <summary>
+        /// Action du bouton modifier (livre)
+        /// Le boolean est pour l'affichage des TextBoxs genre public rayon et Bouton modifier.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnModifier_Click(object sender, EventArgs e)
         {
             //Contrôle qu'un livre est sélectionné.
@@ -1608,7 +1705,11 @@ namespace MediaTekDocuments.view
 
         #region AJOUT/MODIF/SUPP DVD
 
-        //Action du btn AjoutDvd lance la forme Ajout pour un dvd
+        /// <summary>
+        /// Action du btn AjoutDvd lance la forme Ajout pour un dvd
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAjoutDvd_Click(object sender, EventArgs e)
         {
             //Chaîne de carctère qui va influencer les structures conditionnelles de FrmAjout
@@ -1621,7 +1722,11 @@ namespace MediaTekDocuments.view
             frmAjout.Show();
             this.Hide();
         }
-        //Action du btn supprimer (DVD)
+        /// <summary>
+        /// Action du btn supprimer (DVD)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSupprimerDvd_Click(object sender, EventArgs e)
         {
             //contrôle la selection
@@ -1647,7 +1752,11 @@ namespace MediaTekDocuments.view
             }
             else { MessageBox.Show("selectionner un DVD !"); }
         }
-        //Action du btn modifier (DVD)
+        /// <summary>
+        /// Action du btn modifier (DVD)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnModifDvd_Click(object sender, EventArgs e)
         {
             if (dgvDvdListe.CurrentCell != null)
@@ -1666,7 +1775,11 @@ namespace MediaTekDocuments.view
 
         #region AJOUT/MODIF/SUPP REVUE
 
-        //Action, du bouton Ajouter (Revue)
+        /// <summary>
+        /// Action, du bouton Ajouter (Revue)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAjoutRevue_Click(object sender, EventArgs e) // List<Revue> lesRevues
         {
             //Chaîne de carctère qui va influencer FrmAjout
@@ -1679,7 +1792,11 @@ namespace MediaTekDocuments.view
             frmAjout.Show();
             this.Hide();
         }
-        //Action du bouton supprimer (Revue)
+        /// <summary>
+        /// Action du bouton supprimer (Revue)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSupprimerRevue_Click(object sender, EventArgs e)
         {
             //vérification de la selection
@@ -1707,7 +1824,11 @@ namespace MediaTekDocuments.view
             }
             else { MessageBox.Show("selectionner une Revue !"); }
         }
-        //Action du bouton modifier (Revue)
+        /// <summary>
+        /// Action du bouton modifier (Revue)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnModifierRevue_Click(object sender, EventArgs e)
         {
             //Controle une selection de revue
@@ -1730,14 +1851,27 @@ namespace MediaTekDocuments.view
         #region onglet Commande livre
 
 
-        //Nécessaire pour remplir la DataGrideView
+        /// <summary>
+        /// Nécessaire pour remplir la DataGrideView
+        /// </summary>
         private readonly BindingSource bdgCommandeLivresListe = new BindingSource();
+        /// <summary>
+        /// Liste de commande de document
+        /// </summary>
         private List<CommandeDocument> listCmdLivres = new List<CommandeDocument>();
-        //Nécessaire pour la modification (livre et dvd)
+        /// <summary>
+        /// Nécessaire pour la modification (livre et dvd)
+        /// </summary>
         private bool cmdLivreOuDvdModif = false;
-        //Nécessaire pour controler l'état des suivis (livre et dvd)
+        /// <summary>
+        /// Nécessaire pour controler l'état des suivis (livre et dvd)
+        /// </summary>
         private int indiceSuivi;
-        //retourne l'id de suivi selectionné
+        /// <summary>
+        /// Retourne l'id du suivi selectionné
+        /// </summary>
+        /// <param name="unSuivi"></param>
+        /// <returns>Retourbe objet catégorie</returns>
         private string GetIdSuivi(string unSuivi)
         {
             List<Categorie> uneListe = controller.GetSuivi();
@@ -1750,13 +1884,21 @@ namespace MediaTekDocuments.view
             }
             return null;
         }
-        //retourne l'id au format 4 digits 1 =>0001
+        /// <summary>
+        /// retourne l'id au format 4 digits 1 =>0001
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         private string FormaterId(string id)
         {
             int idFormate = int.Parse(id);
             return idFormate.ToString("D4");
         }
-        //Action du l'onglet Commande de livres
+        /// <summary>
+        /// Action du l'onglet Commande de livres
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tabOngletCommandeLivre_Enter(object sender, EventArgs e)
         {
             //Charge la liste de livre commandé
@@ -1770,7 +1912,11 @@ namespace MediaTekDocuments.view
             indiceSuivi = -2;
             cmdLivreOuDvdModif = false;
         }
-        //Action du bouton recherche d'un livre sur un ID
+        /// <summary>
+        /// Action du bouton recherche d'un livre sur un ID
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnRechCmdLivre_Click(object sender, EventArgs e)
         {
             //Crée un livre si il a l'id qui est entré dans la recherche
@@ -1784,7 +1930,7 @@ namespace MediaTekDocuments.view
                 MessageBox.Show("numéro introuvable");
             }
         }
-        //Affiche les informations du livre dans commande livre.
+        ///Affiche les informations du livre dans commande livre.
         private void AfficheCommandeLivreInfos(Livre livre)
         {
             txbCmdLivreTitre.Text = livre.Titre;
@@ -1806,7 +1952,11 @@ namespace MediaTekDocuments.view
             }
 
         }
-        //Action du btn ajouter une commande de livre
+        /// <summary>
+        /// Action du btn ajouter une commande de livre
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAjouterCmdLivre_Click(object sender, EventArgs e)
         {
             //Teste sur le titre, un livre à toujours un titre.
@@ -1820,7 +1970,9 @@ namespace MediaTekDocuments.view
             }
         }
 
-        //Vide les txb de commandelivre
+        /// <summary>
+        /// Vide les txb de commandelivre
+        /// </summary>
         private void VideCmdLivre()
         {
             grbCmdLivre2.Enabled = false;
@@ -1838,7 +1990,11 @@ namespace MediaTekDocuments.view
             dtpCmdLivreDateCmd.Value = DateTime.Today;
         }
 
-        //Action du btn valider, il envoi la cmd de livre à la bdd
+        /// <summary>
+        /// Action du btn valider, il envoi la cmd de livre à la bdd
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCmdLivreValider_Click(object sender, EventArgs e)
         {
             CommandeDocument cmdLivre = SuperCmdLivre();
@@ -1867,7 +2023,10 @@ namespace MediaTekDocuments.view
                 }
             }
         }
-        //Valorise une commande
+        /// <summary>
+        /// Valorise une commande
+        /// </summary>
+        /// <returns>Retourne un objet commande document</returns>
         private CommandeDocument ValoriseCommandeLivre()
         {
             try
@@ -1885,7 +2044,10 @@ namespace MediaTekDocuments.view
             }
             catch (Exception ex) { return null; }
         }
-        //Contrôle des valeurs entrées
+        /// <summary>
+        /// Contrôle des valeurs entrées
+        /// </summary>
+        /// <returns>Retourne objet commande document</returns>
         private CommandeDocument SuperCmdLivre()
         {
             try
@@ -1921,7 +2083,10 @@ namespace MediaTekDocuments.view
             }
             catch (Exception ex) { return null; }
         }
-        //Methode pour remplir la liste des commandes de livre
+        /// <summary>
+        /// /Methode pour remplir la liste des commandes de livre
+        /// </summary>
+        /// <param name="cmdLivre"></param>
         private void ChargeDgvCmdLivres(List<CommandeDocument> cmdLivre)
         {
             //transfère de la liste à la bidingsource
@@ -1936,7 +2101,11 @@ namespace MediaTekDocuments.view
             dgvCmdLivre.Columns[3].HeaderText = "n° de document";
             dgvCmdLivre.Columns[4].HeaderText = "n° de commande";
         }
-        //Action qui supprime une commande
+        /// <summary>
+        /// Action qui supprime une commande
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSupprimer_Click_1(object sender, EventArgs e)
         {
             //vérification selection
@@ -1959,7 +2128,11 @@ namespace MediaTekDocuments.view
             }
             else { MessageBox.Show("selectionner une Commande !"); }
         }
-        //Action du btn modifier dans commande de livre
+        /// <summary>
+        /// Action du btn modifier dans commande de livre
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnModiferCmdLivre_Click(object sender, EventArgs e)
         {
             //contrôle si une ligne est sélectionnée.
@@ -2004,7 +2177,12 @@ namespace MediaTekDocuments.view
             }
 
         }
-        //Gestion des suivis des commandes
+        /// <summary>
+        /// Gestion des suivis des commandes
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <param name="ancienSuiv"></param>
+        /// <returns>Retourne booléen</returns>
         private bool GestionSuivi(CommandeDocument cmd, int ancienSuiv)
         {
             //Contrôle que le suivit de commande est cohérent encours (1)  => relance (2) => livré (3) => réglé (5)
@@ -2019,7 +2197,11 @@ namespace MediaTekDocuments.view
                 return false;
             }
         }
-        //Trie de la gride view
+        /// <summary>
+        /// Trie de la gride view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dtgCmdLivre_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             List<CommandeDocument> sortedList = new List<CommandeDocument>();
@@ -2048,7 +2230,11 @@ namespace MediaTekDocuments.view
             ChargeDgvCmdLivres(sortedList);
 
         }
-        //Action du bouton Annuler
+        /// <summary>
+        /// Action du bouton Annuler sur commande de livre
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCmdLivreAnnuler_Click(object sender, EventArgs e)
         {
             tabOngletCommandeLivre_Enter(null, null);
@@ -2056,10 +2242,19 @@ namespace MediaTekDocuments.view
         #endregion
 
         #region onglet Commande DVD
-        //Nécessaire pour remplir la DataGrideView
+        /// <summary>
+        /// Nécessaire pour remplir la DataGrideView
+        /// </summary>
         private readonly BindingSource bdgCommandeDvdsListe = new BindingSource();
+        /// <summary>
+        /// Liste de commande de dvd
+        /// </summary>
         private List<CommandeDocument> listCmdDvds = new List<CommandeDocument>();
-        //Action à l'ouverture de l'onglet DVd
+        /// <summary>
+        /// Action à l'ouverture de l'onglet DVd
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tabOngletCommandeDvd_Enter(object sender, EventArgs e)
         {
             //Charger la liste de dvd car elle ne se rempplit pas au démmarage comme pour livre
@@ -2074,7 +2269,10 @@ namespace MediaTekDocuments.view
             cmdLivreOuDvdModif = false;
 
         }
-        //Méthode pour remplir la liste des commandes de dvd
+        /// <summary>
+        /// Méthode pour remplir la liste des commandes de dvd
+        /// </summary>
+        /// <param name="cmdDvd"></param>
         private void ChargeDgvCmdDvds(List<CommandeDocument> cmdDvd)
         {
             bdgCommandeDvdsListe.DataSource = cmdDvd;
@@ -2086,7 +2284,11 @@ namespace MediaTekDocuments.view
             dgvCmdDvd.Columns[4].HeaderText = "n° de commande";
         }
 
-        //Action du bouton recherche d'un dvd sur l'ID
+        /// <summary>
+        /// Action du bouton recherche d'un dvd sur l'ID
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnRechCmdDvd_Click(object sender, EventArgs e)
         {
             Dvd dvd = lesDvd.Find(x => x.Id.Equals(txbCmdDvdNum.Text));
@@ -2096,7 +2298,10 @@ namespace MediaTekDocuments.view
             }
             else { MessageBox.Show("numéro introuvable"); }
         }
-        //Affiche les informations du dvd dans commande dvd
+        /// <summary>
+        /// Affiche les informations du dvd dans commande dvd
+        /// </summary>
+        /// <param name="dvd"></param>
         private void AfficheCommandeDvdInfos(Dvd dvd)
         {
             txbCmdDvdTitre.Text = dvd.Titre;
@@ -2117,7 +2322,11 @@ namespace MediaTekDocuments.view
                 pcbCmdDvdImage.Image = null;
             }
         }
-        //Action du bouton AJouter une commande de dvd
+        /// <summary>
+        /// Action du bouton AJouter une commande de dvd
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAjouterCmdDvd_Click(object sender, EventArgs e)
         {
             if (txbCmdDvdTitre.Text != "")
@@ -2128,7 +2337,11 @@ namespace MediaTekDocuments.view
                 cbxSuiviDvd.Enabled = false;
             }
         }
-        //Action du bouton Valider une commande de dvd
+        /// <summary>
+        /// Action du bouton Valider une commande de dvd
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCmdDvdValider_Click(object sender, EventArgs e)
         {
             CommandeDocument cmdDvd = SuperCmdDvd();
@@ -2152,7 +2365,9 @@ namespace MediaTekDocuments.view
                 }
             }
         }
-        //Vide les txb de commande dvd
+        /// <summary>
+        /// Vide les txb de commande dvd
+        /// </summary>
         private void VideCmdDvd()
         {
             grbCmdDvd2.Enabled = false;
@@ -2170,7 +2385,10 @@ namespace MediaTekDocuments.view
             txbCmdDvdPublic.Text = "";
             txbCmdDvdRayon.Text = "";
         }
-        //Contrôle les valeurs entées
+        /// <summary>
+        /// Contrôle les valeurs entées
+        /// </summary>
+        /// <returns>Retourne objet CommandeDocument</returns>
         private CommandeDocument SuperCmdDvd()
         {
             try
@@ -2201,7 +2419,10 @@ namespace MediaTekDocuments.view
             }
             catch (Exception ex) { return null; }
         }
-        //Valorise une commande de dvd
+        /// <summary>
+        /// Valorise une commande de dvd
+        /// </summary>
+        /// <returns>Retourne objet commandeDocument</returns>
         private CommandeDocument ValoriseCommandeDvd()
         {
             try
@@ -2219,7 +2440,11 @@ namespace MediaTekDocuments.view
             }
             catch (Exception ex) { return null; }
         }
-        //Action du bouton modifier dans commande de dvd
+        /// <summary>
+        /// Action du bouton modifier dans commande de dvd
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnModiferCmdDvd_Click(object sender, EventArgs e)
         {
             try
@@ -2240,7 +2465,11 @@ namespace MediaTekDocuments.view
             }
             catch (Exception ex) { }
         }
-        //Affiche les informations détaillées sur la sélection de la DGV
+        /// <summary>
+        /// Affiche les informations détaillées sur la sélection de la DGV
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dgvCmdDvd_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvCmdDvd.CurrentCell != null)
@@ -2250,7 +2479,11 @@ namespace MediaTekDocuments.view
                 AfficheCommandeDvdInfos(dvd);
             }
         }
-        //Trie de la DGV
+        /// <summary>
+        /// Trie de la DGV commande de dvd
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dgvCmdDvd_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             List<CommandeDocument> sortedList = new List<CommandeDocument>();
@@ -2278,14 +2511,17 @@ namespace MediaTekDocuments.view
             }
             ChargeDgvCmdDvds(sortedList);
         }
-        //Action du bouton supprimer pour une commande de dvd
+        /// <summary>
+        /// Action du bouton supprimer pour une commande de dvd
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSupprimerCmdDvd_Click(object sender, EventArgs e)
         {
             if (dgvCmdDvd.CurrentCell != null)     //vérification selection
             {
                 if (MessageBox.Show("Supprimer ?", "Confirmer", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    //CommandeDocument uneCommande = (CommandeDocument)bdgCommandeDvdsListe.List[bdgDvdListe.Position];
                     CommandeDocument uneCommande = (CommandeDocument)bdgCommandeDvdsListe.List[bdgCommandeDvdsListe.Position];
                     //Contrôle sur le numéro d'id, 3 = livré 4 = réglé.
                     if (int.Parse(uneCommande.IdSuivi) < 3)
@@ -2305,7 +2541,11 @@ namespace MediaTekDocuments.view
                 MessageBox.Show("selectionner une Commande !");
             }
         }
-        //Action du bouton annuler
+        /// <summary>
+        /// Action du bouton annuler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCmdDvdAnnuler_Click(object sender, EventArgs e)
         {
             tabOngletCommandeDvd_Enter(null, null);
@@ -2315,7 +2555,11 @@ namespace MediaTekDocuments.view
         #region Commande Revu / d'abonnement
         private readonly BindingSource bdgCommandeRevueListe = new BindingSource();
         private List<Abonnement> listCmdRevues = new List<Abonnement>();
-        //Action de l'onglet Commande de Revues
+        /// <summary>
+        /// Action de l'onglet Commande de Revues
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tabOngletCommandeRevue_Enter(object sender, EventArgs e)
         {
             //Il faut forcer la liste des Revues et d exemplaire
@@ -2325,7 +2569,10 @@ namespace MediaTekDocuments.view
             grpCmdRevue.Enabled = false;
             grpCmdRevue2.Enabled = false;
         }
-        //Méthode qui remplie la DGV
+        /// <summary>
+        /// Méthode qui remplie la DGV commande de revue
+        /// </summary>
+        /// <param name="cmdRevue"></param>
         private void ChargeDGVCmdRevue(List<Abonnement> cmdRevue)
         {
             bdgCommandeRevueListe.DataSource = cmdRevue;
@@ -2334,7 +2581,11 @@ namespace MediaTekDocuments.view
             dgvCmdRevue.Columns[1].HeaderText = "n° de document";
             dgvCmdRevue.Columns[2].HeaderText = "n° de commande";
         }
-        //Action du bouton Recherche dans commande Revue
+        /// <summary>
+        /// Action du bouton Recherche dans commande Revue
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnRechCmdRevue_Click(object sender, EventArgs e)
         {
             Revue revue = lesRevues.Find(x => x.Id.Equals(txbCmdRevueNum.Text));
@@ -2344,7 +2595,10 @@ namespace MediaTekDocuments.view
             }
             else { MessageBox.Show("numéro introuvable"); }
         }
-        //Affiche les informations de la revue dans commande reuve
+        /// <summary>
+        /// Affiche les informations de la revue dans commande reuve
+        /// </summary>
+        /// <param name="revue"></param>
         private void AfficheCommandeRevueInfos(Revue revue)
         {
             txbCmdRevueTitre.Text = revue.Titre;
@@ -2364,7 +2618,11 @@ namespace MediaTekDocuments.view
                 pcbCmdRevueImage.Image = null;
             }
         }
-        //Action du bouton Ajouter une commande de revue
+        /// <summary>
+        /// Action du bouton Ajouter une commande de revue
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAjouterCmdRevue_Click(object sender, EventArgs e)
         {
             if (txbCmdRevueTitre.Text != null)
@@ -2372,7 +2630,11 @@ namespace MediaTekDocuments.view
                 grpCmdRevue2.Enabled = true;
             }
         }
-        //Action du bouton valider une revue
+        /// <summary>
+        /// Action du bouton valider une revue
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCmdRevueValider_Click(object sender, EventArgs e)
         {
             Abonnement cmdRevue = SuperCmdRevue();
@@ -2386,7 +2648,9 @@ namespace MediaTekDocuments.view
                 }
             }
         }
-        //Vide les txb de commande revue
+        /// <summary>
+        /// Vide les txb de commande revue
+        /// </summary>
         private void VideCmdRevue()
         {
             grpCmdRevue2.Enabled = false;
@@ -2402,7 +2666,10 @@ namespace MediaTekDocuments.view
             txbCmdRevuePublic.Text = "";
             txbCmdRevueRayon.Text = "";
         }
-        //Contrôle les valeurs
+        /// <summary>
+        /// Contrôle les valeurs entrées pour un abonnement
+        /// </summary>
+        /// <returns></returns>
         private Abonnement SuperCmdRevue()
         {
             try
@@ -2425,7 +2692,10 @@ namespace MediaTekDocuments.view
             }
             catch (Exception ex) { return null; }
         }
-        //Valorise une commande de revue
+        /// <summary>
+        /// Valorise une commande de revue
+        /// </summary>
+        /// <returns></returns>
         private Abonnement ValoriseCommandeRevue()
         {
             try
@@ -2441,7 +2711,11 @@ namespace MediaTekDocuments.view
             }
             catch (Exception ex) { return null; }
         }
-        //Affiche les informations détaillées sur la sélection dans la DGV
+        /// <summary>
+        /// Affiche les informations détaillées sur la sélection dans la DGV
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dgvCmdRevue_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvCmdRevue != null)
@@ -2451,7 +2725,11 @@ namespace MediaTekDocuments.view
                 AfficheCommandeRevueInfos(revue);
             }
         }
-        //Trie sur la DGV
+        /// <summary>
+        /// Trie sur la DGV pour commande de revue
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dgvCmdRevue_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             List<Abonnement> sortedList = new List<Abonnement>();
@@ -2476,7 +2754,11 @@ namespace MediaTekDocuments.view
             }
             ChargeDGVCmdRevue(sortedList);
         }
-        //Action du bouton Supprimer pour une commande de Revue
+        /// <summary>
+        /// Action du bouton Supprimer pour une commande de Revue
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSupprimerCmdRevue_Click(object sender, EventArgs e)
         {
             if (dgvCmdRevue.CurrentCell != null)     //vérification selection
@@ -2496,7 +2778,13 @@ namespace MediaTekDocuments.view
             }
             else { MessageBox.Show("selectionner une Commande !"); }
         }
-        //Récupère la liste des exemplaire pour un id donné. Si trouve l exemplaire parcour la liste.
+        /// <summary>
+        /// Récupère la liste des exemplaire pour un id donné. Si trouve l exemplaire parcour la liste.
+        /// </summary>
+        /// <param name="dateCmd"></param>
+        /// <param name="dateFInAbo"></param>
+        /// <param name="idDocument"></param>
+        /// <returns></returns>
         private bool ParcourExemplaire(DateTime dateCmd, DateTime dateFInAbo, string idDocument)
         {
             lesExemplaires = controller.GetExemplairesRevue(idDocument);
@@ -2509,7 +2797,13 @@ namespace MediaTekDocuments.view
             }
             return true;
         }
-        //Compare les dates
+        /// <summary>
+        /// Compare les dates
+        /// </summary>
+        /// <param name="dateCmd"></param>
+        /// <param name="dateFinAbo"></param>
+        /// <param name="dateParu"></param>
+        /// <returns></returns>
         private bool ParutionEntreCmdEtAbonnement(DateTime dateCmd, DateTime dateFinAbo, DateTime dateParu)
         {
             //retourne faux si une parution est en cours.
@@ -2520,7 +2814,9 @@ namespace MediaTekDocuments.view
             else
             { return true; }
         }
-        //Contrôle abonnement - 30jours
+        /// <summary>
+        /// Contrôle abonnement - 30jours
+        /// </summary>
         private void AbonnementsSurLaFIn()
         {
             string a = "Les abonnements qui se finissent sous moins de 30 jours sont : \n";
@@ -2537,7 +2833,11 @@ namespace MediaTekDocuments.view
             }
             MessageBox.Show(a);
         }
-        //Action du bouton Annuler pour une commande de Revue
+        /// <summary>
+        /// Action du bouton Annuler pour une commande de Revue
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAnnulerCmdRevue_Click(object sender, EventArgs e)
         {
             tabOngletCommandeRevue_Enter(null, null);
@@ -2546,7 +2846,10 @@ namespace MediaTekDocuments.view
 
         #endregion
 
-        //Contrôle les accès des utilisateur
+        /// <summary>
+        /// Contrôle les accès des utilisateur
+        /// </summary>
+        /// <param name="utilisateur"></param>
         private void Permission(Utilisateur utilisateur)
         {
                 int service = int.Parse(utilisateur.IdService);

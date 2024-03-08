@@ -13,19 +13,46 @@ using MediaTekDocuments.view;
 
 namespace MediaTekDocuments.view
 {
+    /// <summary>
+    /// Classe  d'ajout / modification d'un livre ou dvd
+    /// </summary>
     public partial class FrmAjout : Form
     {
         private FrmMediatekController controller;
         private string quelEnvoi;
-        private List<Livre> listeLivre;         //besoin pour le test des id d'un livre.
-        private Livre livreModif = null;        //besoin pour la modification d'un livre.
-        private List<Dvd> listeDvd;             //besoin pour le test des id d'un dvd.
-        private Dvd dvdModif = null;            //besoin pour la modification d'un dvd.
-        private List<Revue> listeRevue = null;  //besoin pour le test des id d'une revue.
-        private Revue revueModif = null;        //besoin pour la modification d'une revue.
+        private List<Livre> listeLivre;
+        /// <summary>
+        /// besoin pour le test des id d'un livre.
+        /// </summary>
+        private Livre livreModif = null;
+        /// <summary>
+        /// besoin pour la modification d'un livre.
+        /// </summary>
+        private List<Dvd> listeDvd;
+        /// <summary>
+        /// besoin pour le test des id d'un dvd.
+        /// </summary>
+        private Dvd dvdModif = null;
+        /// <summary>
+        /// besoin pour la modification d'un dvd.
+        /// </summary>
+        private List<Revue> listeRevue = null;  
+        /// <summary>
+        /// besoin pour la modification d'une revue.
+        /// </summary>
+        private Revue revueModif = null;
 
 
-
+        /// <summary>
+        /// Constructeur de la classe
+        /// </summary>
+        /// <param name="bdgGenres2">binding source qui contient les genres</param>
+        /// <param name="bdgPublics">binding source qui contient les publics</param>
+        /// <param name="bdgRayons">binding source qui contient les rayons</param>
+        /// <param name="affichage">booléen qui va influencer l'affichage</param>
+        /// <param name="onglet">chaine de caractère qui va influencer les appels des controleurs</param>
+        /// <param name="lesListes">Liste qui contient des dvd ou des livres</param>
+        /// <param name="aModifier">contient l'objet a modifier en cas de modification</param>
         public FrmAjout(BindingSource bdgGenres2, BindingSource bdgPublics, BindingSource bdgRayons, bool affichage, string onglet,
             List<Object> lesListes = null, Object aModifier = null)
         {
@@ -43,13 +70,21 @@ namespace MediaTekDocuments.view
             //Affecte le comportement pour l'appel du contrôleur
             quelEnvoi = onglet;
         }
-
+        /// <summary>
+        /// appel du controleur
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
         {
             controller = new FrmMediatekController(); //Le controleur ne fonctionne pas sans!!
         }
 
-        //Convertit la liste d'objets reçue en liste de livres, de DVD ou de revues.
+        /// <summary>
+        /// Convertit la liste d'objets reçue en liste de livres, de DVD ou de revues.
+        /// </summary>
+        /// <param name="onglet">présice si est avec un livre, dvd ou revue</param>
+        /// <param name="uneListe">Liste qui contient des livres, dvd ou revue</param>
         private void ChargeListe(string onglet, List<Object> uneListe)
         {
             switch (onglet)
@@ -66,7 +101,11 @@ namespace MediaTekDocuments.view
                     break;
             }
         }
-        //Remplit la comboBox reçue en paramètre en fonction de la bdg reçue en paramètre
+        /// <summary>
+        /// Remplit la comboBox reçue en paramètre en fonction de la bdg reçue en paramètre
+        /// </summary>
+        /// <param name="bdg">binding source en paramètre</param>
+        /// <param name="cbx">combobox a remplir</param>
         private void RemplirCbx(BindingSource bdg, ComboBox cbx)
         {
             cbx.DataSource = bdg;
@@ -75,7 +114,11 @@ namespace MediaTekDocuments.view
                 cbx.SelectedIndex = -1;
             }
         }
-        //Gestion des affichages des TextBox et label
+        /// <summary>
+        /// Gestion des affichages des TextBox et label
+        /// </summary>
+        /// <param name="onglet">présice si est avec un livre, dvd ou revue</param>
+        /// <param name="affichage">modifie l'affichage des textbox et buttons</param>
         private void Affichage(string onglet, bool affichage)
         {
             //Adapte le comportement des boutons
@@ -108,7 +151,11 @@ namespace MediaTekDocuments.view
                     break;
             }
         }
-        //Méthode pour la modification d'un livre ou un dvd
+        /// <summary>
+        /// Méthode pour la modification d'un livre ou un dvd
+        /// </summary>
+        /// <param name="onglet">présice si est avec un livre, dvd ou revue</param>
+        /// <param name="aModifier">précise si on est en modification ou création</param>
         private void ChargeObjet(string onglet, Object aModifier)
         {
             switch (onglet)
@@ -160,7 +207,9 @@ namespace MediaTekDocuments.view
                     break;
             }
         }
-        //Metohde pour vider les TextBox et ComboBox
+        /// <summary>
+        /// Metohde pour vider les TextBox et ComboBox
+        /// </summary>
         private void Vide()
         {
             txbNumero.Text = "";
@@ -176,7 +225,11 @@ namespace MediaTekDocuments.view
             cbxRayons.Text = "";
             txbRayon.Text = "";
         }
-        //Retourne l'ID du genre selectionné dans la cbxGenre 
+        /// <summary>
+        /// Retourne l'ID du genre selectionné dans la cbxGenre 
+        /// </summary>
+        /// <param name="unGenre">le genre</param>
+        /// <returns>Retourne l'objet categorie</returns>
         private string GetIdGenre(string unGenre)
         {
             List<Categorie> uneListe = controller.GetAllGenres();
@@ -189,7 +242,11 @@ namespace MediaTekDocuments.view
             }
             return null;
         }
-        //Retourne l'id du public selectionné dans la cbxPublic
+        /// <summary>
+        /// Retourne l'ID du publix selectionné dans la cbx public
+        /// </summary>
+        /// <param name="unPublic">le public</param>
+        /// <returns>Retourne l'objet categorie</returns>
         private string GetIdPublic(string unPublic)
         {
             List<Categorie> uneListe = controller.GetAllPublics();
@@ -202,7 +259,11 @@ namespace MediaTekDocuments.view
             }
             return null;
         }
-        //Retourne l'id du public selectionné dans la cbxPublic
+        /// <summary>
+        /// Retourne l'id du public selectionné dans la cbxPublic
+        /// </summary>
+        /// <param name="unRayon">le rayon</param>
+        /// <returns>Retourne l'objet categorie</returns>
         private string GetIdRayon(string unRayon)
         {
             List<Categorie> uneListe = controller.GetAllRayons();
@@ -215,20 +276,32 @@ namespace MediaTekDocuments.view
             }
             return null;
         }
-        //Retourne l'id au format 5 digits 1 =>00001
+        /// <summary>
+        /// Retourne l'id au format 5 digits 1 =>00001
+        /// </summary>
+        /// <param name="id">l'id a formater</param>
+        /// <returns> Retourne l'id au format 5 digits</returns>
         private string FormaterId(string id)
         {
             int idFormate = int.Parse(id);
             return idFormate.ToString("D5");
         }
-        //Action du bouton Annuler. Ferme la fênêtre.
+        /// <summary>
+        /// Action du bouton Annuler. Ferme la fênêtre.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAnnuler_Click(object sender, EventArgs e)
         {
             FrmMediatek frmMediatek = new FrmMediatek();
             frmMediatek.Show();
             this.Hide();
         }
-        //Action du bouton Ajouter. Envoi un livre, un dvd ou une revue dans la bdd
+        /// <summary>
+        /// /Action du bouton Ajouter. Envoi un livre, un dvd ou une revue dans la bdd
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAjouter_Click(object sender, EventArgs e)
         {
             switch (quelEnvoi)
@@ -270,7 +343,11 @@ namespace MediaTekDocuments.view
                     break;
             }
         }
-        //Action du bouton Modifier 
+        /// <summary>
+        /// Action du bouton Modifier
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnModifier_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Modifier ?", "Confirmer", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -310,7 +387,10 @@ namespace MediaTekDocuments.view
                 }
             }
         }
-        //Methode pour la création/modification d'un livre
+        /// <summary>
+        /// Methode pour la création/modification d'un livre
+        /// </summary>
+        /// <returns>L'objet Livre</returns>
         private Livre ValoriseLivre()
         {
             try
@@ -353,7 +433,10 @@ namespace MediaTekDocuments.view
             }
             catch (Exception ex) { return null; }
         }
-        //Contrôle des valeurs entrées
+        /// <summary>
+        /// Contrôle des valeurs entrées
+        /// </summary>
+        /// <returns>Retourne l'objet livre</returns>
         private Livre SuperLivre()
         {
             try
@@ -389,7 +472,10 @@ namespace MediaTekDocuments.view
             }
             catch (Exception ex) { return null; }
         }
-        //Methode pour la création/modification d'un dvd
+        /// <summary>
+        /// Methode pour la création/modification d'un dvd
+        /// </summary>
+        /// <returns>Retourne l'objet dvd</returns>
         private Dvd ValoriseDvd()
         {
             try // nécessaire  si txbIsbnDuree est null, le Parse fait planter.
@@ -431,7 +517,10 @@ namespace MediaTekDocuments.view
             }
             catch (Exception ex) { return null; }
         }
-        //Contrôle des valeurs entrées
+        /// <summary>
+        /// Contrôle des valeurs entrées
+        /// </summary>
+        /// <returns>Retourne l'objet dvd</returns>
         private Dvd SuperDvd()
         {
             try
@@ -466,7 +555,10 @@ namespace MediaTekDocuments.view
             }
             catch (Exception ex) { return null; }
         }
-        //Methode pour la création/modification d'une revue
+        /// <summary>
+        /// Methode pour la création/modification d'une revue
+        /// </summary>
+        /// <returns>Retourne l'objet revue</returns>
         private Revue ValoriseRevue()
         {
             try // nécessaire, si txbCollectionSynopsisDel est null, le Parse fait planter.
@@ -508,7 +600,10 @@ namespace MediaTekDocuments.view
             catch (Exception ex) { }
             return null;
         }
-        //Contrôle des valeurs entrées
+        /// <summary>
+        /// Contrôle des valeurs entrées
+        /// </summary>
+        /// <returns>Retourne l'objet revue</returns>
         private Revue SuperRevue()
         {
             try

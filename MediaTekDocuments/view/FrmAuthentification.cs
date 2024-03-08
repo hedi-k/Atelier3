@@ -12,21 +12,35 @@ using MediaTekDocuments.model;
 
 namespace MediaTekDocuments.view
 {
+    /// <summary>
+    /// Classe d'authentification
+    /// </summary>
     public partial class FrmAuthentification : Form
     {
  
         private FrmAuthentificationController controller;
+        /// <summary>
+        /// Constructeur de la classe
+        /// </summary>
         public FrmAuthentification()
         {
             InitializeComponent();
         }
-
+        /// <summary>
+        /// Lien avec le contrôleur
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FrmAuthentification_Load(object sender, EventArgs e)
         {
             controller = new FrmAuthentificationController();
         }
 
-        //Action du bouton
+        /// <summary>
+        /// Action du bouton
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             String login = txtLogin.Text;
@@ -44,7 +58,11 @@ namespace MediaTekDocuments.view
             else { MessageBox.Show("Authentification incorrecte !"); }
 
         }
-        //Pour masquer les lettres que l'on entre comme mot de passe.
+        /// <summary>
+        /// Pour masquer les lettres que l'on entre comme mot de passe.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtPwd_TextChanged(object sender, EventArgs e)
         {
             txtPwd.PasswordChar = '*';

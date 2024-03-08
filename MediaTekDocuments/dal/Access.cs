@@ -42,9 +42,11 @@ namespace MediaTekDocuments.dal
         private const string DELETE = "DELETE";
         /// <summary>
         /// méthode HTTP pour update
+        /// </summary>
         private const string PUT = "PUT";
-
-        //ajout
+        /// <summary>
+        /// paramètres de connexion
+        /// </summary>
         private static readonly string connectionName = "MediaTekDocuments.Properties.Settings.mediatek86ConnectionString";
 
 
@@ -92,7 +94,11 @@ namespace MediaTekDocuments.dal
             return instance;
         }
 
-        //Ajout
+        /// <summary>
+        /// Retourne les paramètres de connexions
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         static string GetConnectionStringByName(string name)
         {
             string returnValue = null;
@@ -102,7 +108,6 @@ namespace MediaTekDocuments.dal
                 returnValue = settings.ConnectionString;
             return returnValue;
         }
-
 
         /// <summary>
         /// Retourne tous les genres à partir de la BDD
@@ -199,7 +204,12 @@ namespace MediaTekDocuments.dal
         }
 
 
-        //Envoi l'objet en paramètre à l'API
+        /// <summary>
+        /// Envoi l'objet en paramètre à l'API
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="unDocument"></param>
+        /// <returns></returns>
         public bool CreerDocument<T>(T unDocument)
         {
             //Convertit en json l'objet en paramètre
@@ -216,7 +226,12 @@ namespace MediaTekDocuments.dal
             }
             return false;
         }
-        //Envoi l'objet en paramètre à l'API pour modification
+        /// <summary>
+        /// Envoi l'objet en paramètre à l'API pour modification
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="unDocument"></param>
+        /// <returns></returns>
         public bool ModifierDocument<T>(T unDocument)
         {
             //Convertit en json l'objet en paramètre
@@ -252,7 +267,12 @@ namespace MediaTekDocuments.dal
             }
             return false;
         }
-        //Supprime le document en paramètre
+        /// <summary>
+        /// Supprime le document en paramètre
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="unDocument"></param>
+        /// <returns></returns>
         public bool SupprimerDocument<T>(T unDocument)
         {
             //Convertit en json l'objet en paramètre
@@ -293,41 +313,60 @@ namespace MediaTekDocuments.dal
             return false;
         }
 
-        //retourne les Suivi pour la cbxSuivi
+        /// <summary>
+        /// Retourne les Suivi pour la cbxSuivi
+        /// </summary>
+        /// <returns>Liste d'objets Suivi</returns>
         public List<Categorie> GetSuivi()
         {
             IEnumerable<Suivi> lesSuivi = TraitementRecup<Suivi>(GET, "suivi");
             return new List<Categorie>(lesSuivi);
         }
-        //retourne la liste de commande de livre
+        /// <summary>
+        /// Retourne la liste de commande de livre
+        /// </summary>
+        /// <returns>Liste d'objets Commande de livre</returns>
         public List<CommandeDocument> GetAllCommandeLivre()
         {
             List<CommandeDocument> lesCommandeLivre = TraitementRecup<CommandeDocument>(GET, "lesCommandeLivre");
             return lesCommandeLivre;
         }
 
-        //retourne la liste de commande de livre
+        /// <summary>
+        /// Retourne la liste de commande de DVD
+        /// </summary>
+        /// <returns>Liste d'objets commannde de dvd</returns>
         public List<CommandeDocument> GetAllCommandeDvds()
         {
             List<CommandeDocument> lesCommandeDvds = TraitementRecup<CommandeDocument>(GET, "lesCommandeDvds");
             return lesCommandeDvds;
         }
 
-        //retourne la liste de commande de Revue
+        /// <summary>
+        /// Retourne la liste de commande de revue
+        /// </summary>
+        /// <returns>Liste d'objets commannde de revue</returns>
         public List<Abonnement> GetAllCommandeRevues()
         {
             List<Abonnement> lesCommandesRevues = TraitementRecup<Abonnement>(GET, "lesCommandeRevues");
             return lesCommandesRevues;
         }
-
-        //Recupère les états
+        
+        /// <summary>
+        /// Retourne les etats
+        /// </summary>
+        /// <returns>Liste d'objets état</returns>
         public List<Etat> GetAllEtats()
         {
             List<Etat> lesEtats = TraitementRecup<Etat>(GET, "etat");
             return lesEtats;
         }
-
-        //Méthode pour l'authentification
+        
+        /// <summary>
+        /// Méthode pour l'authentification
+        /// </summary>
+        /// <param name="utilisateur"></param>
+        /// <returns>Retourne l'utilisateur connecté</returns>
         public Utilisateur Authentification(Utilisateur utilisateur)
         {
             String jsonAuthentification = JsonConvert.SerializeObject(utilisateur);
@@ -427,6 +466,5 @@ namespace MediaTekDocuments.dal
                 serializer.Serialize(writer, value);
             }
         }
-
     }
 }
