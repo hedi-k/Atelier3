@@ -2304,6 +2304,7 @@ namespace MediaTekDocuments.view
         /// <param name="dvd"></param>
         private void AfficheCommandeDvdInfos(Dvd dvd)
         {
+            Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+dvd.Id);
             txbCmdDvdTitre.Text = dvd.Titre;
             txbCmdDvdRealisateur.Text = dvd.Realisateur;
             txbCmdDvdSynopsis.Text = dvd.Synopsis;
