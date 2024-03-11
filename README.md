@@ -1,19 +1,21 @@
+Pour installer l'application, utiliser l'installateur qui se trouve dans le dossier installateur.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Pour utiliser l'application en local utiliser MediaTekDocuments.sln
+L'application nécessite l'API rest_mediatekdocuments qui se trouve dans le dossier API.
+  Avec WAMP mettre rest_mediatekdocuments dans le dossier www.
+  Attention compatible avec PHP 7.4.33 uniquement.
+Le scripte de la base de données assocué à l'api et l'application se trouve dans le dossier Annexes mediatek86final.sql
+Pour une utilisation local, AccessBDD de l'API doit être modifié avec les logs local pour la BDD
+    public $login = "root";
+    public $mdp = "";
+    public $bd = "mediatek86";
+    public $serveur = "localhost";
+    public $port = "3306";
+    public $conn = null;
+Et l'access de l'application doit être modifier avec l'adresse de la BDD local
+  private static readonly string uriApi = "http://localhost/rest_mediatekdocuments/";
+  
+Une vidéo de présentation de l'application et de son utilisation est disponible dans le dossier Annexes, documentation utilisateur.mp4
 
 
 
