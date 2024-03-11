@@ -16,7 +16,13 @@ Et l'access de l'application doit être modifier avec l'adresse de la BDD local<
   private static readonly string uriApi = "http://localhost/rest_mediatekdocuments/";<br>
   
 Une vidéo de présentation de l'application et de son utilisation est disponible dans le dossier Annexes, documentation utilisateur.mp4<br>
-
+Les différents utilisateurs de l'applications sont<br>
+utilisateurs:<br>
+admin   membre du service administrateur<br>
+user2   membre du service administratif<br>
+user3   membre du service prêt<br>
+user4   membre du servic culture<br>
+Les mots de passe de conexions sont: mdp <br>
 
 
 README de l'application d'origine
